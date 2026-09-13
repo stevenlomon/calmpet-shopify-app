@@ -17,6 +17,28 @@
 {%- endif -%}
 
 <style>
+  .calmpet-wordmark {
+    color: var(--brown, #4b2308);
+    font-family: var(--font, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif);
+    font-size: 2.7rem;
+    font-weight: 900;
+    letter-spacing: -0.12em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .calmpet-wordmark span {
+    color: var(--gold, #ff7100);
+    display: inline-block;
+    margin-left: 0.08em;
+    transform: translateY(-0.32em);
+  }
+  .header-wrapper {
+    background: var(--cream, #fff7ec);
+  }
+  .header__heading-link {
+    text-decoration: none;
+  }
+
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
@@ -144,7 +166,7 @@
 
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
         comment
-          Search disabled for Tibella
+          Search is intentionally omitted from the focused landing page
         endcomment
       endif
     -%}
@@ -154,7 +176,7 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if false and settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -174,7 +196,7 @@
             }}
           </div>
         {%- else -%}
-          <img src="https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_5_aug._2026_06_45_09.png?v=1785905159" alt="Tibella" class="header__heading-logo" width="120" height="30" loading="eager" style="object-fit:contain;">
+          <span class="calmpet-wordmark" aria-label="CalmPet">CalmPet<span aria-hidden="true">•</span></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -197,7 +219,7 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if false and settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -217,7 +239,7 @@
             }}
           </div>
         {%- else -%}
-          <img src="https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_5_aug._2026_06_45_09.png?v=1785905159" alt="Tibella" class="header__heading-logo" width="120" height="30" loading="eager" style="object-fit:contain;">
+          <span class="calmpet-wordmark" aria-label="CalmPet">CalmPet<span aria-hidden="true">•</span></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -249,7 +271,7 @@
           </localization-form>
         {%- endif -%}
       </div>
-      {% comment %}Search disabled for Tibella{% endcomment %}
+      {% comment %}Search is intentionally omitted from the focused landing page{% endcomment %}
 
       {%- if shop.customer_accounts_enabled -%}
         <a

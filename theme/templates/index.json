@@ -1,11 +1,21 @@
 {
   "sections": {
-    "tibella_home": {
-      "type": "lp-home",
+    "top": {
+      "type": "lp-longform-top",
+      "settings": {}
+    },
+    "buy-box": {
+      "type": "lp-buy-box",
+      "settings": {}
+    },
+    "bottom": {
+      "type": "lp-longform-bottom",
       "settings": {}
     }
   },
   "order": [
-    "tibella_home"
+    "top",
+    "buy-box",
+    "bottom"
   ]
 }

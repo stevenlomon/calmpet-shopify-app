@@ -1,11 +1,13 @@
 {%- render 'lp-brand-vars' -%}
+{%- assign lp_product = section.settings.product | default: settings.lp_product -%}
+{%- assign product = all_products[lp_product] -%}
 
 {%- comment -%} ═══ CONTENT CONFIG ═══ {%- endcomment -%}
 
 {%- assign lt_hero_headline = "One Small Trigger Shouldn’t Take Over Your Dog’s Whole Day. Give Them More Room for Calm." -%}
 {%- assign lt_hero_body = "The CalmPet Collar provides continuous pheromone support that helps lower the background stress building between triggers, so your dog has more room to settle, recover, and handle everyday life." -%}
 {%- assign lt_hero_cta = "TRY CALMPET FOR 60 DAYS →" -%}
-{%- assign lt_hero_img = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/Hero_Image_v2.png?v=1786391826" -%}
+{%- assign lt_hero_img = product.featured_image | image_url: width: 1200 -%}
 {%- assign lt_hero_img_alt = "CalmPet Collar helping a dog feel calm at home" -%}
 
 {%- assign lt_mech_heading = "Why Small Triggers Become Big Reactions" -%}
@@ -1172,13 +1174,13 @@ h1, h2, h3, h4, h5, h6,
 <div class="trust-strip">
   <div class="trust-strip-inner">
     <span class="trust-strip-item">Try CalmPet Risk-Free for 60 Days</span>
-    <span class="trust-strip-item">30-Minute Sessions, 3x Per Week</span>
-    <span class="trust-strip-item">Drug-Free Calm Support</span>
-    <span class="trust-strip-item">Used in Clinics for 20+ Years</span>
+    <span class="trust-strip-item">Drug-Free Pheromone Support</span>
+    <span class="trust-strip-item">Made for Everyday Triggers</span>
+    <span class="trust-strip-item">No Return Required</span>
     <span class="trust-strip-item">Try CalmPet Risk-Free for 60 Days</span>
-    <span class="trust-strip-item">30-Minute Sessions, 3x Per Week</span>
-    <span class="trust-strip-item">Drug-Free Calm Support</span>
-    <span class="trust-strip-item">Used in Clinics for 20+ Years</span>
+    <span class="trust-strip-item">Drug-Free Pheromone Support</span>
+    <span class="trust-strip-item">Made for Everyday Triggers</span>
+    <span class="trust-strip-item">No Return Required</span>
   </div>
 </div>
 
@@ -1334,25 +1336,25 @@ h1, h2, h3, h4, h5, h6,
             </thead>
             <tbody>
               <tr>
-                <td>Addresses the cause</td>
+                <td>Provides everyday support</td>
                 <td class="col-highlight"><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cmp-warn"><svg viewBox="0 0 14 14" fill="none"><path d="M7 4v4M7 10h.01" stroke="#C6930A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
                 <td><span class="cmp-x"><svg viewBox="0 0 14 14" fill="none"><path d="M4 10l6-6M10 10L4 4" stroke="#B54A3A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
               </tr>
               <tr>
-                <td>No side effects</td>
+                <td>Drug-free</td>
                 <td class="col-highlight"><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cmp-x"><svg viewBox="0 0 14 14" fill="none"><path d="M4 10l6-6M10 10L4 4" stroke="#B54A3A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
                 <td><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
               </tr>
               <tr>
-                <td>One-time purchase</td>
+                <td>Easy to add to a routine</td>
                 <td class="col-highlight"><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cmp-x"><svg viewBox="0 0 14 14" fill="none"><path d="M4 10l6-6M10 10L4 4" stroke="#B54A3A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
                 <td><span class="cmp-x"><svg viewBox="0 0 14 14" fill="none"><path d="M4 10l6-6M10 10L4 4" stroke="#B54A3A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
               </tr>
               <tr>
-                <td>Clinically studied</td>
+                <td>Designed for daily wear</td>
                 <td class="col-highlight"><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cmp-check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cmp-x"><svg viewBox="0 0 14 14" fill="none"><path d="M4 10l6-6M10 10L4 4" stroke="#B54A3A" stroke-width="1.5" stroke-linecap="round"/></svg></span></td>
@@ -1383,7 +1385,7 @@ h1, h2, h3, h4, h5, h6,
             <circle class="stat-ring-track" cx="50" cy="50" r="42"/>
             <circle class="stat-ring-fill stat-ring-fill--green" cx="50" cy="50" r="42" stroke-dasharray="263.89" stroke-dashoffset="120.07"/>
           </svg>
-          <div class="stat-ring-value stat-green">54.5%</div>
+      <div class="stat-ring-value stat-green">24/7</div>
         </div>
       </div>
       <div class="stat-label">more room to settle between everyday triggers</div>
@@ -1396,7 +1398,7 @@ h1, h2, h3, h4, h5, h6,
             <circle class="stat-ring-track" cx="50" cy="50" r="42"/>
             <circle class="stat-ring-fill stat-ring-fill--gold" cx="50" cy="50" r="42" stroke-dasharray="263.89" stroke-dashoffset="73.89"/>
           </svg>
-          <div class="stat-ring-value stat-gold">72%</div>
+      <div class="stat-ring-value stat-gold">60</div>
         </div>
       </div>
       <div class="stat-label">hours of continuous support from one collar</div>
@@ -1411,7 +1413,7 @@ h1, h2, h3, h4, h5, h6,
     </div>
     <div class="stat-card">
       <div class="stat-visual">
-        <div class="stat-big-number stat-gold">20+</div>
+        <div class="stat-big-number stat-gold">1</div>
       </div>
       <div class="stat-label">days to try CalmPet without risk</div>
       <div class="stat-source">Money-back guarantee</div>
@@ -1424,7 +1426,7 @@ h1, h2, h3, h4, h5, h6,
 <!-- HOW TO USE (PHYSICAL) -->
 <section class="use-section">
   <div class="use-full-img">
-    <img src="https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_4_aug._2026_14_11_22.png?v=1785845721" alt="Simple to Use - Wrap, Set Your Level, Relax - 30 Minutes Done" loading="lazy" width="1200" height="800">
+    <img src="{{ lt_hero_img }}" alt="CalmPet Collar supporting a relaxed dog" loading="lazy" width="1200" height="800">
   </div>
   <div class="use-text-content">
     <div class="section-inner">
@@ -1469,9 +1471,9 @@ h1, h2, h3, h4, h5, h6,
     </div>
     <div class="expert-mobile-logo">
       <div class="expert-mobile-aua">
-        <img src="https://cdn.shopify.com/s/files/1/1029/7170/3631/files/logo.svg?v=1786374028" alt="American Urological Association" width="140" height="auto" loading="lazy">
+    <div class="expert-mobile-mark" aria-hidden="true">✦</div>
       </div>
-      <p class="expert-mobile-text">Endorsed by the American Urological Association</p>
+      <p class="expert-mobile-text">A better starting point for calm</p>
     </div>
   </div>
 </section>
@@ -1489,6 +1491,13 @@ h1, h2, h3, h4, h5, h6,
   "name": "LP Longform Top",
   "tag": "section",
   "class": "lp-longform-section",
-  "settings": []
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Overrides the global LP product for this section."
+    }
+  ]
 }
 {% endschema %}

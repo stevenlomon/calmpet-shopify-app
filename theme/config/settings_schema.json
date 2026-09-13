@@ -1589,7 +1589,7 @@
         "type": "text",
         "id": "lp_support_email",
         "label": "Support Email",
-        "default": "support@tibella.shop",
+        "default": "hello@calmpet.club",
         "info": "Shown in guarantee and FAQ sections."
       }
     ]
