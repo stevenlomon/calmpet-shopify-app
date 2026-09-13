@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "top": {
+      "type": "lp-longform-top",
+      "settings": {}
+    },
+    "buy-box": {
+      "type": "lp-buy-box",
+      "settings": {}
+    },
+    "bottom": {
+      "type": "lp-longform-bottom",
+      "settings": {}
+    }
+  },
+  "order": [
+    "top",
+    "buy-box",
+    "bottom"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "tibella_home": {
+      "type": "lp-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "tibella_home"
+  ]
+}

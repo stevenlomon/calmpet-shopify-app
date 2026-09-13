@@ -1,0 +1,861 @@
+{%- render 'lp-brand-vars' -%}
+{%- assign product = section.settings.product | default: settings.lp_product -%}
+{%- comment -%} ═══ CONTENT CONFIG ═══ {%- endcomment -%}
+
+{%- assign bb_headline = "Bladder Control In 60 Days" -%}
+{%- assign bb_retail_unit = 8900 -%}
+{%- assign bb_retail_remote = 1900 -%}
+{%- assign bb_description = "A home-use nerve stimulation device that targets the root cause of urgency, leaks, and nighttime bathroom trips. Just 30 minutes, a few times a week." -%}
+
+{%- comment -%} Variant references: device-only = first, device+remote = last {%- endcomment -%}
+{%- assign v_device = product.variants.first -%}
+{%- assign v_bundle = product.variants.last -%}
+
+{%- comment -%} Pack images — direct CDN URLs {%- endcomment -%}
+{%- assign bb_img_1x = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_13_aug._2026_09_43_37.png?v=1786688017" -%}
+{%- assign bb_img_2x = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_13_aug._2026_09_56_47.png?v=1786688017" -%}
+{%- assign bb_img_3x = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_13_aug._2026_10_31_35.png?v=1786688017" -%}
+{%- assign bb_img_remote = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_14_aug._2026_07_44_25.png?v=1786688013" -%}
+
+{%- comment -%} Pack 1: 1× device {%- endcomment -%}
+{%- assign bb_pack_name_1 = "Buy One" -%}
+{%- assign bb_pack_price_1 = 5900 -%}
+{%- assign bb_pack_units_1 = 1 -%}
+
+{%- comment -%} Pack 2: 1× device + 1× device+remote {%- endcomment -%}
+{%- assign bb_pack_name_2 = "Buy 2, Get a Remote" -%}
+{%- assign bb_pack_price_2 = 9900 -%}
+{%- assign bb_pack_units_2 = 2 -%}
+{%- assign bb_pack_badge_2 = "Most Popular" -%}
+
+{%- comment -%} Pack 3: 3× device + 1× device+remote {%- endcomment -%}
+{%- assign bb_pack_name_3 = "Buy 3, Get 1 Free + Remote" -%}
+{%- assign bb_pack_price_3 = 13900 -%}
+{%- assign bb_pack_units_3 = 4 -%}
+{%- assign bb_pack_badge_3 = "Best Value" -%}
+
+{%- assign bb_pack_note = "*For Best Results, Use Consistently For 4-6 Weeks" -%}
+{%- assign bb_cta = "Add To Cart" -%}
+{%- assign bb_sold_out = "Sold Out" -%}
+{%- assign bb_trust_1 = "60-Day Money-Back Guarantee" -%}
+{%- assign bb_trust_2 = "Free US Shipping" -%}
+{%- assign bb_ship_days = 10 -%}
+{%- assign bb_gift_ship_value = "$9.99" -%}
+{%- assign bb_gift_remote_value = "$19" -%}
+{%- assign bb_gift_device_value = "$89" -%}
+
+{%- comment -%} ═══ END CONTENT CONFIG ═══ {%- endcomment -%}
+
+<style>
+/* ── Buy Box ── */
+.bb {
+  font-family: var(--font-body);
+  padding: 24px 0 80px;
+  border-top: 1px solid var(--border);
+}
+.bb-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+.bb-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── Image ── */
+.bb-media {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.bb-media-main {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--light);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bb-media-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.bb-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.bb-thumbnails::-webkit-scrollbar { display: none; }
+.bb-thumb {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bb-thumb.active { border-color: var(--brown); }
+.bb-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Details ── */
+.bb-details {}
+.bb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--body);
+  margin-bottom: 8px;
+}
+.bb-badge-stars {
+  color: var(--gold);
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.bb-badge-rating {
+  font-weight: 700;
+  color: var(--heading);
+}
+.bb-badge-count {
+  color: var(--muted);
+}
+.bb-headline {
+  font-family: var(--font);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.bb-desc {
+  font-size: 16px;
+  color: var(--heading);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.bb-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 12px;
+  margin-bottom: 28px;
+  padding: 16px;
+  background: var(--light);
+  border-radius: 8px;
+}
+.bb-benefit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.3;
+}
+.bb-benefit-icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  color: var(--green);
+}
+
+
+/* ── Pack Selector ── */
+.bb-packs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.bb-pack {
+  position: relative;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bb-pack:hover { border-color: var(--brown); }
+.bb-pack.active { border-color: var(--brown); background: var(--light); }
+.bb-pack-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+  width: 140px;
+}
+.bb-pack-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: var(--light);
+}
+.bb-pack-plus {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1;
+}
+.bb-pack-badge {
+  position: absolute;
+  top: -11px;
+  right: 12px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.bb-pack-badge--gold {
+  background: var(--gold);
+}
+.bb-pack-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.bb-pack-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--heading);
+}
+.bb-pack-save {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+  margin-top: 2px;
+}
+.bb-pack-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.bb-pack-price {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--heading);
+}
+.bb-pack-compare {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-top: 1px;
+}
+.bb-pack-note {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--body);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ── Gifts Unlocked ── */
+.bb-gifts {
+  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 12px 14px;
+  margin-bottom: 12px;
+}
+.bb-gifts-label {
+  position: absolute;
+  top: -9px;
+  left: 16px;
+  background: var(--white);
+  padding: 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+.bb-gifts-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+.bb-gift {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.bb-gift-visual {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+}
+.bb-gift-icon,
+.bb-gift-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.bb-gift-lock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.bb-gift.locked .bb-gift-icon,
+.bb-gift.locked .bb-gift-img {
+  opacity: 0.25;
+  filter: grayscale(1) blur(1px);
+}
+.bb-gift.locked .bb-gift-lock {
+  opacity: 1;
+}
+.bb-gift-price {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: line-through;
+  transition: opacity 0.3s ease;
+}
+.bb-gift.locked .bb-gift-price {
+  opacity: 0.3;
+  filter: blur(2px);
+}
+.bb-gift-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green);
+  transition: color 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+.bb-gift.locked .bb-gift-name {
+  color: var(--muted);
+  font-weight: 600;
+  opacity: 0.3;
+  filter: blur(2px);
+}
+.bb-gift-plus {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* ── Add to Cart ── */
+.bb-atc {
+  display: block;
+  width: 100%;
+  padding: 18px 32px;
+  background: var(--brown);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+.bb-atc:hover { background: var(--brown-hover); }
+.bb-atc:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Trust ── */
+.bb-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--body);
+}
+.bb-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bb-trust-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bb-shipping {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--body);
+}
+.bb-shipping-dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  background: var(--green);
+  border-radius: 50%;
+}
+.bb-shipping-date {
+  font-weight: 700;
+  color: var(--heading);
+}
+
+/* ── Accordions ── */
+.bb-accordions {
+  margin-top: 28px;
+  border-top: 1px solid var(--border);
+}
+.bb-accordion {
+  border-bottom: 1px solid var(--border);
+}
+.bb-accordion-trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--heading);
+  cursor: pointer;
+  text-align: left;
+}
+.bb-accordion-trigger svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  color: var(--body);
+}
+.bb-accordion.open .bb-accordion-trigger svg {
+  transform: rotate(90deg);
+}
+.bb-accordion-body {
+  display: none;
+  padding: 0 0 18px;
+  font-size: 15px;
+  color: var(--body);
+  line-height: 1.6;
+}
+.bb-accordion.open .bb-accordion-body {
+  display: block;
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  .bb-layout {
+    flex-direction: row;
+    gap: 36px;
+    align-items: flex-start;
+  }
+  .bb-media {
+    flex: 0 0 52%;
+    max-width: none;
+    position: sticky;
+    top: 20px;
+  }
+  .bb-details { flex: 1; }
+}
+
+@media (min-width: 1024px) {
+  .bb-inner { padding: 0 28px; }
+  .bb-media { flex: 0 0 55%; }
+}
+</style>
+
+
+<section class="bb" id="pdp">
+  <div class="bb-inner">
+    <div class="bb-layout">
+
+      <!-- IMAGE -->
+      <div class="bb-media">
+        <div class="bb-media-main" id="bb-main-image">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" width="800" height="800" loading="lazy">
+          {% else %}
+            <span style="font-size:13px;color:#8A8787;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Product Image</span>
+          {% endif %}
+        </div>
+        {% if product.media.size > 1 %}
+          <div class="bb-thumbnails">
+            {% for media in product.media %}
+              <div class="bb-thumb{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" onclick="bbSelectImage(this, '{{ media | image_url: width: 800 }}')">
+                <img src="{{ media | image_url: width: 128 }}" alt="{{ media.alt | escape }}" width="64" height="64" loading="lazy">
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- DETAILS -->
+      <div class="bb-details">
+        <div class="bb-badge">
+          <span class="bb-badge-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="bb-badge-rating">{{ settings.lp_trust_rating }}</span>
+          <span class="bb-badge-count">{{ settings.lp_trust_text }}</span>
+        </div>
+
+        <h2 class="bb-headline">{{ bb_headline }}</h2>
+        <p class="bb-desc">{{ bb_description }}</p>
+
+        {%- comment -%} ═══ BENEFITS — 3×2 grid with icons ═══ {%- endcomment -%}
+        <div class="bb-benefits">
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v7c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V7l-9-5z" fill="currentColor"/></svg>
+            Bladder Control
+          </div>
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" fill="currentColor"/></svg>
+            Fewer Night Trips
+          </div>
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Drug-Free Relief
+          </div>
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>
+            Pelvic Floor Support
+          </div>
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            30-Min Sessions
+          </div>
+          <div class="bb-benefit">
+            <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="currentColor"/></svg>
+            Gentle &amp; Comfortable
+          </div>
+        </div>
+
+        {% form 'product', product, id: 'bb-product-form' %}
+          <input type="hidden" name="id" value="{{ v_device.id }}">
+
+          {%- assign retail_1 = bb_retail_unit | times: bb_pack_units_1 -%}
+          {%- assign saved_1 = retail_1 | minus: bb_pack_price_1 -%}
+          {%- assign retail_2 = bb_retail_unit | times: bb_pack_units_2 | plus: bb_retail_remote -%}
+          {%- assign saved_2 = retail_2 | minus: bb_pack_price_2 -%}
+          {%- assign retail_3 = bb_retail_unit | times: bb_pack_units_3 | plus: bb_retail_remote -%}
+          {%- assign saved_3 = retail_3 | minus: bb_pack_price_3 -%}
+
+          <div class="bb-packs" id="bb-packs">
+            <div class="bb-pack active"
+                 data-level="1"
+                 data-pack='[{"id":{{ v_device.id }},"quantity":1}]'
+                 onclick="bbSelectPack(this)">
+              <div class="bb-pack-images">
+                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="Tibella device" width="44" height="44">
+              </div>
+              <div class="bb-pack-left">
+                <div class="bb-pack-name">{{ bb_pack_name_1 }}</div>
+                <div class="bb-pack-save">You save ${{ saved_1 | money_without_currency }}</div>
+              </div>
+              <div class="bb-pack-right">
+                <div class="bb-pack-price">${{ bb_pack_price_1 | money_without_currency }}</div>
+                <div class="bb-pack-compare">${{ retail_1 | money_without_currency }}</div>
+              </div>
+            </div>
+
+            <div class="bb-pack"
+                 data-level="2"
+                 data-pack='[{"id":{{ v_device.id }},"quantity":1},{"id":{{ v_bundle.id }},"quantity":1}]'
+                 onclick="bbSelectPack(this)">
+              {% if bb_pack_badge_2 != blank %}
+                <div class="bb-pack-badge">{{ bb_pack_badge_2 }}</div>
+              {% endif %}
+              <div class="bb-pack-images">
+                <img class="bb-pack-img" src="{{ bb_img_2x }}" alt="2 Tibella devices" width="44" height="44">
+                <span class="bb-pack-plus">+</span>
+                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="Tibella remote" width="44" height="44">
+              </div>
+              <div class="bb-pack-left">
+                <div class="bb-pack-name">{{ bb_pack_name_2 }}</div>
+                <div class="bb-pack-save">You save ${{ saved_2 | money_without_currency }}</div>
+              </div>
+              <div class="bb-pack-right">
+                <div class="bb-pack-price">${{ bb_pack_price_2 | money_without_currency }}</div>
+                <div class="bb-pack-compare">${{ retail_2 | money_without_currency }}</div>
+              </div>
+            </div>
+
+            <div class="bb-pack"
+                 data-level="3"
+                 data-pack='[{"id":{{ v_device.id }},"quantity":3},{"id":{{ v_bundle.id }},"quantity":1}]'
+                 onclick="bbSelectPack(this)">
+              {% if bb_pack_badge_3 != blank %}
+                <div class="bb-pack-badge bb-pack-badge--gold">{{ bb_pack_badge_3 }}</div>
+              {% endif %}
+              <div class="bb-pack-images">
+                <img class="bb-pack-img" src="{{ bb_img_3x }}" alt="3 Tibella devices" width="44" height="44">
+                <span class="bb-pack-plus">+</span>
+                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="Tibella device" width="44" height="44">
+                <span class="bb-pack-plus">+</span>
+                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="Tibella remote" width="44" height="44">
+              </div>
+              <div class="bb-pack-left">
+                <div class="bb-pack-name">{{ bb_pack_name_3 }}</div>
+                <div class="bb-pack-save">You save ${{ saved_3 | money_without_currency }}</div>
+              </div>
+              <div class="bb-pack-right">
+                <div class="bb-pack-price">${{ bb_pack_price_3 | money_without_currency }}</div>
+                <div class="bb-pack-compare">${{ retail_3 | money_without_currency }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bb-gifts">
+            <span class="bb-gifts-label">Gifts Unlocked</span>
+            <div class="bb-gifts-row">
+              <div class="bb-gift" data-unlock="1">
+                <div class="bb-gift-visual">
+                  <svg class="bb-gift-icon" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="13" height="10" rx="1"/><path d="M14 9h3l4 4v3h-7V9z"/><circle cx="5.5" cy="18" r="2"/><circle cx="18.5" cy="18" r="2"/></svg>
+                  <svg class="bb-gift-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <span class="bb-gift-price">{{ bb_gift_ship_value }}</span>
+                <span class="bb-gift-name">FREE Shipping</span>
+              </div>
+              <span class="bb-gift-plus">+</span>
+              <div class="bb-gift locked" data-unlock="2">
+                <div class="bb-gift-visual">
+                  <img class="bb-gift-img" src="{{ bb_img_remote }}" alt="Remote control">
+                  <svg class="bb-gift-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <span class="bb-gift-price">{{ bb_gift_remote_value }}</span>
+                <span class="bb-gift-name">FREE Remote</span>
+              </div>
+              <span class="bb-gift-plus">+</span>
+              <div class="bb-gift locked" data-unlock="3">
+                <div class="bb-gift-visual">
+                  <img class="bb-gift-img" src="{{ bb_img_1x }}" alt="Tibella device">
+                  <svg class="bb-gift-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <span class="bb-gift-price">{{ bb_gift_device_value }}</span>
+                <span class="bb-gift-name">FREE Device</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="bb-pack-note">{{ bb_pack_note }}</p>
+
+          <button type="submit" class="bb-atc"{% unless v_device.available and v_bundle.available %} disabled{% endunless %}>
+            {% if v_device.available and v_bundle.available %}{{ bb_cta }}{% else %}{{ bb_sold_out }}{% endif %}
+          </button>
+        {% endform %}
+
+        <div class="bb-trust">
+          <span class="bb-trust-item">
+            <span class="bb-trust-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z" fill="#E8A838"/></svg></span>
+            {{ bb_trust_1 }}
+          </span>
+          <span class="bb-trust-item">
+            <span class="bb-trust-icon"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#3D8C52"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            {{ bb_trust_2 }}
+          </span>
+        </div>
+
+        <div class="bb-shipping" id="bb-shipping" data-days="{{ bb_ship_days }}">
+          <span class="bb-shipping-dot"></span>
+          <span>Order today for delivery by <strong class="bb-shipping-date" id="bb-ship-date"></strong></span>
+        </div>
+
+        {%- comment -%} ═══ ACCORDIONS — edit sections directly ═══ {%- endcomment -%}
+        <div class="bb-accordions">
+          <div class="bb-accordion">
+            <button class="bb-accordion-trigger" onclick="bbToggle(this)">
+              How To Use
+              <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="bb-accordion-body">
+              <p>1. Place Tibella around your inner ankle bone and secure with the adjustable strap.</p>
+              <p>2. Use the remote control to select your preferred mode and intensity level.</p>
+              <p>3. Relax for 30 minutes while Tibella stimulates the posterior tibial nerve.</p>
+              <p>Use 3-4 times per week for best results. Most women notice improvement within 4-6 weeks.</p>
+            </div>
+          </div>
+          <div class="bb-accordion">
+            <button class="bb-accordion-trigger" onclick="bbToggle(this)">
+              What's In The Box
+              <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="bb-accordion-body">
+              <p>1x Tibella nerve stimulation device</p>
+              <p>1x Wireless remote control</p>
+              <p>1x USB charging cable</p>
+              <p>1x Quick start guide</p>
+            </div>
+          </div>
+          <div class="bb-accordion">
+            <button class="bb-accordion-trigger" onclick="bbToggle(this)">
+              Specifications
+              <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="bb-accordion-body">
+              <p>Frequency: 20 Hz (optimized for tibial nerve stimulation)</p>
+              <p>Pulse width: 200 microseconds</p>
+              <p>Modes: 6 stimulation modes</p>
+              <p>Intensity: 19 adjustable levels</p>
+              <p>Session timer: Auto 30-minute shutoff</p>
+              <p>Battery: Rechargeable lithium-ion (USB-C)</p>
+              <p>Battery life: ~10 sessions per charge</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+function bbSelectPack(el) {
+  document.querySelectorAll('.bb-pack').forEach(function(p) { p.classList.remove('active'); });
+  el.classList.add('active');
+  var level = parseInt(el.dataset.level) || 1;
+  document.querySelectorAll('.bb-gift').forEach(function(g) {
+    var unlock = parseInt(g.dataset.unlock) || 1;
+    g.classList.toggle('locked', level < unlock);
+  });
+}
+
+function bbSelectImage(thumb, src) {
+  document.querySelectorAll('.bb-thumb').forEach(function(t) { t.classList.remove('active'); });
+  thumb.classList.add('active');
+  var main = document.getElementById('bb-main-image');
+  var img = main.querySelector('img');
+  if (img) { img.src = src; }
+}
+
+function bbToggle(trigger) {
+  trigger.closest('.bb-accordion').classList.toggle('open');
+}
+
+(function() {
+  var wrap = document.getElementById('bb-shipping');
+  if (!wrap) return;
+  var days = parseInt(wrap.dataset.days) || 10;
+  var d = new Date();
+  var added = 0;
+  while (added < days) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+  }
+  var el = document.getElementById('bb-ship-date');
+  if (el) el.textContent = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+})();
+
+(function() {
+  var form = document.getElementById('bb-product-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var activePack = document.querySelector('.bb-pack.active');
+    if (!activePack) return;
+    var items = JSON.parse(activePack.dataset.pack);
+    var btn = form.querySelector('[type="submit"]');
+    btn.setAttribute('aria-disabled', 'true');
+    btn.textContent = 'Adding...';
+    fetch('/cart/clear.js', {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(function() {
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ items: items })
+      });
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(response) {
+      if (response.status) { window.location.href = '/cart'; return; }
+      var cartDrawer = document.querySelector('cart-drawer');
+      if (cartDrawer) {
+        fetch('/?section_id=cart-drawer')
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(html, 'text/html');
+            var newDrawer = doc.querySelector('cart-drawer');
+            if (newDrawer) {
+              cartDrawer.querySelector('.drawer__inner').innerHTML = newDrawer.querySelector('.drawer__inner').innerHTML;
+              cartDrawer.classList.remove('is-empty');
+            }
+            var bubble = document.querySelector('#cart-icon-bubble .cart-count-bubble');
+            if (bubble) {
+              fetch('/cart.js').then(function(r) { return r.json(); }).then(function(cart) {
+                bubble.querySelector('[aria-hidden]').textContent = cart.item_count;
+                bubble.querySelector('.visually-hidden').textContent = cart.item_count + ' items';
+              });
+            }
+            cartDrawer.open(btn);
+          });
+      } else {
+        window.location.href = '/cart';
+      }
+    })
+    .catch(function() { window.location.href = '/cart'; })
+    .finally(function() {
+      btn.removeAttribute('aria-disabled');
+      btn.textContent = 'Add To Cart';
+    });
+  });
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "LP Buy Box",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Overrides the global LP product for this section."
+    }
+  ]
+}
+{% endschema %}
