@@ -1,21 +1,11 @@
 {
   "sections": {
-    "top": {
-      "type": "lp-longform-top",
-      "settings": {}
-    },
-    "buy-box": {
-      "type": "lp-buy-box",
-      "settings": {}
-    },
-    "bottom": {
-      "type": "lp-longform-bottom",
+    "calmpet_landing": {
+      "type": "calmpet-landing",
       "settings": {}
     }
   },
   "order": [
-    "top",
-    "buy-box",
-    "bottom"
+    "calmpet_landing"
   ]
 }

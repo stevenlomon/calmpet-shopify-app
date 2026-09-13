@@ -5,24 +5,9 @@
 
 <footer class="lp-footer">
   <div class="lp-footer-inner">
-    <div class="lp-footer-grid">
-      {%- for i in (1..2) -%}
-        {%- assign menu_key = 'menu_' | append: i -%}
-        {%- assign title_key = 'title_' | append: i -%}
-        {%- assign menu_handle = section.settings[menu_key] -%}
-        {%- assign col_title = section.settings[title_key] -%}
-        {%- if menu_handle != blank -%}
-          <div class="lp-footer-col">
-            <div class="lp-footer-col-title">{{ col_title }}</div>
-            {%- for link in linklists[menu_handle].links -%}
-              <a href="{{ link.url }}" class="lp-footer-link">{{ link.title }}</a>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-    <div class="lp-footer-bottom">
-      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+    <div class="lp-footer-content">
+      <a href="{{ routes.root_url }}" class="lp-footer-brand">CalmPet<span>•</span></a>
+      <p>CalmPet is a pet-wellness product designed to support calmer behavior. Individual results vary. It is not intended to diagnose, treat, cure, or prevent disease. Serious or sudden behavioral concerns should be discussed with a veterinarian. © {{ 'now' | date: '%Y' }} CalmPet.club</p>
     </div>
   </div>
 </footer>
@@ -31,47 +16,43 @@
   .lp-footer {
     background: #3F3D3D;
     color: rgba(255, 255, 255, 0.7);
-    padding: 60px 18px 50px;
+    padding: 38px 18px 88px;
   }
   .lp-footer-inner {
     max-width: 1100px;
     margin: 0 auto;
   }
-  .lp-footer-grid {
+  .lp-footer-content {
     display: flex;
     justify-content: space-between;
-    max-width: 700px;
-    margin: 0 auto 40px;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1180px;
+    margin: 0 auto;
   }
-  .lp-footer-col-title {
-    font-size: 14px;
+  .lp-footer-brand {
+    color: #fff;
+    font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
+    font-size: 3rem;
     font-weight: 700;
-    color: #FFFFFF;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .lp-footer-link {
-    display: block;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: -.08em;
     text-decoration: none;
-    margin-bottom: 10px;
+    white-space: nowrap;
   }
-  .lp-footer-link:hover {
-    color: rgba(255, 255, 255, 0.9);
-  }
-  .lp-footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 20px;
-    font-size: 12px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
+  .lp-footer-brand span { color: #fd7100; }
+  .lp-footer-content p {
+    color: #d4b69d;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 690px;
+    margin: 0;
   }
   @media screen and (min-width: 750px) {
-    .lp-footer-grid {
-      max-width: 900px;
-    }
+    .lp-footer-content { max-width: 1100px; }
+  }
+  @media screen and (max-width: 749px) {
+    .lp-footer-content { display: block; }
+    .lp-footer-brand { display: inline-block; margin-bottom: 1.8rem; }
   }
 {% endstylesheet %}
 

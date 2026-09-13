@@ -38,6 +38,28 @@
   .header__heading-link {
     text-decoration: none;
   }
+  .calmpet-nav-links {
+    display: none;
+    align-items: center;
+    gap: 2.4rem;
+    margin-left: auto;
+    margin-right: 2.5rem;
+  }
+  .calmpet-nav-links a {
+    color: #482206;
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .calmpet-nav-links a:last-child {
+    border: 1.5px solid #482206;
+    border-radius: 999px;
+    padding: .8rem 1.6rem;
+  }
+  @media screen and (min-width: 990px) {
+    .calmpet-nav-links { display: flex; }
+  }
 
   header-drawer {
     justify-self: start;
@@ -160,7 +182,7 @@
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
-      if section.settings.menu != blank
+      if section.settings.menu != blank and request.page_type != 'index'
         render 'header-drawer'
       endif
 
@@ -176,7 +198,7 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if false and settings.logo != blank -%}
+        {%- if settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -214,12 +236,19 @@
       endif
     %}
 
+    <nav class="calmpet-nav-links" aria-label="CalmPet navigation">
+      <a href="/#problem">Why it happens</a>
+      <a href="/#how">How it works</a>
+      <a href="/#faq">Questions</a>
+      <a href="/#offer">Try CalmPet</a>
+    </nav>
+
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if false and settings.logo != blank -%}
+        {%- if settings.logo != blank -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}

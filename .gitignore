@@ -51,6 +51,7 @@ database.sqlite
 !/theme/sections/lp-buy-box.liquid
 !/theme/sections/lp-home.liquid
 !/theme/sections/lp-contact.liquid
+!/theme/sections/calmpet-landing.liquid
 !/theme/sections/header.liquid
 !/theme/sections/header-group.json
 !/theme/sections/announcement-bar.liquid
