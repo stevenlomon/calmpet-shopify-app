@@ -2,10 +2,10 @@
 {%- assign product = section.settings.product | default: settings.lp_product -%}
 {%- comment -%} ═══ CONTENT CONFIG ═══ {%- endcomment -%}
 
-{%- assign bb_headline = "Bladder Control In 60 Days" -%}
-{%- assign bb_retail_unit = 8900 -%}
-{%- assign bb_retail_remote = 1900 -%}
-{%- assign bb_description = "A home-use nerve stimulation device that targets the root cause of urgency, leaks, and nighttime bathroom trips. Just 30 minutes, a few times a week." -%}
+{%- assign bb_headline = "Give Your Dog More Room For Calm" -%}
+{%- assign bb_retail_unit = 4900 -%}
+{%- assign bb_retail_remote = 0 -%}
+{%- assign bb_description = "The CalmPet Collar provides continuous pheromone support throughout the day, helping your dog settle more easily between the triggers that usually take over." -%}
 
 {%- comment -%} Variant references: device-only = first, device+remote = last {%- endcomment -%}
 {%- assign v_device = product.variants.first -%}
@@ -18,31 +18,31 @@
 {%- assign bb_img_remote = "https://cdn.shopify.com/s/files/1/1029/7170/3631/files/ChatGPT_Image_14_aug._2026_07_44_25.png?v=1786688013" -%}
 
 {%- comment -%} Pack 1: 1× device {%- endcomment -%}
-{%- assign bb_pack_name_1 = "Buy One" -%}
-{%- assign bb_pack_price_1 = 5900 -%}
+{%- assign bb_pack_name_1 = "1-Month Calm Supply" -%}
+{%- assign bb_pack_price_1 = 4900 -%}
 {%- assign bb_pack_units_1 = 1 -%}
 
 {%- comment -%} Pack 2: 1× device + 1× device+remote {%- endcomment -%}
-{%- assign bb_pack_name_2 = "Buy 2, Get a Remote" -%}
-{%- assign bb_pack_price_2 = 9900 -%}
+{%- assign bb_pack_name_2 = "3-Month Calm Supply" -%}
+{%- assign bb_pack_price_2 = 7900 -%}
 {%- assign bb_pack_units_2 = 2 -%}
 {%- assign bb_pack_badge_2 = "Most Popular" -%}
 
 {%- comment -%} Pack 3: 3× device + 1× device+remote {%- endcomment -%}
-{%- assign bb_pack_name_3 = "Buy 3, Get 1 Free + Remote" -%}
-{%- assign bb_pack_price_3 = 13900 -%}
+{%- assign bb_pack_name_3 = "10-Month Calm Supply" -%}
+{%- assign bb_pack_price_3 = 9800 -%}
 {%- assign bb_pack_units_3 = 4 -%}
 {%- assign bb_pack_badge_3 = "Best Value" -%}
 
-{%- assign bb_pack_note = "*For Best Results, Use Consistently For 4-6 Weeks" -%}
+{%- assign bb_pack_note = "*For Best Results, Use Consistently Every Day" -%}
 {%- assign bb_cta = "Add To Cart" -%}
 {%- assign bb_sold_out = "Sold Out" -%}
 {%- assign bb_trust_1 = "60-Day Money-Back Guarantee" -%}
 {%- assign bb_trust_2 = "Free US Shipping" -%}
 {%- assign bb_ship_days = 10 -%}
 {%- assign bb_gift_ship_value = "$9.99" -%}
-{%- assign bb_gift_remote_value = "$19" -%}
-{%- assign bb_gift_device_value = "$89" -%}
+{%- assign bb_gift_remote_value = "$0" -%}
+{%- assign bb_gift_device_value = "$49" -%}
 
 {%- comment -%} ═══ END CONTENT CONFIG ═══ {%- endcomment -%}
 
@@ -545,7 +545,7 @@
         <div class="bb-benefits">
           <div class="bb-benefit">
             <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v7c0 5 3.8 9.3 9 10 5.2-.7 9-5 9-10V7l-9-5z" fill="currentColor"/></svg>
-            Bladder Control
+            CalmPet Collar
           </div>
           <div class="bb-benefit">
             <svg class="bb-benefit-icon" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" fill="currentColor"/></svg>
@@ -585,7 +585,7 @@
                  data-pack='[{"id":{{ v_device.id }},"quantity":1}]'
                  onclick="bbSelectPack(this)">
               <div class="bb-pack-images">
-                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="Tibella device" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="CalmPet Collar" width="44" height="44">
               </div>
               <div class="bb-pack-left">
                 <div class="bb-pack-name">{{ bb_pack_name_1 }}</div>
@@ -605,9 +605,9 @@
                 <div class="bb-pack-badge">{{ bb_pack_badge_2 }}</div>
               {% endif %}
               <div class="bb-pack-images">
-                <img class="bb-pack-img" src="{{ bb_img_2x }}" alt="2 Tibella devices" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_2x }}" alt="Two CalmPet Collars" width="44" height="44">
                 <span class="bb-pack-plus">+</span>
-                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="Tibella remote" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="CalmPet supply" width="44" height="44">
               </div>
               <div class="bb-pack-left">
                 <div class="bb-pack-name">{{ bb_pack_name_2 }}</div>
@@ -627,11 +627,11 @@
                 <div class="bb-pack-badge bb-pack-badge--gold">{{ bb_pack_badge_3 }}</div>
               {% endif %}
               <div class="bb-pack-images">
-                <img class="bb-pack-img" src="{{ bb_img_3x }}" alt="3 Tibella devices" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_3x }}" alt="CalmPet Collars" width="44" height="44">
                 <span class="bb-pack-plus">+</span>
-                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="Tibella device" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_1x }}" alt="CalmPet Collar" width="44" height="44">
                 <span class="bb-pack-plus">+</span>
-                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="Tibella remote" width="44" height="44">
+                <img class="bb-pack-img" src="{{ bb_img_remote }}" alt="CalmPet supply" width="44" height="44">
               </div>
               <div class="bb-pack-left">
                 <div class="bb-pack-name">{{ bb_pack_name_3 }}</div>
@@ -658,7 +658,7 @@
               <span class="bb-gift-plus">+</span>
               <div class="bb-gift locked" data-unlock="2">
                 <div class="bb-gift-visual">
-                  <img class="bb-gift-img" src="{{ bb_img_remote }}" alt="Remote control">
+                  <img class="bb-gift-img" src="{{ bb_img_remote }}" alt="CalmPet supply" width="64" height="64">
                   <svg class="bb-gift-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 </div>
                 <span class="bb-gift-price">{{ bb_gift_remote_value }}</span>
@@ -667,7 +667,7 @@
               <span class="bb-gift-plus">+</span>
               <div class="bb-gift locked" data-unlock="3">
                 <div class="bb-gift-visual">
-                  <img class="bb-gift-img" src="{{ bb_img_1x }}" alt="Tibella device">
+                  <img class="bb-gift-img" src="{{ bb_img_1x }}" alt="CalmPet Collar" width="64" height="64">
                   <svg class="bb-gift-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 </div>
                 <span class="bb-gift-price">{{ bb_gift_device_value }}</span>
@@ -707,10 +707,10 @@
               <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="bb-accordion-body">
-              <p>1. Place Tibella around your inner ankle bone and secure with the adjustable strap.</p>
-              <p>2. Use the remote control to select your preferred mode and intensity level.</p>
-              <p>3. Relax for 30 minutes while Tibella stimulates the posterior tibial nerve.</p>
-              <p>Use 3-4 times per week for best results. Most women notice improvement within 4-6 weeks.</p>
+              <p>1. Fit the CalmPet Collar comfortably around your dog’s neck.</p>
+              <p>2. Let your dog wear it during ordinary routines and everyday triggers.</p>
+              <p>3. Keep using it consistently so the pheromone support is always available.</p>
+              <p>For best results, make CalmPet part of your dog’s daily routine.</p>
             </div>
           </div>
           <div class="bb-accordion">
@@ -719,8 +719,8 @@
               <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="bb-accordion-body">
-              <p>1x Tibella nerve stimulation device</p>
-              <p>1x Wireless remote control</p>
+              <p>1x CalmPet Collar</p>
+              <p>1x CalmPet refill supply</p>
               <p>1x USB charging cable</p>
               <p>1x Quick start guide</p>
             </div>
@@ -731,7 +731,7 @@
               <svg viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <div class="bb-accordion-body">
-              <p>Frequency: 20 Hz (optimized for tibial nerve stimulation)</p>
+              <p>Continuous pheromone support for everyday calm</p>
               <p>Pulse width: 200 microseconds</p>
               <p>Modes: 6 stimulation modes</p>
               <p>Intensity: 19 adjustable levels</p>
