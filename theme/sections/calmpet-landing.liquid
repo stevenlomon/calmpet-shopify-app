@@ -291,12 +291,17 @@
   #calmpet-landing .cp-bonus-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;font:700 16px var(--cp-font)}
   #calmpet-landing .cp-bonus-head small{color:var(--cp-muted);font:800 11px var(--cp-font-ui);letter-spacing:.06em}
   #calmpet-landing .cp-bonus-grid{display:grid;gap:8px}
-  #calmpet-landing .cp-bonus-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--cp-border);border-radius:12px;background:#faf7f1;transition:opacity .18s}
-  #calmpet-landing .cp-bonus-item.is-locked{opacity:.48;filter:grayscale(1)}
-  #calmpet-landing .cp-bonus-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--cp-yellow);color:var(--cp-ink);font-size:16px;font-weight:900}
-  #calmpet-landing .cp-bonus-item b{display:block;font-size:13px}
-  #calmpet-landing .cp-bonus-item p{margin:1px 0 0;color:var(--cp-muted);font-size:11px;line-height:1.25}
-  #calmpet-landing .cp-bonus-status{font-size:10px;font-weight:900;letter-spacing:.06em;color:var(--cp-olive-dark)}
+  #calmpet-landing .cp-bonus-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--cp-border);border-radius:12px;background:#faf7f1;transition:background .3s ease}
+  #calmpet-landing .cp-bonus-icon{position:relative;width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--cp-yellow);color:var(--cp-ink);font-size:16px;font-weight:900}
+  #calmpet-landing .cp-bonus-icon>span{transition:opacity .3s ease,filter .3s ease}
+  #calmpet-landing .cp-bonus-lock{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;color:var(--cp-muted);opacity:0;transition:opacity .3s ease;pointer-events:none}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-icon>span{opacity:.2;filter:grayscale(1) blur(1px)}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-lock{opacity:1}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-icon{background:var(--cp-border)}
+  #calmpet-landing .cp-bonus-item b{display:block;font-size:13px;transition:opacity .3s ease,filter .3s ease}
+  #calmpet-landing .cp-bonus-item p{margin:1px 0 0;color:var(--cp-muted);font-size:11px;line-height:1.25;transition:opacity .3s ease,filter .3s ease}
+  #calmpet-landing .cp-bonus-item.is-locked b,#calmpet-landing .cp-bonus-item.is-locked p{opacity:.35;filter:blur(1.5px)}
+  #calmpet-landing .cp-bonus-status{font-size:10px;font-weight:900;letter-spacing:.06em;color:var(--cp-olive-dark);transition:color .3s ease,opacity .3s ease,filter .3s ease}
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-status{color:var(--cp-muted)}
   /* PDP guarantee inline */
   #calmpet-landing .cp-pdp-guarantee{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;margin-top:20px;padding:15px 16px;background:#FFF0E3;border:1.5px solid var(--cp-orange);border-radius:15px}
@@ -738,7 +743,7 @@
             </label>
           </div>
 
-          <div class="cp-bonus"><div class="cp-bonus-head"><span>Your Bonuses</span><small>MORE UNLOCK AS YOU UPGRADE</small></div><div class="cp-bonus-grid"><article class="cp-bonus-item" data-bonus="1"><span class="cp-bonus-icon">✓</span><div><b>Free Shipping</b><p>Included with every CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item" data-bonus="2"><span class="cp-bonus-icon">$15</span><div><b>$15 CalmPet Credit</b><p>Use it toward your next CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item is-locked" data-bonus="3"><span class="cp-bonus-icon">PDF</span><div><b>Trigger Stacking Field Guide</b><p>A practical guide for spotting the stack earlier.</p></div><span class="cp-bonus-status">LOCKED</span></article></div></div>
+          <div class="cp-bonus"><div class="cp-bonus-head"><span>Your Bonuses</span><small>MORE UNLOCK AS YOU UPGRADE</small></div><div class="cp-bonus-grid"><article class="cp-bonus-item" data-bonus="1"><span class="cp-bonus-icon"><span>✓</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>Free Shipping</b><p>Included with every CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item" data-bonus="2"><span class="cp-bonus-icon"><span>$15</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>$15 CalmPet Credit</b><p>Use it toward your next CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item is-locked" data-bonus="3"><span class="cp-bonus-icon"><span>PDF</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>Trigger Stacking Field Guide</b><p>A practical guide for spotting the stack earlier.</p></div><span class="cp-bonus-status">LOCKED</span></article></div></div>
 
           <div class="cp-pdp-guarantee"><div class="cp-pdp-guarantee-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg></div><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Let your dog wear CalmPet for the full 60 days. If it is not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div>
 
