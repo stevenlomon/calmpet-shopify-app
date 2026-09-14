@@ -12,9 +12,12 @@
     "calmpet_landing": {
       "type": "calmpet-landing",
       "settings": {
+        "logo_image": "shopify://shop_images/CalmPet_Logo.png",
         "product": "adjustable-pet-calming-collar",
-        "hero_image": "shopify://shop_images/calmpet-hero.png",
-        "lifestyle_image": "shopify://shop_images/calmpet-tried-tools.png"
+        "hero_image": "shopify://shop_images/calmpet-hero-doorway-v1.png",
+        "lifestyle_image": "shopify://shop_images/calmpet-tried-tools-v3.png",
+        "bucket_image": "shopify://shop_images/calmpet-trigger-stacking-mechanism-v2.png",
+        "product_image": "shopify://shop_images/calmpet-collar.png"
       }
     }
   },
