@@ -941,8 +941,8 @@
       checkout.setAttribute('aria-busy', 'true');
       checkout.textContent = 'Adding to cart…';
       try {
-        await fetch('{{ routes.cart_clear_url }}', { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-        const res = await fetch('{{ routes.cart_add_url }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.variant), quantity: Number(selected.dataset.quantity) || 1 }] }) });
+        await fetch('/cart/clear.js', { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+        const res = await fetch('/cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.variant), quantity: Number(selected.dataset.quantity) || 1 }] }) });
         const data = await res.json();
         if (!res.ok || data.status) throw new Error('Could not add the selected bundle.');
         const drawer = document.querySelector('cart-drawer');
