@@ -55,11 +55,12 @@
   /* ═══ NAV ═══ */
   #calmpet-landing .cp-nav{height:76px;display:flex;align-items:center;justify-content:space-between}
   #calmpet-landing .cp-nav .cp-wrap{display:flex;align-items:center;justify-content:space-between}
-  #calmpet-landing .cp-logo{width:164px;display:block}
+  #calmpet-landing .cp-logo{width:164px;max-width:164px;height:auto;display:block}
+  #calmpet-landing .cp-nav a:first-child{flex:0 0 auto;line-height:0}
   #calmpet-landing .cp-nav-links{display:flex;gap:28px;align-items:center}
-  #calmpet-landing .cp-nav-links a{color:var(--cp-ink);font-size:.88rem;font-weight:800;text-decoration:none}
+  #calmpet-landing .cp-nav-links a{color:var(--cp-ink);font:800 15px/1 var(--cp-font-ui);text-decoration:none}
   #calmpet-landing .cp-nav-links a:hover{color:var(--cp-orange)}
-  #calmpet-landing .cp-mini-cta{border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:9px 16px}
+  #calmpet-landing .cp-mini-cta{border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:11px 22px;font:800 15px/1 var(--cp-font-ui)}
   #calmpet-landing .cp-mini-cta:hover{background:var(--cp-orange);color:#fff;border-color:var(--cp-orange)}
 
   /* ═══ HERO ═══ */
@@ -387,7 +388,7 @@
     #calmpet-landing .cp-wrap,#calmpet-landing .cp-narrow{width:min(100% - 32px,1240px)}
     #calmpet-landing section{padding:58px 0}
     #calmpet-landing .cp-nav{height:64px}
-    #calmpet-landing .cp-logo{width:136px}
+    #calmpet-landing .cp-logo{width:136px;max-width:136px}
     #calmpet-landing .cp-hero{padding:16px 0 64px}
     #calmpet-landing .cp-hero-photo img{height:420px;border-radius:18px}
     #calmpet-landing .cp-paw{width:48px;height:48px}
@@ -462,8 +463,9 @@
   <!-- ═══ NAV ═══ -->
   <header class="cp-nav" id="top">
     <div class="cp-wrap">
-      {% if section.settings.logo_image != blank %}
-        <a href="#top">{{ section.settings.logo_image | image_url: width: 328 | image_tag: class: 'cp-logo', alt: 'CalmPet', loading: 'eager' }}</a>
+      {%- assign nav_logo = section.settings.logo_image | default: settings.logo -%}
+      {% if nav_logo != blank %}
+        <a href="#top">{{ nav_logo | image_url: width: 328 | image_tag: class: 'cp-logo', alt: 'CalmPet', loading: 'eager' }}</a>
       {% else %}
         <a href="#top" class="cp-logo" style="font:700 1.65rem var(--cp-font);text-decoration:none;color:var(--cp-brown)"><span style="color:var(--cp-orange)">Calm</span>Pet</a>
       {% endif %}
