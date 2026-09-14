@@ -294,21 +294,7 @@
                             assign has_vol_pricing = true
                           endif
                         -%}
-                        {%- liquid
-                          assign bb_is_remote = false
-                          for option in item.options_with_values
-                            if option.value contains 'Remote'
-                              assign bb_is_remote = true
-                            endif
-                          endfor
-
-                          assign bb_show_qty = true
-                          if bb_is_remote
-                            assign bb_show_qty = false
-                          elsif item.quantity < 3
-                            assign bb_show_qty = false
-                          endif
-                        -%}
+                        {%- assign bb_show_qty = false -%}
                         <td
                           class="cart-item__quantity {% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}"
                           role="cell"
@@ -491,6 +477,7 @@
                           </quantity-popover>
                           {%- else -%}
                           <div class="bb-trash-row">
+                            <span class="bb-qty-label">Qty: {{ item.quantity }}</span>
                             <button
                               type="button"
                               class="bb-trash-btn"
@@ -663,8 +650,15 @@
 <style>
   .bb-trash-row {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+    gap: 4px;
     margin-top: -4.5rem;
+  }
+  .bb-qty-label {
+    font-size: 1.3rem;
+    color: rgba(var(--color-foreground), 0.65);
+    font-weight: 600;
   }
   .bb-trash-btn {
     display: flex;
