@@ -65,10 +65,33 @@
     font-weight: 800;
     text-decoration: none;
   }
-  .calmpet-nav-links a:last-child {
-    border: 1.5px solid #482206;
-    border-radius: 999px;
-    padding: .8rem 1.6rem;
+  .calmpet-nav-cart {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    color: #482206;
+    position: relative;
+    cursor: pointer;
+  }
+  .calmpet-nav-cart svg {
+    width: 24px;
+    height: 24px;
+  }
+  .calmpet-nav-cart .cp-cart-count {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #FD7100;
+    color: #fff;
+    font-size: .65rem;
+    font-weight: 900;
+    line-height: 1;
   }
   @media screen and (min-width: 990px) {
     .calmpet-nav-links { display: flex; }
@@ -258,7 +281,10 @@
       <a href="/#problem">Why it happens</a>
       <a href="/#how">How it works</a>
       <a href="/#faq">Questions</a>
-      <a href="/#offer">Try CalmPet</a>
+      <a href="#" class="calmpet-nav-cart" aria-label="Open cart" onclick="event.preventDefault();document.querySelector('cart-drawer').open()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        {%- if cart != empty -%}<span class="cp-cart-count">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
     </nav>
 
     {%- if section.settings.logo_position == 'middle-center' -%}

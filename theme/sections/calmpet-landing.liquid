@@ -66,8 +66,9 @@
   #calmpet-landing .cp-nav-links{display:flex;gap:28px;align-items:center}
   #calmpet-landing .cp-nav-links a{color:var(--cp-ink);font:800 15px/1 var(--cp-font-ui);text-decoration:none}
   #calmpet-landing .cp-nav-links a:hover{color:var(--cp-orange)}
-  #calmpet-landing .cp-mini-cta{border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:11px 22px;font:800 15px/1 var(--cp-font-ui)}
-  #calmpet-landing .cp-mini-cta:hover{background:var(--cp-orange);color:#fff;border-color:var(--cp-orange)}
+  #calmpet-landing .cp-nav-cart{display:grid;place-items:center;width:44px;height:44px;color:var(--cp-ink);position:relative;cursor:pointer;border:0;background:none;padding:0}
+  #calmpet-landing .cp-nav-cart svg{width:24px;height:24px}
+  #calmpet-landing .cp-nav-cart .cp-cart-count{position:absolute;top:2px;right:0;min-width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:var(--cp-orange);color:#fff;font-size:10px;font-weight:900;line-height:1}
 
   /* ═══ HERO ═══ */
   #calmpet-landing .cp-hero{padding:32px 0 80px}
@@ -374,7 +375,7 @@
   /* ═══ RESPONSIVE ═══ */
   @media(max-width:980px){#calmpet-landing .cp-steps{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:860px){
-    #calmpet-landing .cp-nav-links a:not(.cp-mini-cta){display:none}
+    #calmpet-landing .cp-nav-links a:not(.cp-nav-cart){display:none}
     #calmpet-landing .cp-wrap{width:min(100% - 40px,1240px)}
     #calmpet-landing section{padding:72px 0}
     #calmpet-landing h1{font-size:clamp(40px,10vw,46px)}
@@ -504,7 +505,7 @@
         <a href="#problem">Why it happens</a>
         <a href="#how">How it works</a>
         <a href="#faq">Questions</a>
-        <a class="cp-mini-cta" href="#offer">Try CalmPet</a>
+        <a href="#" class="cp-nav-cart" aria-label="Open cart" onclick="event.preventDefault();document.querySelector('cart-drawer').open()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>{%- if cart != empty -%}<span class="cp-cart-count">{{ cart.item_count }}</span>{%- endif -%}</a>
       </nav>
     </div>
   </header>
