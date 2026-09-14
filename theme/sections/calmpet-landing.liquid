@@ -557,7 +557,6 @@
         <p>That remaining room is your dog's <strong>Safety Margin.</strong></p>
         <p>Eventually, the doorbell, a passing dog, or an unexpected touch becomes <span class="cp-highlight"><strong>the final drop that makes the bucket overflow.</strong></span></p>
         <p class="cp-mechanism-close">That is why your dog can handle the same trigger one day, then react to it the next. The trigger did not get bigger. <strong>Your dog's Safety Margin got smaller.</strong></p>
-        <div class="cp-mechanism-evidence"><div class="cp-evidence-number">47.4%<small>OF DOGS</small></div><p>showed fear or anxiety in an owner-reported study of <strong>43,517 U.S. dogs</strong> — nearly one in two.</p></div>
       </div>
       {% if section.settings.bucket_image != blank %}
         <figure class="cp-river-visual">{{ section.settings.bucket_image | image_url: width: 1200 | image_tag: alt: 'The same dog beside a bucket as everyday stress fills it from low to overflowing', loading: 'lazy' }}<figcaption class="cp-river-stages"><div><b>BUCKET LOW</b>Plenty of room to cope</div><div><b>TRIGGERS STACK</b>The Safety Margin shrinks</div><div><b>FINAL DROP</b>The bucket overflows</div></figcaption></figure>
@@ -571,8 +570,8 @@
   <section class="cp-failed">
     <div class="cp-wrap cp-split">
       <div>
-        <h2>You did not fail your dog. <strong>The tools you tried were built for the trigger, not the buildup.</strong></h2>
-        <p>You might have tried:</p>
+        <h2>You did not fail your dog. <span class="cp-highlight">The tools you tried were built for the trigger, not the buildup.</span></h2>
+        <p><strong>You might have tried:</strong></p>
         <ul class="cp-attempt-list">
           <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-treat"/></svg></span>Calming treats</li>
           <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shirt"/></svg></span>A pressure vest</li>
@@ -585,12 +584,12 @@
         <p>Each approach addresses a particular moment, place, or behavior.</p>
         <p class="cp-failed-punch">But <span class="cp-highlight">trigger stacking can happen throughout the entire day.</span></p>
         <p>That is why the results can feel so inconsistent.</p>
-        <p class="cp-failed-close"><strong>Trying harder is not the answer.</strong> What your dog needs is support that starts before stress becomes visible and stays with them throughout the day.</p>
+        <p class="cp-failed-close"><strong style="color:var(--cp-orange)">Trying harder is not the answer.</strong> What your dog needs is support that starts before stress becomes visible and stays with them throughout the day.</p>
       </div>
       {% if lifestyle_image != blank %}
         <figure class="cp-failed-visual">{{ lifestyle_image | image_url: width: 1200 | image_tag: alt: 'Caring owner sitting beside an alert dog after trying several situational calming tools', loading: 'lazy' }}<figcaption>What was missing was support that stayed with your dog between the moments you could see.</figcaption></figure>
       {% else %}
-        <div class="cp-failed-placeholder">TRIED-TOOLS IMAGE<br>UPLOAD IN THE THEME EDITOR</div>
+        <figure class="cp-failed-visual"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-tried-tools.png?v=1789402445" alt="Caring owner sitting beside an alert dog after trying several situational calming tools" loading="lazy" width="1200"><figcaption>What was missing was support that stayed with your dog between the moments you could see.</figcaption></figure>
       {% endif %}
     </div>
   </section>
