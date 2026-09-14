@@ -499,7 +499,7 @@
         <p class="cp-subnote">If it's not right for your dog, you get every cent back.</p>
       </div>
       <div class="cp-hero-photo">
-        {% if hero_image != blank %}{{ hero_image | image_url: width: 1400 | image_tag: alt: 'Calm dog wearing an orange CalmPet Collar beside its owner at the front door', loading: 'eager', preload: true }}{% else %}<div class="cp-media-placeholder" style="height:608px;border-radius:var(--cp-radius-large)">UPLOAD A CALMPET HERO IMAGE<br>IN THE THEME EDITOR</div>{% endif %}
+        {% if hero_image != blank %}{{ hero_image | image_url: width: 1400 | image_tag: alt: 'Calm dog wearing an orange CalmPet Collar beside its owner at the front door', loading: 'eager', preload: true }}{% else %}<img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-hero.png?v=1789402445" alt="Calm dog wearing an orange CalmPet Collar beside its owner at the front door" loading="eager" width="1400">{% endif %}
         <div class="cp-paw" aria-hidden="true"><svg class="cp-icon"><use href="#cp-paw"/></svg></div>
         <div class="cp-photo-note">MORE ROOM FOR CALM. MORE LIFE TOGETHER.</div>
       </div>
