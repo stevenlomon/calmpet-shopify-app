@@ -32,6 +32,19 @@
     margin-left: 0.08em;
     transform: translateY(-0.32em);
   }
+  /* Exact brand dimensions; the Theme Editor remains set to the nearest 10px. */
+  .header__heading-logo-wrapper {
+    width: 164px;
+  }
+  .header__heading-logo {
+    width: 100%;
+    height: auto;
+  }
+  @media screen and (max-width: 749px) {
+    .header__heading-logo-wrapper {
+      width: 136px;
+    }
+  }
   .header-wrapper {
     background: var(--cream, #fff7ec);
   }
