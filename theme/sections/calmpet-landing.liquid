@@ -256,19 +256,8 @@
   #calmpet-landing .cp-gallery{position:sticky;top:24px}
   #calmpet-landing .cp-gallery-main{position:relative;display:grid;place-items:center;aspect-ratio:1/1;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);overflow:hidden;box-shadow:var(--cp-shadow);isolation:isolate}
   #calmpet-landing .cp-gallery-main>img{width:88%;height:88%;object-fit:contain;transition:opacity .18s;position:absolute;inset:0;margin:auto;z-index:1}
-  #calmpet-landing .cp-collar-stack{position:absolute;inset:0;z-index:2;transition:opacity .18s}
-  #calmpet-landing .cp-collar-stack img{position:absolute;left:50%;top:50%;width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 11px 8px rgba(59,28,6,.18));transition:transform .26s ease}
-  #calmpet-landing .cp-collar-stack img:nth-child(1){transform:translate(-50%,-50%) rotate(-8deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(2){transform:translate(-31%,-54%) rotate(8deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(3){transform:translate(-66%,-36%) rotate(-14deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(4){transform:translate(-38%,-31%) rotate(13deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(5){transform:translate(-52%,-44%) rotate(0deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(6){transform:translate(-75%,-51%) rotate(-18deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(7){transform:translate(-27%,-40%) rotate(18deg)}
-  #calmpet-landing .cp-collar-stack img:nth-child(8){transform:translate(-52%,-27%) rotate(2deg)}
   #calmpet-landing .cp-gallery-badge{position:absolute;right:16px;top:16px;z-index:4;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:8px 11px;font-size:11px;font-weight:900}
-  #calmpet-landing .cp-stack-count{position:absolute;left:16px;bottom:16px;z-index:4;background:var(--cp-brown);color:#fff;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:8px 12px;font-size:12px;font-weight:900}
-  #calmpet-landing .cp-gallery-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    #calmpet-landing .cp-gallery-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin-top:10px}
   #calmpet-landing .cp-gallery-thumb{height:92px;padding:6px;background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:14px;cursor:pointer}
   #calmpet-landing .cp-gallery-thumb.active{border:2px solid var(--cp-orange)}
   #calmpet-landing .cp-gallery-thumb img{width:100%;height:100%;object-fit:cover;border-radius:9px}
@@ -467,7 +456,7 @@
   }
   @media(prefers-reduced-motion:reduce){
     #calmpet-landing .cp-marquee-track{animation:none}
-    #calmpet-landing .cp-story-slide,#calmpet-landing .cp-btn,#calmpet-landing .cp-sticky,#calmpet-landing .cp-carousel-dot,#calmpet-landing .cp-collar-stack img{transition:none}
+    #calmpet-landing .cp-story-slide,#calmpet-landing .cp-btn,#calmpet-landing .cp-sticky,#calmpet-landing .cp-carousel-dot{transition:none}
   }
 </style>
 
@@ -711,20 +700,18 @@
     <div class="cp-wrap cp-offer-grid">
       <div class="cp-gallery">
         <div class="cp-gallery-main" id="cp-gallery-main">
-          {% if product_image != blank %}
-            <img id="cp-main-image" src="{{ product_image | image_url: width: 1000 }}" alt="Orange CalmPet calming collar" style="opacity:0">
-            <div class="cp-collar-stack" id="cp-collar-stack" aria-label="Five CalmPet Collars">{% for collar in (1..8) %}{{ product_image | image_url: width: 800 | image_tag: alt: '', loading: 'lazy' }}{% endfor %}</div>
+          {% if product.featured_image != blank %}
+            <img id="cp-main-image" src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.featured_image.alt | default: product.title }}">
           {% else %}
             <div class="cp-media-placeholder">PRODUCT MEDIA<br>FROM SHOPIFY ADMIN</div>
           {% endif %}
           <span class="cp-gallery-badge">UP TO 60 DAYS EACH</span>
-          <span class="cp-stack-count" id="cp-stack-count">5 COLLARS</span>
         </div>
-        {% if product_image != blank %}
+        {% if product.images.size > 1 %}
         <div class="cp-gallery-thumbs" aria-label="CalmPet product images">
-          <button class="cp-gallery-thumb active" type="button" data-mode="stack"><img src="{{ product_image | image_url: width: 300 }}" alt="CalmPet bundle"></button>
-          {% if lifestyle_image != blank %}<button class="cp-gallery-thumb" type="button" data-mode="image" data-src="{{ lifestyle_image | image_url: width: 1200 }}" data-alt="Dog wearing the CalmPet Collar beside its owner" data-fit="cover"><img src="{{ lifestyle_image | image_url: width: 300 }}" alt="Lifestyle view"></button>{% endif %}
-          {% if hero_image != blank %}<button class="cp-gallery-thumb" type="button" data-mode="image" data-src="{{ hero_image | image_url: width: 1200 }}" data-alt="Calm dog wearing the CalmPet Collar at home" data-fit="cover"><img src="{{ hero_image | image_url: width: 300 }}" alt="CalmPet at home"></button>{% endif %}
+          {% for img in product.images %}
+            <button class="cp-gallery-thumb{% if forloop.first %} active{% endif %}" type="button" data-mode="image" data-src="{{ img | image_url: width: 1200 }}" data-alt="{{ img.alt | default: product.title }}" data-fit="{% if forloop.first %}contain{% else %}cover{% endif %}"><img src="{{ img | image_url: width: 300 }}" alt="{{ img.alt | default: product.title }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"></button>
+          {% endfor %}
         </div>
         {% endif %}
       </div>
@@ -849,8 +836,6 @@
     const sticky = root.querySelector('#cp-sticky');
     const stickyTitle = root.querySelector('#cp-sticky-title');
     const stickySub = root.querySelector('#cp-sticky-sub');
-    const stack = root.querySelector('#cp-collar-stack');
-    const stackCount = root.querySelector('#cp-stack-count');
     const bonuses = [...root.querySelectorAll('.cp-bonus-item')];
 
     const syncBundle = option => {
@@ -863,10 +848,7 @@
       if (checkout) checkout.textContent = option.dataset.cta;
       if (stickyTitle) stickyTitle.textContent = option.dataset.title;
       if (stickySub) stickySub.textContent = option.dataset.sub;
-      const count = Number(option.dataset.count);
       const level = Number(option.dataset.level);
-      if (stack) [...stack.children].forEach((img, i) => img.hidden = i >= count);
-      if (stackCount) stackCount.textContent = `${count} ${count === 1 ? 'COLLAR' : 'COLLARS'}`;
       bonuses.forEach(item => {
         item.classList.toggle('is-locked', Number(item.dataset.bonus) > level);
       });
@@ -887,14 +869,6 @@
     thumbs.forEach(thumb => thumb.addEventListener('click', () => {
       thumbs.forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
-      if (thumb.dataset.mode === 'stack') {
-        if (mainImage) mainImage.style.opacity = '0';
-        if (stack) stack.style.opacity = '1';
-        if (stackCount) stackCount.style.opacity = '1';
-        return;
-      }
-      if (stack) stack.style.opacity = '0';
-      if (stackCount) stackCount.style.opacity = '0';
       if (mainImage) {
         mainImage.style.opacity = '0';
         setTimeout(() => {
