@@ -12,9 +12,11 @@
 {%- assign lifestyle_image = section.settings.lifestyle_image | default: product.images[1] | default: product.featured_image -%}
 {%- assign product_image = section.settings.product_image | default: product.featured_image -%}
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
 
+<style>
   /* ═══ BRAND TOKENS (v1.0 guidelines) ═══ */
   #calmpet-landing{--cp-orange:#FD7100;--cp-orange-hover:#FF8420;--cp-orange-active:#F56A00;--cp-brown:#482206;--cp-ink:#3B1C06;--cp-cream:#FFF6EA;--cp-cream-soft:#F7EAD8;--cp-paper:#FFFDF9;--cp-olive:#8B9565;--cp-olive-dark:#66704C;--cp-yellow:#FFD76A;--cp-border:#E8D8C3;--cp-muted:#765943;--cp-shadow:0 4px 14px rgba(59,28,6,.07);--cp-shadow-playful:0 3px 0 rgba(59,28,6,.14);--cp-font:"Fredoka",sans-serif;--cp-font-ui:"Nunito Sans",sans-serif;--cp-radius-button:14px;--cp-radius-card:18px;--cp-radius-large:22px;--cp-radius-pill:999px}
 
@@ -26,11 +28,11 @@
   #calmpet-landing .cp-wrap{width:min(1240px,calc(100% - 48px));margin:auto}
   #calmpet-landing .cp-narrow{width:min(800px,calc(100% - 48px));margin:auto}
   #calmpet-landing section{padding:96px 0}
-  #calmpet-landing h1,#calmpet-landing h2,#calmpet-landing h3{font-family:var(--cp-font);letter-spacing:-.035em;line-height:1.05;margin:0}
+  #calmpet-landing h1,#calmpet-landing h2,#calmpet-landing h3{font-family:var(--cp-font);font-weight:700;letter-spacing:-.035em;line-height:1.05;margin:0}
   #calmpet-landing h1{font-size:clamp(56px,5.2vw,64px);line-height:1}
-  #calmpet-landing h2{font-size:clamp(38px,4vw,48px);line-height:1.05}
+  #calmpet-landing h2{font-size:clamp(42px,4vw,48px);line-height:1.05}
   #calmpet-landing h3{font-size:22px;line-height:1.1}
-  #calmpet-landing p{margin:0 0 1rem}
+  #calmpet-landing p{margin:0 0 16px}
   #calmpet-landing .cp-eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
   #calmpet-landing .cp-highlight{background:linear-gradient(transparent 66%,var(--cp-yellow) 0)}
 
@@ -42,8 +44,9 @@
   #calmpet-landing .cp-stars{color:var(--cp-orange);letter-spacing:1.5px}
   #calmpet-landing .cp-divider{width:1px;height:20px;background:var(--cp-border)}
   #calmpet-landing .cp-section-head{text-align:center;max-width:780px;margin:0 auto 48px}
+  #calmpet-landing .cp-section-head h2:after{content:"";display:block;width:76px;height:5px;background:var(--cp-orange);border-radius:var(--cp-radius-pill);margin:16px auto 0;transform:rotate(-2deg)}
   #calmpet-landing .cp-section-head p{font-size:17px;color:var(--cp-muted);margin-top:16px}
-  #calmpet-landing .cp-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;background:var(--cp-orange);color:var(--cp-ink);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-button);padding:16px 24px;text-decoration:none;font-weight:900;box-shadow:var(--cp-shadow-playful);cursor:pointer;transition:.2s}
+  #calmpet-landing .cp-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;background:var(--cp-orange);color:#fff;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-button);padding:16px 24px;text-decoration:none;font-weight:900;box-shadow:var(--cp-shadow-playful);cursor:pointer;transition:.2s}
   #calmpet-landing .cp-btn:hover{background:var(--cp-orange-hover);transform:translateY(-1px)}
   #calmpet-landing .cp-btn:active{background:var(--cp-orange-active)}
   #calmpet-landing .cp-subnote{font-size:12px;font-weight:700;color:var(--cp-muted);margin-top:12px}
@@ -64,16 +67,16 @@
   #calmpet-landing .cp-mini-cta:hover{background:var(--cp-orange);color:#fff;border-color:var(--cp-orange)}
 
   /* ═══ HERO ═══ */
-  #calmpet-landing .cp-hero{padding:36px 0 76px}
-  #calmpet-landing .cp-hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:58px;align-items:center}
+  #calmpet-landing .cp-hero{padding:32px 0 80px}
+  #calmpet-landing .cp-hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:64px;align-items:center}
   #calmpet-landing .cp-hero h1 em{font-style:normal;color:var(--cp-orange)}
   #calmpet-landing .cp-dek{font-size:clamp(17px,1.6vw,20px);max-width:640px;margin:24px 0}
-  #calmpet-landing .cp-checks{display:grid;gap:9px;list-style:none;padding:0;margin:0 0 28px}
+  #calmpet-landing .cp-checks{display:grid;gap:8px;list-style:none;padding:0;margin:0 0 28px}
   #calmpet-landing .cp-checks li{display:flex;gap:10px;align-items:center;font-weight:700}
-  #calmpet-landing .cp-check{width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);font-size:13px;flex:0 0 auto}
+  #calmpet-landing .cp-check{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);font-size:13px;flex:0 0 auto}
   #calmpet-landing .cp-hero-photo{position:relative}
-  #calmpet-landing .cp-hero-photo img{width:100%;height:640px;object-fit:cover;border:2px solid var(--cp-brown);border-radius:36px 36px 110px 36px;box-shadow:11px 12px 0 var(--cp-brown)}
-  #calmpet-landing .cp-photo-note{position:absolute;left:-22px;bottom:28px;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:15px;padding:13px 17px;font-size:13px;font-weight:900;box-shadow:5px 6px 0 var(--cp-orange)}
+  #calmpet-landing .cp-hero-photo img{width:100%;height:608px;object-fit:cover;border:2px solid var(--cp-brown);border-radius:var(--cp-radius-large);box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-photo-note{position:absolute;left:-16px;bottom:24px;background:var(--cp-paper);border:1.5px solid var(--cp-brown);border-radius:14px;padding:12px 16px;font-size:13px;font-weight:900;box-shadow:var(--cp-shadow-playful)}
   #calmpet-landing .cp-paw{position:absolute;right:-16px;top:36px;width:60px;height:60px;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);display:grid;place-items:center;transform:rotate(9deg)}
   #calmpet-landing .cp-paw .cp-icon{width:32px;height:32px}
 
@@ -390,7 +393,7 @@
     #calmpet-landing .cp-nav{height:64px}
     #calmpet-landing .cp-logo{width:136px;max-width:136px}
     #calmpet-landing .cp-hero{padding:16px 0 64px}
-    #calmpet-landing .cp-hero-photo img{height:300px;border-radius:24px 24px 70px 24px}
+    #calmpet-landing .cp-hero-photo img{height:420px;border-radius:var(--cp-radius-card)}
     #calmpet-landing .cp-paw{width:48px;height:48px}
     #calmpet-landing .cp-paw .cp-icon{width:25px;height:25px}
     #calmpet-landing .cp-photo-note{left:8px;bottom:16px;font-size:.72rem}
