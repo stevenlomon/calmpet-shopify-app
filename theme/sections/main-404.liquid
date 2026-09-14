@@ -1,23 +1,22 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
+<style>
+  .cp-404{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:64px 24px;background:#FFF6EA;color:#3B1C06;font-family:"Nunito Sans",sans-serif;text-align:center}
+  .cp-404-paw{font-size:64px;margin-bottom:24px;line-height:1}
+  .cp-404-code{font-family:"Fredoka",sans-serif;font-size:96px;font-weight:700;color:#FD7100;line-height:1;margin:0}
+  .cp-404-heading{font-family:"Fredoka",sans-serif;font-size:28px;font-weight:700;color:#3B1C06;margin:16px 0 12px}
+  .cp-404-sub{font-size:16px;color:rgba(59,28,6,0.65);max-width:420px;margin:0 auto 32px;line-height:1.6}
+  .cp-404-btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;background:#FD7100;color:#3B1C06;font-family:"Nunito Sans",sans-serif;font-size:16px;font-weight:800;text-decoration:none;border:none;border-radius:14px;min-height:52px;cursor:pointer;transition:background .2s ease}
+  .cp-404-btn:hover{background:#FF8420}
+  .cp-404-btn:active{background:#F56A00}
+  @media(max-width:749px){
+    .cp-404-code{font-size:72px}
+    .cp-404-heading{font-size:24px}
   }
 </style>
 
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="/" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+<div class="cp-404">
+  <div class="cp-404-paw">🐾</div>
+  <p class="cp-404-code">404</p>
+  <h1 class="cp-404-heading">This page wandered off</h1>
+  <p class="cp-404-sub">The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+  <a href="/" class="cp-404-btn">Back to CalmPet</a>
 </div>
