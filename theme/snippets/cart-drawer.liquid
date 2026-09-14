@@ -657,8 +657,9 @@
   }
   .bb-qty-label {
     font-size: 1.3rem;
-    color: rgba(var(--color-foreground), 0.65);
-    font-weight: 600;
+    font-family: "Nunito Sans", sans-serif;
+    color: rgba(59,28,6,0.55);
+    font-weight: 700;
   }
   .bb-trash-btn {
     display: flex;
@@ -668,13 +669,13 @@
     min-height: 3.5rem;
     border: none;
     background: none;
-    color: rgba(var(--color-foreground), 0.75);
+    color: rgba(59,28,6,0.5);
     cursor: pointer;
     padding: 0;
     margin: 0;
     transition: color 0.2s ease;
   }
-  .bb-trash-btn:hover { color: rgb(var(--color-foreground)); }
+  .bb-trash-btn:hover { color: #3B1C06; }
   .bb-trash-btn .svg-wrapper {
     width: 1.5rem;
     height: 1.5rem;
@@ -714,6 +715,21 @@
     to { transform: rotate(360deg); }
   }
 
+  /* CalmPet brand layer */
+  .cart-drawer .drawer__inner {
+    background: #FFF6EA;
+    color: #3B1C06;
+    font-family: "Nunito Sans", sans-serif;
+  }
+  .drawer__heading {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+    color: #3B1C06;
+  }
+  .cart-drawer .drawer__close svg { color: #3B1C06; }
+  .cart-item__name, .cart-item__details * { color: #3B1C06; }
+  .cart-item__image { border-radius: 12px; }
+
   /* Timer bar */
   .bb-cart-timer-bar {
     display: flex;
@@ -722,20 +738,22 @@
     gap: 0.5rem;
     padding: 0.8rem 1rem;
     margin-bottom: 1.5rem;
-    background: rgba(var(--color-foreground), 0.04);
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+    background: #F7EAD8;
+    border-bottom: 1px solid #E8D8C3;
     font-size: 1.3rem;
     letter-spacing: 0.02em;
-    color: rgba(var(--color-foreground), 0.85);
+    color: #3B1C06;
   }
   .bb-timer-icon {
     width: 1.4rem;
     height: 1.4rem;
     flex-shrink: 0;
+    color: #FD7100;
   }
   #bb-cart-timer {
-    font-weight: 600;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
+    color: #FD7100;
   }
 
   /* Compare-at total */
@@ -750,21 +768,33 @@
   .bb-cart-savings {
     text-align: center;
     font-size: 1.4rem;
-    font-weight: 600;
-    color: #2e7d32;
+    font-weight: 700;
+    color: #66704C;
     padding: 0.4rem 0 0.2rem;
   }
 
-  /* Checkout button with price */
-  .bb-checkout-btn {
+  /* Checkout button */
+  .cart__ctas .bb-checkout-btn.button {
     font-size: 1.5rem;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 800;
     letter-spacing: 0.04em;
-    background-color: #D1AE5B;
-    color: #18181A;
+    background-color: #FD7100;
+    color: #3B1C06;
     border: none;
+    border-radius: 14px;
+    min-height: 52px;
+    box-shadow: none;
   }
-  .bb-checkout-btn:not([disabled]):hover {
-    background-color: #c4a04e;
+  .cart__ctas .bb-checkout-btn.button::before,
+  .cart__ctas .bb-checkout-btn.button::after {
+    content: none;
+  }
+  .cart__ctas .bb-checkout-btn.button:not([disabled]):hover {
+    background-color: #FF8420;
+  }
+  .cart__ctas .bb-checkout-btn.button:not([disabled]):active {
+    background-color: #F56A00;
   }
 
   /* Discount code */
@@ -777,30 +807,30 @@
   .bb-discount-input {
     flex: 1;
     padding: 0.8rem 1rem;
-    border: 1px solid rgba(var(--color-foreground), 0.2);
-    border-radius: 0.4rem;
+    border: 1.5px solid #E8D8C3;
+    border-radius: 12px;
     font-size: 1.3rem;
-    font-family: inherit;
-    background: transparent;
-    color: rgb(var(--color-foreground));
+    font-family: "Nunito Sans", sans-serif;
+    background: #FFFDF9;
+    color: #3B1C06;
     outline: none;
     transition: border-color 0.2s ease;
   }
   .bb-discount-input:focus {
-    border-color: rgba(var(--color-foreground), 0.5);
+    border-color: #FD7100;
   }
   .bb-discount-input::placeholder {
-    color: rgba(var(--color-foreground), 0.4);
+    color: rgba(59,28,6,0.35);
   }
   .bb-discount-btn {
     padding: 0.8rem 1.4rem;
-    border: 1px solid rgba(var(--color-foreground), 0.2);
-    border-radius: 0.4rem;
-    background: rgb(var(--color-foreground));
-    color: rgb(var(--color-background));
+    border: 1.5px solid #3B1C06;
+    border-radius: 12px;
+    background: #3B1C06;
+    color: #FFF6EA;
     font-size: 1.3rem;
-    font-family: inherit;
-    font-weight: 600;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s ease;
   }
@@ -810,7 +840,7 @@
     margin-top: 0.4rem;
     min-height: 1.6rem;
   }
-  .bb-discount-msg.success { color: #2e7d32; }
+  .bb-discount-msg.success { color: #66704C; }
   .bb-discount-msg.error { color: #c62828; }
 
   /* Trust badge */
@@ -821,13 +851,15 @@
     gap: 0.5rem;
     padding: 0.8rem 0 0;
     font-size: 1.2rem;
+    font-weight: 700;
     letter-spacing: 0.03em;
-    color: rgba(var(--color-foreground), 0.55);
+    color: #8B9565;
   }
   .bb-trust-icon {
     width: 1.4rem;
     height: 1.4rem;
     flex-shrink: 0;
+    color: #8B9565;
   }
 </style>
 
