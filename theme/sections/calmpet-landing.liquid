@@ -287,22 +287,20 @@
   #calmpet-landing .cp-ribbon{position:absolute;left:0;right:0;top:0;padding:5px 12px;background:var(--cp-orange);color:#fff;text-align:center;font-size:10px;font-weight:900;letter-spacing:.08em}
   #calmpet-landing .cp-option.cp-family .cp-ribbon{background:var(--cp-brown)}
   /* Bonus panel */
-  #calmpet-landing .cp-bonus{margin-top:18px;padding:18px;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:16px}
-  #calmpet-landing .cp-bonus-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;font:700 16px var(--cp-font)}
-  #calmpet-landing .cp-bonus-head small{color:var(--cp-muted);font:800 11px var(--cp-font-ui);letter-spacing:.06em}
-  #calmpet-landing .cp-bonus-grid{display:grid;gap:8px}
-  #calmpet-landing .cp-bonus-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--cp-border);border-radius:12px;background:#faf7f1;transition:background .3s ease}
-  #calmpet-landing .cp-bonus-icon{position:relative;width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--cp-yellow);color:var(--cp-ink);font-size:16px;font-weight:900}
-  #calmpet-landing .cp-bonus-icon>span{transition:opacity .3s ease,filter .3s ease}
+  #calmpet-landing .cp-bonus{position:relative;margin-top:18px;padding:22px 12px 16px;border:1.5px solid var(--cp-ink);border-radius:16px}
+  #calmpet-landing .cp-bonus-label{position:absolute;top:-9px;left:16px;background:var(--cp-cream-soft);padding:0 8px;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--cp-ink)}
+  #calmpet-landing .cp-bonus-row{display:flex;align-items:flex-start;justify-content:center;gap:8px}
+  #calmpet-landing .cp-bonus-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+  #calmpet-landing .cp-bonus-icon{position:relative;width:38px;height:38px;display:grid;place-items:center;margin:0 auto}
+  #calmpet-landing .cp-bonus-icon svg.cp-bonus-svg{width:34px;height:34px;color:var(--cp-ink);transition:opacity .3s ease,filter .3s ease}
   #calmpet-landing .cp-bonus-lock{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;color:var(--cp-muted);opacity:0;transition:opacity .3s ease;pointer-events:none}
-  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-icon>span{opacity:.2;filter:grayscale(1) blur(1px)}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-svg{opacity:.2;filter:grayscale(1) blur(1px)}
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-lock{opacity:1}
-  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-icon{background:var(--cp-border)}
-  #calmpet-landing .cp-bonus-item b{display:block;font-size:13px;transition:opacity .3s ease,filter .3s ease}
-  #calmpet-landing .cp-bonus-item p{margin:1px 0 0;color:var(--cp-muted);font-size:11px;line-height:1.25;transition:opacity .3s ease,filter .3s ease}
-  #calmpet-landing .cp-bonus-item.is-locked b,#calmpet-landing .cp-bonus-item.is-locked p{opacity:.35;filter:blur(1.5px)}
-  #calmpet-landing .cp-bonus-status{font-size:10px;font-weight:900;letter-spacing:.06em;color:var(--cp-olive-dark);transition:color .3s ease,opacity .3s ease,filter .3s ease}
-  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-status{color:var(--cp-muted)}
+  #calmpet-landing .cp-bonus-value{font-size:11px;color:var(--cp-muted);text-decoration:line-through;transition:opacity .3s ease,filter .3s ease}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-value{opacity:.3;filter:blur(2px)}
+  #calmpet-landing .cp-bonus-name{font-size:11px;font-weight:800;color:var(--cp-olive-dark);transition:opacity .3s ease,filter .3s ease,color .3s ease}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-name{color:var(--cp-muted);opacity:.3;filter:blur(2px)}
+  #calmpet-landing .cp-bonus-plus{font-size:14px;font-weight:700;color:var(--cp-muted);margin-top:14px}
   /* PDP guarantee inline */
   #calmpet-landing .cp-pdp-guarantee{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;margin-top:20px;padding:15px 16px;background:#FFF0E3;border:1.5px solid var(--cp-orange);border-radius:15px}
   #calmpet-landing .cp-pdp-guarantee-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink)}
@@ -743,7 +741,28 @@
             </label>
           </div>
 
-          <div class="cp-bonus"><div class="cp-bonus-head"><span>Your Bonuses</span><small>MORE UNLOCK AS YOU UPGRADE</small></div><div class="cp-bonus-grid"><article class="cp-bonus-item" data-bonus="1"><span class="cp-bonus-icon"><span>✓</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>Free Shipping</b><p>Included with every CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item" data-bonus="2"><span class="cp-bonus-icon"><span>$15</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>$15 CalmPet Credit</b><p>Use it toward your next CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item is-locked" data-bonus="3"><span class="cp-bonus-icon"><span>PDF</span><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><b>Trigger Stacking Field Guide</b><p>A practical guide for spotting the stack earlier.</p></div><span class="cp-bonus-status">LOCKED</span></article></div></div>
+          <div class="cp-bonus">
+            <span class="cp-bonus-label">Bonuses Unlocked</span>
+            <div class="cp-bonus-row">
+              <div class="cp-bonus-item" data-bonus="1">
+                <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="13" height="10" rx="1"/><path d="M14 9h3l4 4v3h-7V9z"/><circle cx="5.5" cy="18" r="2"/><circle cx="18.5" cy="18" r="2"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <span class="cp-bonus-value">$9.99</span>
+                <span class="cp-bonus-name">FREE Shipping</span>
+              </div>
+              <span class="cp-bonus-plus">+</span>
+              <div class="cp-bonus-item" data-bonus="2">
+                <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <span class="cp-bonus-value">$15</span>
+                <span class="cp-bonus-name">FREE Credit</span>
+              </div>
+              <span class="cp-bonus-plus">+</span>
+              <div class="cp-bonus-item is-locked" data-bonus="3">
+                <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                <span class="cp-bonus-value">$19</span>
+                <span class="cp-bonus-name">FREE Field Guide</span>
+              </div>
+            </div>
+          </div>
 
           <div class="cp-pdp-guarantee"><div class="cp-pdp-guarantee-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg></div><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Let your dog wear CalmPet for the full 60 days. If it is not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div>
 
@@ -833,9 +852,7 @@
       if (stack) [...stack.children].forEach((img, i) => img.hidden = i >= count);
       if (stackCount) stackCount.textContent = `${count} ${count === 1 ? 'COLLAR' : 'COLLARS'}`;
       bonuses.forEach(item => {
-        const unlocked = Number(item.dataset.bonus) <= level;
-        item.classList.toggle('is-locked', !unlocked);
-        item.querySelector('.cp-bonus-status').textContent = unlocked ? 'UNLOCKED' : 'LOCKED';
+        item.classList.toggle('is-locked', Number(item.dataset.bonus) > level);
       });
     };
     options.forEach(o => {
