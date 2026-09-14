@@ -192,6 +192,11 @@
     if localization.available_countries.size > 1 and section.settings.enable_country_selector or section.settings.enable_language_selector and localization.available_languages.size > 1
       assign localization_forms = true
     endif
+
+    assign hide_landing_header_actions = false
+    if request.page_type == 'index' or request.page_type == 'page' and page.template_suffix == 'lp-longform'
+      assign hide_landing_header_actions = true
+    endif
   -%}
   <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
@@ -315,7 +320,7 @@
       </div>
       {% comment %}Search is intentionally omitted from the focused landing page{% endcomment %}
 
-      {%- if shop.customer_accounts_enabled -%}
+      {%- if shop.customer_accounts_enabled and hide_landing_header_actions == false -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
           class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
@@ -351,6 +356,7 @@
         {%- endcase -%}
       {%- endfor -%}
 
+      {%- unless hide_landing_header_actions -%}
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
         {% if cart == empty %}
           <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
@@ -367,6 +373,7 @@
           </div>
         {%- endif -%}
       </a>
+      {%- endunless -%}
     </div>
   </header>
 </{{ header_tag }}>
