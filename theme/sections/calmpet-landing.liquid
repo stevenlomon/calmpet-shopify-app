@@ -169,9 +169,9 @@
 
   /* ═══ PRODUCT REVEAL ═══ */
   #calmpet-landing .cp-product{background:var(--cp-brown);color:#fff}
-  #calmpet-landing .cp-product-stage{position:relative;background:var(--cp-cream);border-radius:var(--cp-radius-large);min-height:560px;display:grid;place-items:center;overflow:hidden;border:1.5px solid var(--cp-ink)}
+  #calmpet-landing .cp-product-stage{position:relative;background:var(--cp-cream);border-radius:var(--cp-radius-large);aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden;border:1.5px solid var(--cp-ink);align-self:start}
   #calmpet-landing .cp-product-stage:before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;background:var(--cp-yellow);opacity:.55}
-  #calmpet-landing .cp-product-stage>img{width:88%;position:relative;filter:drop-shadow(0 20px 16px rgba(72,34,6,.18))}
+  #calmpet-landing .cp-product-stage>img{width:82%;height:auto;position:relative;z-index:1;filter:drop-shadow(0 20px 16px rgba(72,34,6,.18))}
   #calmpet-landing .cp-product-stage .cp-product-logo{position:absolute;left:24px;top:20px;width:120px;z-index:2}
   #calmpet-landing .cp-round-badge{position:absolute;right:24px;top:24px;width:96px;height:96px;border-radius:50%;background:var(--cp-orange);color:#fff;border:2px solid var(--cp-brown);display:grid;place-items:center;text-align:center;font:700 14px/1.15 var(--cp-font);transform:rotate(7deg);box-shadow:var(--cp-shadow-playful)}
   #calmpet-landing .cp-product-copy h2{font-size:clamp(40px,4vw,54px);line-height:1.04;margin-bottom:26px;color:#fff}
@@ -182,8 +182,8 @@
   #calmpet-landing .cp-signal small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;margin-bottom:3px}
   #calmpet-landing .cp-signal strong{display:block;font-family:var(--cp-font);font-size:clamp(19px,2vw,25px);line-height:1.15}
   #calmpet-landing .cp-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 26px}
-  #calmpet-landing .cp-feature{position:relative;padding:12px 14px 12px 39px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:14px;font-weight:800}
-  #calmpet-landing .cp-feature:before{content:"✓";position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);color:var(--cp-ink);font-size:11px;font-weight:900}
+  #calmpet-landing .cp-feature{position:relative;padding:12px 14px 12px 42px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:14px;font-weight:800}
+  #calmpet-landing .cp-feature:before{content:"✓";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);color:var(--cp-ink);font-size:12px;font-weight:900;line-height:1}
   #calmpet-landing .cp-product .cp-subnote{color:#e8cdb7;font-size:12px}
 
   /* ═══ HOW TO USE ═══ */
@@ -411,7 +411,7 @@
     #calmpet-landing .cp-mechanism-evidence{grid-template-columns:1fr;text-align:center}
     #calmpet-landing .cp-failed-visual{aspect-ratio:4/3}
     #calmpet-landing .cp-failed-visual figcaption{left:12px;right:12px;bottom:12px;font-size:12px}
-    #calmpet-landing .cp-product-stage{min-height:390px}
+    #calmpet-landing .cp-product-stage{aspect-ratio:1/1}
     #calmpet-landing .cp-features{grid-template-columns:1fr 1fr;gap:8px}
     #calmpet-landing .cp-feature{padding:11px 9px 11px 34px;font-size:12px}
     #calmpet-landing .cp-feature:before{left:10px}
@@ -602,7 +602,8 @@
   <section class="cp-product">
     <div class="cp-wrap cp-split">
       <div class="cp-product-stage">
-        {% if product_image != blank %}{{ product_image | image_url: width: 1000 | image_tag: alt: 'Orange adjustable CalmPet Collar', loading: 'lazy' }}{% else %}<div class="cp-media-placeholder">UPLOAD A CALMPET PRODUCT IMAGE</div>{% endif %}
+        {% if nav_logo != blank %}<img class="cp-product-logo" src="{{ nav_logo | image_url: width: 240 }}" alt="CalmPet" loading="lazy">{% else %}<img class="cp-product-logo" src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-logo.png?v=1789414775" alt="CalmPet" loading="lazy">{% endif %}
+        <img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-collar.png?v=1789414775" alt="Orange adjustable CalmPet Collar" loading="lazy">
         <div class="cp-round-badge">UP TO<br>60 DAYS</div>
       </div>
       <div class="cp-product-copy">
