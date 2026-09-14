@@ -1,3 +1,8 @@
+{%- comment -%} ═══════════════════════════════════════════════════════════
+  CALMPET LANDING PAGE — single-section, code-first
+  Source: mockup.html + CalmPet Brand & UI Guidelines v1.0
+═══════════════════════════════════════════════════════════ {%- endcomment -%}
+
 {%- assign product_handle = section.settings.product | default: settings.lp_product -%}
 {%- assign product = all_products[product_handle] -%}
 {%- assign variant_one = product.variants.first -%}
@@ -6,144 +11,891 @@
 {%- assign hero_image = section.settings.hero_image | default: product.images[2] | default: product.featured_image -%}
 {%- assign lifestyle_image = section.settings.lifestyle_image | default: product.images[1] | default: product.featured_image -%}
 {%- assign product_image = section.settings.product_image | default: product.featured_image -%}
-{%- assign proof_titles = 'Calmer when home alone|An easier walk around the block|Settling sooner after a trigger' | split: '|' -%}
-{%- assign story_titles = 'The first quiet hour at home|A walk that finally felt manageable|Settling sooner after the noise stopped' | split: '|' -%}
-{%- assign proof_wall_titles = 'Home-alone experience|Walking and reactivity experience|Noise and visitors experience|Settling and sleep experience|Indoor stress behavior experience|Rescue dog confidence experience' | split: '|' -%}
 
 <style>
-  #calmpet-landing { --cp-orange:#fd7100;--cp-orange-light:#ff8a2e;--cp-brown:#482206;--cp-ink:#3b1c06;--cp-cream:#fff8ef;--cp-sand:#f3e4d1;--cp-paper:#fffdf9;--cp-olive:#7d885b;--cp-yellow:#ffd56a;--cp-line:#e5d4c1;--cp-muted:#765943;--cp-shadow:0 18px 50px rgba(72,34,6,.11);background:var(--cp-cream);color:var(--cp-ink);font-family:"Nunito Sans",system-ui,sans-serif;font-size:17px;line-height:1.58;overflow:hidden}
-  #calmpet-landing *{box-sizing:border-box} #calmpet-landing img{display:block;max-width:100%} #calmpet-landing a,#calmpet-landing button{font:inherit} #calmpet-landing .cp-wrap{width:min(1180px,calc(100% - 44px));margin:auto} #calmpet-landing .cp-narrow{width:min(800px,calc(100% - 44px));margin:auto} #calmpet-landing section{padding:100px 0} #calmpet-landing h1,#calmpet-landing h2,#calmpet-landing h3{font-family:"Fredoka","Arial Rounded MT Bold","Trebuchet MS",sans-serif;letter-spacing:-.035em;line-height:1.03;margin:0} #calmpet-landing h1{font-size:clamp(2.8rem,5.9vw,5.25rem)} #calmpet-landing h2{font-size:clamp(2.25rem,4.4vw,4rem)} #calmpet-landing h3{font-size:1.35rem} #calmpet-landing p{margin:0 0 1rem} #calmpet-landing .cp-eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase} #calmpet-landing .cp-highlight{background:linear-gradient(transparent 66%,var(--cp-yellow) 0)}
-  #calmpet-landing .cp-social-proof{display:flex;align-items:center;gap:13px;margin-bottom:20px;font-size:.86rem;font-weight:800} #calmpet-landing .cp-stars{color:var(--cp-orange);letter-spacing:1.5px} #calmpet-landing .cp-divider{width:1px;height:20px;background:var(--cp-line)}
-  #calmpet-landing .cp-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,var(--cp-orange-light),var(--cp-orange));color:#fff;border:0;border-radius:14px;padding:17px 27px;text-decoration:none;font-weight:900;box-shadow:0 5px 0 #bd5100,0 12px 24px rgba(253,113,0,.18);cursor:pointer;transition:.2s} #calmpet-landing .cp-btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 #bd5100,0 16px 28px rgba(253,113,0,.22)}
-  #calmpet-landing .cp-hero{padding:36px 0 76px} #calmpet-landing .cp-hero-grid,#calmpet-landing .cp-split{display:grid;grid-template-columns:1.04fr .96fr;gap:58px;align-items:center} #calmpet-landing .cp-hero h1 em{font-style:normal;color:var(--cp-orange)} #calmpet-landing .cp-dek{font-size:clamp(1.05rem,1.6vw,1.25rem);max-width:640px;margin:24px 0} #calmpet-landing .cp-checks{display:grid;gap:9px;list-style:none;padding:0;margin:0 0 28px} #calmpet-landing .cp-checks li{display:flex;gap:10px;align-items:center;font-weight:700} #calmpet-landing .cp-check{width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);font-size:.8rem;flex:0 0 auto} #calmpet-landing .cp-subnote{font-size:.77rem;font-weight:700;color:var(--cp-muted);margin-top:12px}
-  #calmpet-landing .cp-hero-photo{position:relative} #calmpet-landing .cp-hero-photo img,#calmpet-landing .cp-media-placeholder{width:100%;height:640px;object-fit:cover;border:2px solid var(--cp-brown);border-radius:36px 36px 110px 36px;box-shadow:11px 12px 0 var(--cp-brown)} #calmpet-landing .cp-media-placeholder{display:grid;place-items:center;background:var(--cp-sand);color:var(--cp-muted);font-size:.8rem;font-weight:900;letter-spacing:.1em;text-align:center;padding:20px} #calmpet-landing .cp-photo-note{position:absolute;left:-22px;bottom:28px;background:var(--cp-paper);border:1.5px solid var(--cp-brown);border-radius:15px;padding:13px 17px;font-size:.78rem;font-weight:900;box-shadow:5px 6px 0 var(--cp-orange)} #calmpet-landing .cp-paw{position:absolute;right:-16px;top:36px;width:60px;height:60px;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);display:grid;place-items:center;transform:rotate(9deg)} #calmpet-landing .cp-paw svg{width:31px;height:31px;fill:none;stroke:var(--cp-ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-  #calmpet-landing .cp-marquee{background:var(--cp-paper);border-block:1px solid var(--cp-line);overflow:hidden;padding:15px 0} #calmpet-landing .cp-marquee-track{display:flex;width:max-content;animation:cp-roll 28s linear infinite} #calmpet-landing .cp-marquee-set{display:flex;align-items:center} #calmpet-landing .cp-marquee-item{white-space:nowrap;font-size:.84rem;font-weight:800;margin-right:48px} #calmpet-landing .cp-marquee-item i{font-style:normal;display:inline-grid;place-items:center;width:29px;height:29px;margin-right:9px;border-radius:50%;background:var(--cp-yellow)} @keyframes cp-roll{to{transform:translateX(-50%)}}
-  #calmpet-landing .cp-proof{background:var(--cp-paper)} #calmpet-landing .cp-proof-intro{max-width:760px;margin-bottom:32px} #calmpet-landing .cp-proof-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px} #calmpet-landing .cp-proof-card{border:1px solid var(--cp-line);border-radius:18px;overflow:hidden;background:#fff} #calmpet-landing .cp-proof-photo{height:180px;background:var(--cp-sand);display:grid;place-items:center;text-align:center;color:var(--cp-muted);font-size:.72rem;font-weight:900;letter-spacing:.08em} #calmpet-landing .cp-proof-body{padding:20px} #calmpet-landing .cp-proof-body h3{margin:10px 0 7px} #calmpet-landing .cp-proof-body p,#calmpet-landing .cp-proof-body small{color:var(--cp-muted);font-size:.86rem}
-  #calmpet-landing .cp-problem h2,#calmpet-landing .cp-failed h2{margin-bottom:22px} #calmpet-landing .cp-scene-stack{display:grid;gap:12px;margin-top:28px} #calmpet-landing .cp-scene-row{display:flex;gap:14px;align-items:flex-start;background:var(--cp-paper);border:1px solid var(--cp-line);border-radius:14px;padding:14px 16px} #calmpet-landing .cp-scene-row i{font-style:normal;font-size:1.35rem} #calmpet-landing .cp-scene-row b{display:block} #calmpet-landing .cp-scene-row span{color:var(--cp-muted);font-size:.9rem} #calmpet-landing .cp-story-pull{margin-top:22px;font-weight:900}
-  #calmpet-landing .cp-stat{background:var(--cp-brown);color:#fff;border-radius:30px;padding:46px;box-shadow:10px 11px 0 var(--cp-orange);position:relative;overflow:hidden} #calmpet-landing .cp-stat:after{content:"";position:absolute;width:240px;height:240px;border:50px solid rgba(255,255,255,.08);border-radius:50%;right:-110px;top:-100px} #calmpet-landing .cp-stat-number{font:700 clamp(4rem,10vw,7rem)/.85 "Fredoka","Arial Rounded MT Bold",sans-serif;color:var(--cp-yellow);position:relative;z-index:1} #calmpet-landing .cp-stat-number small{display:block;font:700 .95rem "Nunito Sans",sans-serif;letter-spacing:.1em} #calmpet-landing .cp-stat p{position:relative;z-index:1} #calmpet-landing .cp-stat-detail,#calmpet-landing .cp-stat-source{font-size:.78rem;color:#f6e6d9} #calmpet-landing .cp-stat-source{color:#d9baa2;margin-top:20px}
-  #calmpet-landing .cp-mechanism{background:var(--cp-sand)} #calmpet-landing .cp-mechanism p{max-width:590px} #calmpet-landing .cp-mechanism-name,#calmpet-landing .cp-mechanism-close{font-size:1.08rem;font-weight:700} #calmpet-landing .cp-bucket{background:var(--cp-paper);border:2px solid var(--cp-brown);border-radius:28px;padding:34px;box-shadow:10px 11px 0 var(--cp-brown)} #calmpet-landing .cp-bucket-stage{margin-bottom:22px} #calmpet-landing .cp-bucket-label{display:flex;justify-content:space-between;font-size:.82rem;font-weight:900;margin-bottom:7px} #calmpet-landing .cp-bank{height:64px;border:2px solid var(--cp-brown);background:#fff;border-radius:12px;overflow:hidden;position:relative} #calmpet-landing .cp-water{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(90deg,var(--cp-orange),#ffa347);border-top:2px solid var(--cp-brown)} #calmpet-landing .cp-water-1{height:24%} #calmpet-landing .cp-water-2{height:55%} #calmpet-landing .cp-water-3{height:84%} #calmpet-landing .cp-bucket-note{font-size:.87rem;color:var(--cp-muted)} #calmpet-landing .cp-bucket-image{margin:0;padding:0;overflow:hidden} #calmpet-landing .cp-bucket-image img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:25px}
-  #calmpet-landing .cp-failed{background:var(--cp-paper)} #calmpet-landing .cp-attempt-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 22px} #calmpet-landing .cp-attempt-list li{display:inline-flex;align-items:center;gap:8px;background:var(--cp-cream);border:1px solid var(--cp-line);border-radius:999px;padding:7px 12px 7px 8px;font-size:.82rem;font-weight:800} #calmpet-landing .cp-attempt-icon{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);flex:0 0 auto} #calmpet-landing .cp-failed-punch{font-weight:900} #calmpet-landing .cp-failed-close{font-size:1.05rem;font-weight:700;margin-top:22px} #calmpet-landing .cp-failed-visual{min-height:420px;border:2px dashed var(--cp-olive);border-radius:24px;background:var(--cp-sand);display:grid;place-items:center;text-align:center;padding:0;color:var(--cp-muted);font-weight:800;overflow:hidden} #calmpet-landing .cp-failed-visual img{width:100%;height:100%;object-fit:cover}
-  #calmpet-landing .cp-product{background:var(--cp-brown);color:#fff} #calmpet-landing .cp-product-stage{position:relative;background:var(--cp-cream);border-radius:28px;min-height:560px;display:grid;place-items:center;overflow:hidden} #calmpet-landing .cp-product-stage:before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;background:var(--cp-yellow);opacity:.55} #calmpet-landing .cp-product-stage img{width:90%;position:relative;filter:drop-shadow(0 20px 16px rgba(72,34,6,.18))} #calmpet-landing .cp-round-badge{position:absolute;right:22px;top:22px;width:104px;height:104px;border-radius:50%;background:var(--cp-orange);color:#fff;border:2px solid var(--cp-brown);display:grid;place-items:center;text-align:center;font:700 .87rem/1.15 "Fredoka",sans-serif;transform:rotate(7deg)} #calmpet-landing .cp-product-copy p{color:#f1dcca} #calmpet-landing .cp-product-highlight{color:var(--cp-yellow)} #calmpet-landing .cp-signal{background:var(--cp-yellow);color:var(--cp-brown);border-radius:14px;padding:16px;margin:20px 0} #calmpet-landing .cp-signal small{display:block;font-size:.7rem;font-weight:900;letter-spacing:.1em} #calmpet-landing .cp-signal strong{font-family:"Fredoka",sans-serif;font-size:1.25rem} #calmpet-landing .cp-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:24px 0} #calmpet-landing .cp-feature{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 14px;font-size:.87rem;font-weight:800}
-  #calmpet-landing .cp-how{background:var(--cp-cream)} #calmpet-landing .cp-section-head{text-align:center;max-width:780px;margin:0 auto 48px} #calmpet-landing .cp-section-head p{font-size:1.08rem;color:var(--cp-muted);margin-top:16px} #calmpet-landing .cp-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px} #calmpet-landing .cp-step{background:var(--cp-paper);border:1.5px solid var(--cp-brown);border-radius:21px;overflow:hidden} #calmpet-landing .cp-step-visual{height:190px;background:var(--cp-sand);display:grid;place-items:center;text-align:center;color:var(--cp-muted);font-size:.72rem;font-weight:900;letter-spacing:.08em} #calmpet-landing .cp-step-body{padding:22px} #calmpet-landing .cp-step-num{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:var(--cp-orange)} #calmpet-landing .cp-step h3{font-size:1.35rem;margin:7px 0} #calmpet-landing .cp-step p{font-size:.89rem;color:var(--cp-muted);margin:0}
-  #calmpet-landing .cp-stories{background:var(--cp-paper)} #calmpet-landing .cp-story-track{display:flex;overflow:auto;scroll-snap-type:x mandatory;gap:18px;padding:4px 2px 16px;scrollbar-width:none} #calmpet-landing .cp-story-slide{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:.75fr 1.25fr;gap:34px;align-items:center;background:#fff;border:1px solid var(--cp-line);border-radius:25px;box-shadow:var(--cp-shadow);padding:30px} #calmpet-landing .cp-story-photo{min-height:300px;border:2px dashed var(--cp-olive);border-radius:18px;background:var(--cp-sand);display:grid;place-items:center;text-align:center;padding:30px;color:var(--cp-muted);font-weight:800} #calmpet-landing .cp-story-review h3{font-size:1.7rem;margin:14px 0} #calmpet-landing .cp-story-review p,#calmpet-landing .cp-story-review small{color:var(--cp-muted)}
-  #calmpet-landing .cp-cta-band{background:var(--cp-orange);color:#fff;padding:32px 0} #calmpet-landing .cp-cta-band .cp-wrap{display:flex;align-items:center;justify-content:space-between;gap:28px} #calmpet-landing .cp-cta-band h3{font-size:clamp(1.5rem,3vw,2.3rem)} #calmpet-landing .cp-cta-band .cp-btn{background:#fff;color:var(--cp-brown);box-shadow:0 5px 0 var(--cp-brown)}
-  #calmpet-landing .cp-authority{background:var(--cp-paper)} #calmpet-landing .cp-authority-card{max-width:900px;margin:auto;text-align:center;border:1px solid var(--cp-line);border-radius:26px;padding:54px 64px;background:#fff;box-shadow:var(--cp-shadow)} #calmpet-landing .cp-authority-card blockquote{font-size:clamp(1.35rem,2.5vw,2rem);font-style:italic;line-height:1.45;margin:26px auto} #calmpet-landing .cp-authority-card .cp-caption{font-size:.8rem;color:var(--cp-muted);max-width:680px;margin:auto}
-  #calmpet-landing .cp-compare{background:var(--cp-cream)} #calmpet-landing .cp-compare-grid{display:grid;grid-template-columns:1fr 1.35fr 1fr;border:1.5px solid var(--cp-brown);border-radius:24px;overflow:hidden;background:#fff} #calmpet-landing .cp-compare-side,#calmpet-landing .cp-compare-criteria{display:grid;grid-template-rows:180px repeat(4,1fr)} #calmpet-landing .cp-compare-side>*,#calmpet-landing .cp-compare-criteria>*{border-bottom:1px solid var(--cp-line);padding:16px;display:grid;place-items:center;text-align:center;font-weight:800} #calmpet-landing .cp-compare-side>*:last-child,#calmpet-landing .cp-compare-criteria>*:last-child{border-bottom:0} #calmpet-landing .cp-compare-head{background:var(--cp-sand);font-size:.8rem;letter-spacing:.06em} #calmpet-landing .cp-compare-check{font-size:1.5rem;color:var(--cp-olive)} #calmpet-landing .cp-compare-cross{font-size:1.5rem;color:var(--cp-orange)}
-  #calmpet-landing .cp-offer{background:var(--cp-brown);color:#fff} #calmpet-landing .cp-offer-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:start} #calmpet-landing .cp-offer-gallery{background:var(--cp-cream);border-radius:26px;min-height:550px;display:grid;place-items:center;position:sticky;top:28px;overflow:hidden} #calmpet-landing .cp-offer-gallery>img{width:88%;filter:drop-shadow(0 20px 15px rgba(72,34,6,.18))} #calmpet-landing .cp-collar-stack{position:absolute;inset:0} #calmpet-landing .cp-collar-stack img{position:absolute;left:50%;top:50%;width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 11px 8px rgba(72,34,6,.18));transform:translate(-50%,-50%) rotate(-8deg)} #calmpet-landing .cp-collar-stack img:nth-child(2){transform:translate(-31%,-54%) rotate(8deg)} #calmpet-landing .cp-collar-stack img:nth-child(3){transform:translate(-66%,-36%) rotate(-14deg)} #calmpet-landing .cp-collar-stack img:nth-child(4){transform:translate(-38%,-31%) rotate(13deg)} #calmpet-landing .cp-collar-stack img:nth-child(5){transform:translate(-52%,-44%) rotate(0)} #calmpet-landing .cp-collar-stack img:nth-child(6){transform:translate(-75%,-51%) rotate(-18deg)} #calmpet-landing .cp-collar-stack img:nth-child(7){transform:translate(-27%,-40%) rotate(18deg)} #calmpet-landing .cp-collar-stack img:nth-child(8){transform:translate(-52%,-27%) rotate(2deg)} #calmpet-landing .cp-gallery-badge{position:absolute;right:16px;top:16px;background:var(--cp-orange);color:#fff;border-radius:999px;padding:8px 12px;font-size:.68rem;font-weight:900} #calmpet-landing .cp-stack-count{position:absolute;left:16px;bottom:16px;background:var(--cp-brown);color:#fff;border:1.5px solid var(--cp-brown);border-radius:999px;padding:8px 12px;font-size:.72rem;font-weight:900} #calmpet-landing .cp-offer-kicker{font-size:.76rem;letter-spacing:.12em;font-weight:900;color:var(--cp-yellow)} #calmpet-landing .cp-offer-dek{color:#f1dcca;margin-top:14px} #calmpet-landing .cp-offer-usps{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0} #calmpet-landing .cp-offer-usps span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 11px;font-size:.73rem;font-weight:800}
-  #calmpet-landing .cp-options{display:grid;gap:12px;margin-top:24px} #calmpet-landing .cp-option{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--cp-cream);color:var(--cp-brown);border:2px solid transparent;border-radius:17px;padding:18px;cursor:pointer;position:relative} #calmpet-landing .cp-option.is-selected{border-color:var(--cp-orange);box-shadow:5px 6px 0 var(--cp-orange)} #calmpet-landing .cp-option input{accent-color:var(--cp-orange);width:18px;height:18px} #calmpet-landing .cp-option h3{font-size:1.12rem} #calmpet-landing .cp-option p{font-size:.78rem;color:var(--cp-muted);margin:3px 0 0} #calmpet-landing .cp-option-price{text-align:right;font:700 1.5rem "Fredoka",sans-serif} #calmpet-landing .cp-option-price small{display:block;font:500 .68rem "Nunito Sans",sans-serif;color:var(--cp-muted)} #calmpet-landing .cp-ribbon{position:absolute;right:14px;top:-11px;background:var(--cp-orange);color:#fff;border-radius:999px;padding:4px 9px;font-size:.62rem;font-weight:900}
-  #calmpet-landing .cp-bonus{border:1px solid rgba(255,255,255,.35);border-radius:18px;margin-top:18px;padding:18px} #calmpet-landing .cp-bonus-head{display:flex;justify-content:space-between;font-weight:900;margin-bottom:12px} #calmpet-landing .cp-bonus-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(255,255,255,.2)} #calmpet-landing .cp-bonus-icon{width:34px;height:34px;border-radius:50%;background:var(--cp-yellow);color:var(--cp-brown);display:grid;place-items:center;font-size:.72rem;font-weight:900;flex:0 0 auto} #calmpet-landing .cp-bonus-item p{font-size:.76rem;color:#f1dcca;margin:0} #calmpet-landing .cp-bonus-status{margin-left:auto;font-size:.65rem;font-weight:900;color:var(--cp-yellow)} #calmpet-landing .cp-bonus-item.is-locked{opacity:.4} #calmpet-landing .cp-promise{display:flex;gap:14px;padding:18px 0;align-items:flex-start} #calmpet-landing .cp-promise-icon{width:45px;height:45px;border-radius:50%;background:var(--cp-yellow);color:var(--cp-brown);display:grid;place-items:center;font-weight:900;flex:0 0 auto} #calmpet-landing .cp-promise h3{font-size:1.05rem} #calmpet-landing .cp-promise p{color:#f1dcca;font-size:.82rem;margin:5px 0 0} #calmpet-landing .cp-checkout{width:100%;font-size:1.02rem} #calmpet-landing .cp-checkout-note{text-align:center;font-size:.68rem;color:#d9baa2;margin-top:13px} #calmpet-landing .cp-reassure{display:flex;justify-content:center;flex-wrap:wrap;gap:16px;font-size:.72rem;font-weight:800;color:#f2dfce;margin-top:18px}
-  #calmpet-landing .cp-proof-wall{background:var(--cp-paper)} #calmpet-landing .cp-proof-wall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px} #calmpet-landing .cp-proof-wall-grid article{background:#fff;border:1.5px dashed var(--cp-olive);border-radius:18px;padding:24px} #calmpet-landing .cp-proof-wall-grid h3{margin:12px 0 8px} #calmpet-landing .cp-proof-wall-grid p{font-size:.87rem;color:var(--cp-muted)}
-  #calmpet-landing .cp-guarantee{background:var(--cp-yellow);padding:76px 0} #calmpet-landing .cp-guarantee-box{max-width:900px;margin:auto;background:#fff;border:2px solid var(--cp-brown);border-radius:25px;box-shadow:9px 10px 0 var(--cp-brown);padding:38px;display:grid;grid-template-columns:110px 1fr;gap:28px;align-items:center} #calmpet-landing .cp-promise-seal{width:104px;height:104px;background:var(--cp-orange);color:#fff;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:900;line-height:1} #calmpet-landing .cp-promise-seal b{font:700 2.8rem "Fredoka",sans-serif;display:block} #calmpet-landing .cp-guarantee h2{font-size:clamp(2rem,4vw,3.35rem);margin:8px 0 13px}
-  #calmpet-landing .cp-faq{background:var(--cp-cream)} #calmpet-landing .cp-faq-list{max-width:850px;margin:auto} #calmpet-landing .cp-faq h2{text-align:center;margin-bottom:38px} #calmpet-landing .cp-faq details{border-bottom:1px solid var(--cp-line);padding:21px 4px} #calmpet-landing .cp-faq summary{font:600 1.15rem "Fredoka","Arial Rounded MT Bold",sans-serif;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px} #calmpet-landing .cp-faq summary:after{content:"+";color:var(--cp-orange);font-size:1.45rem} #calmpet-landing .cp-faq details[open] summary:after{content:"−"} #calmpet-landing .cp-faq details p{font-size:.91rem;color:var(--cp-muted);margin:13px 0 2px}
-  #calmpet-landing .cp-final{background:var(--cp-brown);color:#fff;text-align:center;padding:90px 0} #calmpet-landing .cp-final p{max-width:660px;color:#efd7c2;margin:20px auto 28px} #calmpet-landing .cp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,253,249,.96);backdrop-filter:blur(10px);border-top:1px solid var(--cp-line);padding:10px 0;transform:translateY(120%);transition:.25s} #calmpet-landing .cp-sticky.is-showing{transform:none} #calmpet-landing .cp-sticky-in{display:flex;justify-content:space-between;align-items:center;gap:18px} #calmpet-landing .cp-sticky-copy{font-weight:900;line-height:1.2} #calmpet-landing .cp-sticky-copy small{display:block;font-size:.7rem;color:var(--cp-muted)} #calmpet-landing .cp-sticky .cp-btn{padding:11px 18px;box-shadow:none}
-  @media(max-width:860px){#calmpet-landing{font-size:16px}#calmpet-landing .cp-hero-grid,#calmpet-landing .cp-split,#calmpet-landing .cp-offer-grid{grid-template-columns:1fr}#calmpet-landing .cp-hero-photo img,#calmpet-landing .cp-media-placeholder{height:360px}#calmpet-landing .cp-photo-note{left:14px}#calmpet-landing .cp-proof-row,#calmpet-landing .cp-steps,#calmpet-landing .cp-proof-wall-grid{grid-template-columns:1fr}#calmpet-landing .cp-story-slide{grid-template-columns:1fr}#calmpet-landing .cp-cta-band .cp-wrap{display:block;text-align:center}#calmpet-landing .cp-cta-band .cp-btn{margin-top:20px}#calmpet-landing .cp-offer-gallery{position:relative;top:auto;min-height:420px}#calmpet-landing .cp-guarantee-box{grid-template-columns:1fr;text-align:center}#calmpet-landing .cp-promise-seal{margin:auto}#calmpet-landing .cp-compare-grid{font-size:.82rem}}
-  @media(max-width:540px){#calmpet-landing .cp-wrap,#calmpet-landing .cp-narrow{width:min(100% - 28px,1180px)}#calmpet-landing h1{font-size:2.65rem}#calmpet-landing .cp-hero{padding-top:14px}#calmpet-landing .cp-hero-photo img,#calmpet-landing .cp-media-placeholder{height:300px;border-radius:24px 24px 70px 24px}#calmpet-landing .cp-social-proof{font-size:.73rem;gap:8px}#calmpet-landing .cp-stat{padding:34px 28px}#calmpet-landing .cp-bucket{padding:23px}#calmpet-landing .cp-authority-card{padding:38px 22px}#calmpet-landing .cp-features{grid-template-columns:1fr}#calmpet-landing .cp-option{grid-template-columns:auto 1fr}#calmpet-landing .cp-option-price{grid-column:2;text-align:left}#calmpet-landing .cp-sticky-copy{display:none}#calmpet-landing .cp-sticky .cp-btn{width:100%}}
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900&display=swap');
+
+  /* ═══ BRAND TOKENS (v1.0 guidelines) ═══ */
+  #calmpet-landing{--cp-orange:#FD7100;--cp-orange-hover:#FF8420;--cp-orange-active:#F56A00;--cp-brown:#482206;--cp-ink:#3B1C06;--cp-cream:#FFF6EA;--cp-cream-soft:#F7EAD8;--cp-paper:#FFFDF9;--cp-olive:#8B9565;--cp-olive-dark:#66704C;--cp-yellow:#FFD76A;--cp-border:#E8D8C3;--cp-muted:#765943;--cp-shadow:0 4px 14px rgba(59,28,6,.07);--cp-shadow-playful:0 3px 0 rgba(59,28,6,.14);--cp-font:"Fredoka",sans-serif;--cp-font-ui:"Nunito Sans",sans-serif;--cp-radius-button:14px;--cp-radius-card:18px;--cp-radius-large:22px;--cp-radius-pill:999px}
+
+  /* ═══ BASE ═══ */
+  #calmpet-landing{background:var(--cp-cream);color:var(--cp-ink);font-family:var(--cp-font-ui);font-size:16px;line-height:1.5;overflow-x:hidden}
+  #calmpet-landing *{box-sizing:border-box}
+  #calmpet-landing img{display:block;max-width:100%}
+  #calmpet-landing a,#calmpet-landing button{font:inherit}
+  #calmpet-landing .cp-wrap{width:min(1240px,calc(100% - 48px));margin:auto}
+  #calmpet-landing .cp-narrow{width:min(800px,calc(100% - 48px));margin:auto}
+  #calmpet-landing section{padding:96px 0}
+  #calmpet-landing h1,#calmpet-landing h2,#calmpet-landing h3{font-family:var(--cp-font);letter-spacing:-.035em;line-height:1.05;margin:0}
+  #calmpet-landing h1{font-size:clamp(2.875rem,5.2vw,4rem);line-height:1}
+  #calmpet-landing h2{font-size:clamp(2.375rem,4vw,3rem);line-height:1.05}
+  #calmpet-landing h3{font-size:1.35rem;line-height:1.1}
+  #calmpet-landing p{margin:0 0 1rem}
+  #calmpet-landing .cp-eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+  #calmpet-landing .cp-highlight{background:linear-gradient(transparent 66%,var(--cp-yellow) 0)}
+
+  /* ═══ ICONS ═══ */
+  #calmpet-landing .cp-icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ═══ SHARED COMPONENTS ═══ */
+  #calmpet-landing .cp-social-proof{display:flex;align-items:center;gap:13px;margin-bottom:20px;font-size:.86rem;font-weight:800}
+  #calmpet-landing .cp-stars{color:var(--cp-orange);letter-spacing:1.5px}
+  #calmpet-landing .cp-divider{width:1px;height:20px;background:var(--cp-border)}
+  #calmpet-landing .cp-section-head{text-align:center;max-width:780px;margin:0 auto 48px}
+  #calmpet-landing .cp-section-head p{font-size:1.08rem;color:var(--cp-muted);margin-top:16px}
+  #calmpet-landing .cp-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;background:var(--cp-orange);color:var(--cp-ink);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-button);padding:16px 24px;text-decoration:none;font-weight:900;box-shadow:var(--cp-shadow-playful);cursor:pointer;transition:.2s}
+  #calmpet-landing .cp-btn:hover{background:var(--cp-orange-hover);transform:translateY(-1px)}
+  #calmpet-landing .cp-btn:active{background:var(--cp-orange-active)}
+  #calmpet-landing .cp-subnote{font-size:.77rem;font-weight:700;color:var(--cp-muted);margin-top:12px}
+  #calmpet-landing .cp-media-placeholder{display:grid;place-items:center;background:var(--cp-cream-soft);color:var(--cp-muted);font-size:.8rem;font-weight:900;letter-spacing:.1em;text-align:center;padding:20px}
+
+  /* ═══ HERO ═══ */
+  #calmpet-landing .cp-hero{padding:32px 0 80px}
+  #calmpet-landing .cp-hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:64px;align-items:center}
+  #calmpet-landing .cp-hero h1 em{font-style:normal;color:var(--cp-orange)}
+  #calmpet-landing .cp-dek{font-size:clamp(1.05rem,1.6vw,1.25rem);max-width:640px;margin:24px 0}
+  #calmpet-landing .cp-checks{display:grid;gap:8px;list-style:none;padding:0;margin:0 0 28px}
+  #calmpet-landing .cp-checks li{display:flex;gap:10px;align-items:center;font-weight:700}
+  #calmpet-landing .cp-check{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);font-size:.8rem;flex:0 0 auto}
+  #calmpet-landing .cp-hero-photo{position:relative}
+  #calmpet-landing .cp-hero-photo img{width:100%;height:608px;object-fit:cover;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-photo-note{position:absolute;left:-16px;bottom:24px;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:14px;padding:12px 16px;font-size:.78rem;font-weight:900;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-paw{position:absolute;right:-16px;top:36px;width:60px;height:60px;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);display:grid;place-items:center;transform:rotate(9deg)}
+  #calmpet-landing .cp-paw .cp-icon{width:32px;height:32px}
+
+  /* ═══ MARQUEE ═══ */
+  #calmpet-landing .cp-marquee{background:var(--cp-paper);border-block:1px solid var(--cp-border);overflow:hidden;padding:16px 0}
+  #calmpet-landing .cp-marquee-track{display:flex;width:max-content;animation:cp-roll 28s linear infinite}
+  #calmpet-landing .cp-marquee-set{display:flex;align-items:center}
+  #calmpet-landing .cp-marquee-item{white-space:nowrap;font-size:.84rem;font-weight:800;margin-right:48px}
+  #calmpet-landing .cp-marquee-item i{font-style:normal;display:inline-grid;place-items:center;width:32px;height:32px;margin-right:8px;border-radius:50%;background:var(--cp-yellow);color:var(--cp-ink)}
+  #calmpet-landing .cp-marquee-item .cp-icon{width:18px;height:18px}
+  @keyframes cp-roll{to{transform:translateX(-50%)}}
+
+  /* ═══ EARLY PROOF ═══ */
+  #calmpet-landing .cp-proof{background:var(--cp-paper);padding:80px 0}
+  #calmpet-landing .cp-proof-intro{display:block;text-align:center;max-width:820px;margin:0 auto 34px}
+  #calmpet-landing .cp-proof-intro .cp-social-proof{justify-content:center;margin:0 0 14px}
+  #calmpet-landing .cp-proof-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  #calmpet-landing .cp-proof-card{background:var(--cp-cream);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-card);overflow:hidden;box-shadow:var(--cp-shadow)}
+  #calmpet-landing .cp-proof-photo{height:144px;background:var(--cp-cream-soft);display:grid;place-items:center;text-align:center;color:var(--cp-olive-dark);font-size:.7rem;font-weight:900;letter-spacing:.08em}
+  #calmpet-landing .cp-proof-photo .cp-icon{width:34px;height:34px}
+  #calmpet-landing .cp-proof-body{padding:20px}
+  #calmpet-landing .cp-proof-body h3{font-size:1.25rem;margin:8px 0}
+  #calmpet-landing .cp-proof-body p{font-size:.82rem;color:var(--cp-muted)}
+  #calmpet-landing .cp-proof-body small{font-size:.75rem;font-weight:700;color:var(--cp-muted)}
+
+  /* ═══ PROBLEM ═══ */
+  #calmpet-landing .cp-split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  #calmpet-landing .cp-problem h2{margin-bottom:22px}
+  #calmpet-landing .cp-scene-stack{display:grid;gap:12px;margin-top:28px}
+  #calmpet-landing .cp-scene-row{display:flex;gap:16px;align-items:flex-start;background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:14px;padding:16px}
+  #calmpet-landing .cp-scene-row i{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:var(--cp-yellow);flex:0 0 auto}
+  #calmpet-landing .cp-scene-row .cp-icon{width:24px;height:24px}
+  #calmpet-landing .cp-scene-row b{display:block}
+  #calmpet-landing .cp-scene-row span{color:var(--cp-muted);font-size:.9rem}
+  #calmpet-landing .cp-story-pull{margin-top:22px;padding:18px 20px;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);border-radius:14px;font-weight:900}
+  #calmpet-landing .cp-stat{background:var(--cp-brown);color:#fff;border-radius:var(--cp-radius-large);padding:48px;box-shadow:var(--cp-shadow-playful);border:1.5px solid var(--cp-ink);position:relative;overflow:hidden}
+  #calmpet-landing .cp-stat:before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--cp-orange)}
+  #calmpet-landing .cp-stat-number{font:700 clamp(4rem,7vw,6rem)/.86 var(--cp-font);color:var(--cp-yellow);position:relative;letter-spacing:-.035em}
+  #calmpet-landing .cp-stat-number span{display:block;font-size:.52em;letter-spacing:-.02em;margin-bottom:8px}
+  #calmpet-landing .cp-stat-number small{display:block;font:700 .3em/1 var(--cp-font);letter-spacing:.08em;margin-top:12px}
+  #calmpet-landing .cp-stat-claim{font-size:1.2rem;line-height:1.4;margin:22px 0 0}
+  #calmpet-landing .cp-stat-detail{font-size:.9rem;line-height:1.5;margin:16px 0 0;color:#f6e6d9}
+  #calmpet-landing .cp-stat-source{font-size:.7rem;color:#d9baa2;margin-top:20px}
+
+  /* ═══ MECHANISM ═══ */
+  #calmpet-landing .cp-mechanism{background:var(--cp-cream-soft)}
+  #calmpet-landing .cp-mechanism p{max-width:590px}
+  #calmpet-landing .cp-mechanism-name strong{color:var(--cp-orange)}
+  #calmpet-landing .cp-mechanism-close{font-size:1.05rem;line-height:1.55;margin-top:22px}
+  #calmpet-landing .cp-mechanism-close strong{color:var(--cp-orange)}
+  #calmpet-landing .cp-river-visual{margin:0;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);overflow:hidden;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-river-visual img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  #calmpet-landing .cp-river-stages{display:grid;grid-template-columns:repeat(3,1fr);background:var(--cp-paper)}
+  #calmpet-landing .cp-river-stages div{padding:14px 12px;text-align:center;border-top:1px solid var(--cp-border);font-size:.74rem;font-weight:900}
+  #calmpet-landing .cp-river-stages div+div{border-left:1px solid var(--cp-border)}
+  #calmpet-landing .cp-river-stages b{display:block;color:var(--cp-orange);font-family:var(--cp-font);font-size:.95rem;margin-bottom:2px}
+  #calmpet-landing .cp-mechanism-evidence{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-top:34px;padding:22px 24px;background:var(--cp-brown);color:#fff;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-card);box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-evidence-number{min-width:112px;text-align:center;font:700 2.7rem/1 var(--cp-font);color:var(--cp-yellow)}
+  #calmpet-landing .cp-evidence-number small{display:block;font:800 .68rem var(--cp-font-ui);color:#f1dcca;letter-spacing:.08em;margin-top:6px}
+  #calmpet-landing .cp-mechanism-evidence p{margin:0;font-size:.95rem}
+  #calmpet-landing .cp-mechanism-evidence strong{color:var(--cp-yellow)}
+  /* Fallback bucket when no image uploaded */
+  #calmpet-landing .cp-bucket{background:var(--cp-paper);border:2px solid var(--cp-brown);border-radius:var(--cp-radius-large);padding:34px;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-bucket-stage{margin-bottom:22px}
+  #calmpet-landing .cp-bucket-label{display:flex;justify-content:space-between;font-size:.82rem;font-weight:900;margin-bottom:7px}
+  #calmpet-landing .cp-bank{height:64px;border:2px solid var(--cp-brown);background:#fff;border-radius:12px;overflow:hidden;position:relative}
+  #calmpet-landing .cp-water{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(90deg,var(--cp-orange),#ffa347);border-top:2px solid var(--cp-brown)}
+  #calmpet-landing .cp-water-1{height:24%}
+  #calmpet-landing .cp-water-2{height:55%}
+  #calmpet-landing .cp-water-3{height:84%}
+
+  /* ═══ FAILED TOOLS ═══ */
+  #calmpet-landing .cp-failed{background:var(--cp-paper)}
+  #calmpet-landing .cp-failed h2{margin-bottom:22px}
+  #calmpet-landing .cp-attempt-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0 0 22px}
+  #calmpet-landing .cp-attempt-list li{display:inline-flex;align-items:center;gap:8px;background:var(--cp-cream);border:1px solid var(--cp-border);border-radius:var(--cp-radius-pill);padding:7px 12px 7px 8px;font-size:.82rem;font-weight:800}
+  #calmpet-landing .cp-attempt-icon{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);flex:0 0 auto}
+  #calmpet-landing .cp-attempt-icon .cp-icon{width:16px;height:16px}
+  #calmpet-landing .cp-failed-punch{font-weight:900}
+  #calmpet-landing .cp-failed-close{font-size:1.05rem;font-weight:700;margin-top:22px}
+  #calmpet-landing .cp-failed-visual{position:relative;margin:0;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);overflow:hidden;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-failed-visual img{width:100%;min-height:560px;object-fit:cover}
+  #calmpet-landing .cp-failed-visual figcaption{position:absolute;left:20px;right:20px;bottom:20px;background:rgba(255,253,249,.94);border:1.5px solid var(--cp-ink);border-radius:14px;padding:14px 16px;font-weight:900}
+  #calmpet-landing .cp-failed-placeholder{min-height:420px;border:2px dashed var(--cp-olive);border-radius:var(--cp-radius-large);background:var(--cp-cream-soft);display:grid;place-items:center;text-align:center;color:var(--cp-muted);font-weight:800}
+
+  /* ═══ PRODUCT REVEAL ═══ */
+  #calmpet-landing .cp-product{background:var(--cp-brown);color:#fff}
+  #calmpet-landing .cp-product-stage{position:relative;background:var(--cp-cream);border-radius:var(--cp-radius-large);min-height:560px;display:grid;place-items:center;overflow:hidden;border:1.5px solid var(--cp-ink)}
+  #calmpet-landing .cp-product-stage:before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;background:var(--cp-yellow);opacity:.55}
+  #calmpet-landing .cp-product-stage>img{width:88%;position:relative;filter:drop-shadow(0 20px 16px rgba(72,34,6,.18))}
+  #calmpet-landing .cp-product-stage .cp-product-logo{position:absolute;left:24px;top:20px;width:120px;z-index:2}
+  #calmpet-landing .cp-round-badge{position:absolute;right:24px;top:24px;width:96px;height:96px;border-radius:50%;background:var(--cp-orange);color:#fff;border:2px solid var(--cp-brown);display:grid;place-items:center;text-align:center;font:700 .87rem/1.15 var(--cp-font);transform:rotate(7deg);box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-product-copy h2{font-size:clamp(2.5rem,4vw,3.35rem);line-height:1.04;margin-bottom:26px}
+  #calmpet-landing .cp-product-copy p{color:#f1dcca;font-size:1rem;line-height:1.62;margin-bottom:15px}
+  #calmpet-landing .cp-product-copy p strong{color:#fff}
+  #calmpet-landing .cp-product-highlight{color:var(--cp-yellow)}
+  #calmpet-landing .cp-signal{background:var(--cp-yellow);color:var(--cp-ink);border:1.5px solid var(--cp-ink);border-radius:14px;padding:17px 18px;margin:22px 0 24px;box-shadow:0 3px 0 var(--cp-orange)}
+  #calmpet-landing .cp-signal small{display:block;font-size:.67rem;font-weight:900;letter-spacing:.12em;margin-bottom:3px}
+  #calmpet-landing .cp-signal strong{display:block;font-family:var(--cp-font);font-size:clamp(1.2rem,2vw,1.55rem);line-height:1.15}
+  #calmpet-landing .cp-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 26px}
+  #calmpet-landing .cp-feature{position:relative;padding:12px 14px 12px 39px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:.87rem;font-weight:800}
+  #calmpet-landing .cp-feature:before{content:"✓";position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);color:var(--cp-ink);font-size:.68rem;font-weight:900}
+  #calmpet-landing .cp-product .cp-subnote{color:#e8cdb7;font-size:.76rem}
+
+  /* ═══ HOW TO USE ═══ */
+  #calmpet-landing .cp-how{background:var(--cp-cream)}
+  #calmpet-landing .cp-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  #calmpet-landing .cp-step{display:flex;flex-direction:column;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-card);overflow:hidden;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-step-visual{height:184px;background:var(--cp-cream-soft);display:flex;flex-direction:column;gap:4px;justify-content:center;align-items:center;text-align:center;color:var(--cp-muted);font-size:.67rem;font-weight:900;letter-spacing:.13em;border-bottom:1px solid var(--cp-border)}
+  #calmpet-landing .cp-step-visual:before{content:"";width:56px;height:56px;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);margin-bottom:8px}
+  #calmpet-landing .cp-step-body{flex:1;padding:22px 20px 24px}
+  #calmpet-landing .cp-step-num{font-size:.72rem;font-weight:900;letter-spacing:.12em;color:var(--cp-orange)}
+  #calmpet-landing .cp-step h3{font-size:1.42rem;margin:8px 0}
+  #calmpet-landing .cp-step p{font-size:.88rem;line-height:1.52;color:var(--cp-muted);margin:0}
+
+  /* ═══ STORIES CAROUSEL ═══ */
+  #calmpet-landing .cp-stories{background:var(--cp-cream-soft)}
+  #calmpet-landing .cp-story-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:18px;padding:4px 2px 16px;scrollbar-width:none}
+  #calmpet-landing .cp-story-track::-webkit-scrollbar{display:none}
+  #calmpet-landing .cp-story-slide{flex:0 0 100%;scroll-snap-align:start;display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:center;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);box-shadow:var(--cp-shadow);padding:28px;opacity:.62;transform:scale(.985);transition:opacity .28s ease,transform .28s ease}
+  #calmpet-landing .cp-story-slide.is-active{opacity:1;transform:scale(1)}
+  #calmpet-landing .cp-story-photo{min-height:350px;border:1.5px dashed var(--cp-olive-dark);border-radius:var(--cp-radius-card);background:var(--cp-cream-soft);display:grid;place-items:center;text-align:center;color:var(--cp-olive-dark);font-size:.76rem;font-weight:900;letter-spacing:.08em}
+  #calmpet-landing .cp-story-review h3{font-size:1.75rem;margin:12px 0}
+  #calmpet-landing .cp-story-review p{color:var(--cp-muted)}
+  #calmpet-landing .cp-story-review small{display:block;margin-top:28px;font-weight:800;color:var(--cp-muted)}
+  #calmpet-landing .cp-carousel-controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:20px}
+  #calmpet-landing .cp-carousel-arrow{width:42px;height:42px;display:grid;place-items:center;border:1.5px solid var(--cp-ink);border-radius:50%;background:var(--cp-orange);color:#fff;font-size:1.25rem;cursor:pointer}
+  #calmpet-landing .cp-carousel-dots{display:flex;gap:8px}
+  #calmpet-landing .cp-carousel-dot{width:10px;height:10px;border:0;border-radius:50%;background:var(--cp-border);padding:0;cursor:pointer;transition:transform .28s ease,background .28s ease}
+  #calmpet-landing .cp-carousel-dot.active{background:var(--cp-orange);transform:scale(1.2)}
+
+  /* ═══ CTA BAND ═══ */
+  #calmpet-landing .cp-cta-band{background:var(--cp-orange);color:#fff;padding:32px 0}
+  #calmpet-landing .cp-cta-band .cp-wrap{display:flex;align-items:center;justify-content:space-between;gap:28px}
+  #calmpet-landing .cp-cta-band h3{font-size:clamp(1.5rem,3vw,2.3rem)}
+  #calmpet-landing .cp-cta-band .cp-btn{background:#fff;color:var(--cp-ink);border-color:var(--cp-ink);box-shadow:0 3px 0 var(--cp-ink)}
+
+  /* ═══ AUTHORITY ═══ */
+  #calmpet-landing .cp-authority{background:var(--cp-paper)}
+  #calmpet-landing .cp-authority-card{max-width:900px;margin:auto;text-align:center;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);padding:48px 64px;background:#fff;box-shadow:var(--cp-shadow)}
+  #calmpet-landing .cp-authority-card .cp-eyebrow{display:inline-block;background:var(--cp-yellow);border-radius:var(--cp-radius-pill);padding:5px 10px;font-size:.67rem;margin-bottom:24px}
+  #calmpet-landing .cp-authority-card blockquote{font:600 clamp(1.3rem,2.5vw,1.9rem)/1.45 var(--cp-font);margin:0 auto 26px;max-width:690px}
+  #calmpet-landing .cp-authority-card .cp-caption{font-size:.78rem;color:var(--cp-muted);max-width:620px;margin:auto}
+
+  /* ═══ COMPARISON ═══ */
+  #calmpet-landing .cp-compare{background:var(--cp-cream)}
+  #calmpet-landing .cp-brand-compare{max-width:930px;margin:auto;display:grid;grid-template-columns:.8fr 1.4fr .8fr;border:2px solid var(--cp-brown);border-radius:20px;overflow:hidden;background:var(--cp-paper);box-shadow:var(--cp-shadow)}
+  #calmpet-landing .cp-brand-side,#calmpet-landing .cp-brand-criteria{display:grid;grid-template-rows:150px repeat(4,minmax(70px,auto))}
+  #calmpet-landing .cp-brand-side>div,#calmpet-landing .cp-brand-criteria>div{display:grid;place-items:center;text-align:center;padding:12px;border-bottom:1px solid var(--cp-border)}
+  #calmpet-landing .cp-brand-side>div:last-child,#calmpet-landing .cp-brand-criteria>div:last-child{border-bottom:0}
+  #calmpet-landing .cp-brand-side-header{align-content:center;gap:8px}
+  #calmpet-landing .cp-brand-side-header img{width:110px;height:82px;object-fit:contain}
+  #calmpet-landing .cp-brand-side-header b{font-family:var(--cp-font);font-size:.9rem}
+  #calmpet-landing .cp-brand-criteria{background:var(--cp-brown);color:#fff}
+  #calmpet-landing .cp-brand-criteria>div{border-color:rgba(255,255,255,.24);font-weight:800;font-size:.9rem}
+  #calmpet-landing .cp-criteria-head{font-family:var(--cp-font);font-size:1.15rem}
+  #calmpet-landing .cp-brand-check{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--cp-olive-dark);color:#fff;font-weight:900}
+  #calmpet-landing .cp-brand-cross{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#939393;color:#fff;font-weight:900}
+
+  /* ═══ OFFER / PDP ═══ */
+  #calmpet-landing .cp-offer{background:var(--cp-cream-soft);color:var(--cp-ink)}
+  #calmpet-landing .cp-offer-grid{display:grid;grid-template-columns:.96fr 1.04fr;gap:48px;align-items:start}
+  #calmpet-landing .cp-gallery{position:sticky;top:24px}
+  #calmpet-landing .cp-gallery-main{position:relative;display:grid;place-items:center;aspect-ratio:1/1;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-large);overflow:hidden;box-shadow:var(--cp-shadow);isolation:isolate}
+  #calmpet-landing .cp-gallery-main>img{width:88%;height:88%;object-fit:contain;transition:opacity .18s;position:absolute;inset:0;margin:auto;z-index:1}
+  #calmpet-landing .cp-collar-stack{position:absolute;inset:0;z-index:2;transition:opacity .18s}
+  #calmpet-landing .cp-collar-stack img{position:absolute;left:50%;top:50%;width:58%;height:58%;object-fit:contain;filter:drop-shadow(0 11px 8px rgba(59,28,6,.18));transition:transform .26s ease}
+  #calmpet-landing .cp-collar-stack img:nth-child(1){transform:translate(-50%,-50%) rotate(-8deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(2){transform:translate(-31%,-54%) rotate(8deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(3){transform:translate(-66%,-36%) rotate(-14deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(4){transform:translate(-38%,-31%) rotate(13deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(5){transform:translate(-52%,-44%) rotate(0deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(6){transform:translate(-75%,-51%) rotate(-18deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(7){transform:translate(-27%,-40%) rotate(18deg)}
+  #calmpet-landing .cp-collar-stack img:nth-child(8){transform:translate(-52%,-27%) rotate(2deg)}
+  #calmpet-landing .cp-gallery-badge{position:absolute;right:16px;top:16px;z-index:4;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:8px 11px;font-size:.7rem;font-weight:900}
+  #calmpet-landing .cp-stack-count{position:absolute;left:16px;bottom:16px;z-index:4;background:var(--cp-brown);color:#fff;border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-pill);padding:8px 12px;font-size:.72rem;font-weight:900}
+  #calmpet-landing .cp-gallery-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+  #calmpet-landing .cp-gallery-thumb{height:92px;padding:6px;background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:14px;cursor:pointer}
+  #calmpet-landing .cp-gallery-thumb.active{border:2px solid var(--cp-orange)}
+  #calmpet-landing .cp-gallery-thumb img{width:100%;height:100%;object-fit:cover;border-radius:9px}
+  #calmpet-landing .cp-gallery-thumb:first-child img{object-fit:contain}
+  #calmpet-landing .cp-offer-kicker{display:block;margin:0 0 10px;color:var(--cp-orange);font-size:.74rem;font-weight:900;letter-spacing:.1em}
+  #calmpet-landing .cp-pdp-details h2{max-width:650px;font-size:clamp(2.55rem,4.4vw,3.7rem);line-height:1.03;margin-bottom:12px}
+  #calmpet-landing .cp-pdp-sub{font-size:1.02rem;color:var(--cp-muted)}
+  #calmpet-landing .cp-pdp-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}
+  #calmpet-landing .cp-pdp-benefits span{background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:12px;padding:10px 12px;font-size:.78rem;font-weight:800}
+  #calmpet-landing .cp-options{display:grid;gap:13px;margin-top:22px}
+  #calmpet-landing .cp-option{position:relative;display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;background:var(--cp-paper);border:1.5px solid var(--cp-border);border-radius:16px;padding:16px;cursor:pointer;overflow:hidden}
+  #calmpet-landing .cp-option.is-selected{border:2px solid var(--cp-orange);background:#FFF0E3;box-shadow:var(--cp-shadow-playful)}
+  #calmpet-landing .cp-option.is-featured{padding-top:35px}
+  #calmpet-landing .cp-option input{position:absolute;opacity:0}
+  #calmpet-landing .cp-option-radio{width:20px;height:20px;border:2px solid var(--cp-ink);border-radius:50%;display:grid;place-items:center}
+  #calmpet-landing .cp-option.is-selected .cp-option-radio:after{content:"";width:10px;height:10px;border-radius:50%;background:var(--cp-orange)}
+  #calmpet-landing .cp-option-copy b{display:block;font-family:var(--cp-font);font-size:1.15rem;line-height:1.1}
+  #calmpet-landing .cp-option-copy small{display:block;color:var(--cp-muted);font-size:.73rem;font-weight:700;margin-top:3px}
+  #calmpet-landing .cp-deal-line{display:inline-block;margin-top:6px;background:var(--cp-orange);color:#fff;border-radius:var(--cp-radius-pill);padding:4px 8px;font-size:.67rem;font-weight:900}
+  #calmpet-landing .cp-option-price{text-align:right;font-size:1.35rem;font-weight:900;line-height:1}
+  #calmpet-landing .cp-option-price .regular{color:#8d6f5c;font-size:.73rem;font-weight:800}
+  #calmpet-landing .cp-option-price small{display:block;color:var(--cp-muted);font-size:.68rem;margin-top:5px}
+  #calmpet-landing .cp-option-price .save{color:var(--cp-olive-dark);font-weight:900}
+  #calmpet-landing .cp-ribbon{position:absolute;left:0;right:0;top:0;padding:5px 12px;background:var(--cp-orange);color:#fff;text-align:center;font-size:.65rem;font-weight:900;letter-spacing:.08em}
+  #calmpet-landing .cp-option.cp-family .cp-ribbon{background:var(--cp-brown)}
+  /* Bonus panel */
+  #calmpet-landing .cp-bonus{margin-top:18px;padding:18px;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:16px}
+  #calmpet-landing .cp-bonus-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;font:700 1rem var(--cp-font)}
+  #calmpet-landing .cp-bonus-head small{color:var(--cp-muted);font:800 .66rem var(--cp-font-ui);letter-spacing:.06em}
+  #calmpet-landing .cp-bonus-grid{display:grid;gap:8px}
+  #calmpet-landing .cp-bonus-item{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--cp-border);border-radius:12px;background:#faf7f1;transition:opacity .18s}
+  #calmpet-landing .cp-bonus-item.is-locked{opacity:.48;filter:grayscale(1)}
+  #calmpet-landing .cp-bonus-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;background:var(--cp-yellow);color:var(--cp-ink);font-size:1rem;font-weight:900}
+  #calmpet-landing .cp-bonus-item b{display:block;font-size:.82rem}
+  #calmpet-landing .cp-bonus-item p{margin:1px 0 0;color:var(--cp-muted);font-size:.68rem;line-height:1.25}
+  #calmpet-landing .cp-bonus-status{font-size:.62rem;font-weight:900;letter-spacing:.06em;color:var(--cp-olive-dark)}
+  #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-status{color:var(--cp-muted)}
+  /* PDP guarantee inline */
+  #calmpet-landing .cp-pdp-guarantee{display:grid;grid-template-columns:54px 1fr;gap:14px;align-items:center;margin-top:20px;padding:15px 16px;background:#FFF0E3;border:1.5px solid var(--cp-orange);border-radius:15px}
+  #calmpet-landing .cp-pdp-guarantee-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);border:1.5px solid var(--cp-ink)}
+  #calmpet-landing .cp-pdp-guarantee-icon .cp-icon{width:29px;height:29px}
+  #calmpet-landing .cp-pdp-guarantee h3{font-size:1rem;margin:0 0 4px}
+  #calmpet-landing .cp-pdp-guarantee p{font-size:.82rem;line-height:1.45;color:var(--cp-muted);margin:0}
+  #calmpet-landing .cp-checkout{width:100%;margin-top:18px;font-size:1.02rem}
+  #calmpet-landing .cp-checkout-note{text-align:center;font-size:.75rem;color:var(--cp-muted);margin:9px 0 0}
+  #calmpet-landing .cp-reassure{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 16px;margin-top:14px;font-size:.72rem;font-weight:800}
+  #calmpet-landing .cp-reassure span:before{content:"✓";color:var(--cp-olive-dark);margin-right:4px}
+  /* Offer mini-FAQ */
+  #calmpet-landing .cp-mini-faq{margin-top:22px;border-top:1px solid var(--cp-border)}
+  #calmpet-landing .cp-mini-faq h3{margin:22px 0 4px;font-size:1.25rem}
+  #calmpet-landing .cp-mini-faq details{border-bottom:1px solid var(--cp-border)}
+  #calmpet-landing .cp-mini-faq summary{list-style:none;position:relative;padding:15px 28px 15px 0;cursor:pointer;font-size:.86rem;font-weight:900}
+  #calmpet-landing .cp-mini-faq summary::-webkit-details-marker{display:none}
+  #calmpet-landing .cp-mini-faq summary:after{content:"+";position:absolute;right:2px;top:12px;color:var(--cp-orange);font-size:1.25rem}
+  #calmpet-landing .cp-mini-faq details[open] summary:after{content:"−"}
+  #calmpet-landing .cp-mini-faq p{margin:0 0 15px;color:var(--cp-muted);font-size:.82rem;line-height:1.5}
+
+  /* ═══ PROOF WALL ═══ */
+  #calmpet-landing .cp-proof-wall{background:var(--cp-cream-soft);border-top:1px solid var(--cp-border)}
+  #calmpet-landing .cp-proof-wall-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  #calmpet-landing .cp-proof-wall-grid article{min-height:160px;background:var(--cp-paper);border:1.5px solid var(--cp-ink);border-radius:var(--cp-radius-card);padding:20px;box-shadow:var(--cp-shadow)}
+  #calmpet-landing .cp-proof-wall-grid h3{font-size:1.15rem;margin:12px 0 28px}
+  #calmpet-landing .cp-proof-wall-grid p{font-size:.78rem;color:var(--cp-muted);margin:0}
+
+  /* ═══ GUARANTEE ═══ */
+  #calmpet-landing .cp-guarantee{background:var(--cp-yellow);padding:80px 0}
+  #calmpet-landing .cp-guarantee-box{max-width:900px;margin:auto;background:#fff;border:2px solid var(--cp-brown);border-radius:var(--cp-radius-large);box-shadow:var(--cp-shadow-playful);padding:40px;display:grid;grid-template-columns:126px 1fr;gap:28px;align-items:center}
+  #calmpet-landing .cp-promise-seal{width:116px;height:116px;margin:auto;display:grid;place-items:center;align-content:center;text-align:center;border-radius:50%;background:var(--cp-orange);color:#fff;border:2px solid var(--cp-ink);box-shadow:var(--cp-shadow-playful);transform:rotate(-3deg)}
+  #calmpet-landing .cp-promise-seal .cp-icon{width:28px;height:28px;margin-bottom:1px}
+  #calmpet-landing .cp-promise-seal b{font:700 2rem/1 var(--cp-font);display:block}
+  #calmpet-landing .cp-promise-seal span{font-size:.64rem;font-weight:900;letter-spacing:.07em;line-height:1.05}
+  #calmpet-landing .cp-guarantee h2{font-size:clamp(2rem,4vw,3.35rem);margin:8px 0 13px}
+
+  /* ═══ FAQ ═══ */
+  #calmpet-landing .cp-faq{background:var(--cp-cream)}
+  #calmpet-landing .cp-faq h2{text-align:center;margin-bottom:38px}
+  #calmpet-landing .cp-faq-list{max-width:850px;margin:auto}
+  #calmpet-landing .cp-faq details{border-bottom:1px solid var(--cp-border);padding:24px 4px}
+  #calmpet-landing .cp-faq summary{font:600 1.15rem var(--cp-font);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+  #calmpet-landing .cp-faq summary::-webkit-details-marker{display:none}
+  #calmpet-landing .cp-faq summary:after{content:"+";color:var(--cp-orange);font-size:1.45rem}
+  #calmpet-landing .cp-faq details[open] summary:after{content:"−"}
+  #calmpet-landing .cp-faq details p{font-size:.91rem;color:var(--cp-muted);margin:13px 0 2px}
+
+  /* ═══ FINAL CTA ═══ */
+  #calmpet-landing .cp-final{background:var(--cp-brown);color:#fff;text-align:center;padding:96px 0}
+  #calmpet-landing .cp-final h2{max-width:820px;margin:auto}
+  #calmpet-landing .cp-final p{max-width:660px;color:#efd7c2;margin:20px auto 28px}
+
+  /* ═══ STICKY BAR ═══ */
+  #calmpet-landing .cp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,253,249,.96);backdrop-filter:blur(10px);border-top:1px solid var(--cp-border);padding:10px 0;transform:translateY(120%);transition:.25s}
+  #calmpet-landing .cp-sticky.is-showing{transform:none}
+  #calmpet-landing .cp-sticky-in{display:flex;justify-content:space-between;align-items:center;gap:18px}
+  #calmpet-landing .cp-sticky-copy{font-weight:900;line-height:1.2}
+  #calmpet-landing .cp-sticky-copy small{display:block;font-size:.7rem;color:var(--cp-muted)}
+  #calmpet-landing .cp-sticky .cp-btn{padding:11px 18px;box-shadow:none}
+
+  /* ═══ FOCUS STATES ═══ */
+  #calmpet-landing .cp-btn:focus-visible,#calmpet-landing .cp-carousel-arrow:focus-visible,#calmpet-landing .cp-carousel-dot:focus-visible,#calmpet-landing .cp-gallery-thumb:focus-visible,#calmpet-landing .cp-option:focus-within,#calmpet-landing .cp-faq summary:focus-visible{outline:3px solid var(--cp-yellow);outline-offset:3px}
+
+  /* ═══ RESPONSIVE ═══ */
+  @media(max-width:980px){#calmpet-landing .cp-steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:860px){
+    #calmpet-landing .cp-wrap{width:min(100% - 40px,1240px)}
+    #calmpet-landing section{padding:72px 0}
+    #calmpet-landing h1{font-size:clamp(2.5rem,10vw,2.875rem)}
+    #calmpet-landing h2{font-size:clamp(2rem,8vw,2.375rem)}
+    #calmpet-landing .cp-hero-grid,#calmpet-landing .cp-split,#calmpet-landing .cp-offer-grid{grid-template-columns:1fr}
+    #calmpet-landing .cp-hero-grid{gap:40px}
+    #calmpet-landing .cp-hero-photo img{height:520px}
+    #calmpet-landing .cp-paw{right:8px}
+    #calmpet-landing .cp-proof-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 16px;scrollbar-width:none}
+    #calmpet-landing .cp-proof-row::-webkit-scrollbar{display:none}
+    #calmpet-landing .cp-proof-card{flex:0 0 min(76vw,520px);scroll-snap-align:start}
+    #calmpet-landing .cp-story-slide{grid-template-columns:1fr}
+    #calmpet-landing .cp-story-photo{min-height:0;aspect-ratio:4/3}
+    #calmpet-landing .cp-cta-band .cp-wrap{display:block;text-align:center}
+    #calmpet-landing .cp-cta-band .cp-btn{margin-top:20px}
+    #calmpet-landing .cp-gallery{position:relative;top:auto}
+    #calmpet-landing .cp-brand-compare{grid-template-columns:.72fr 1.35fr .72fr}
+    #calmpet-landing .cp-brand-side-header img{width:82px;height:66px}
+    #calmpet-landing .cp-brand-side-header b{font-size:.72rem}
+    #calmpet-landing .cp-brand-criteria>div{font-size:.78rem;padding:10px 6px}
+    #calmpet-landing .cp-guarantee-box{grid-template-columns:1fr;text-align:center}
+    #calmpet-landing .cp-promise-seal{margin:0 auto}
+    #calmpet-landing .cp-proof-wall-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 14px;scrollbar-width:none}
+    #calmpet-landing .cp-proof-wall-grid::-webkit-scrollbar{display:none}
+    #calmpet-landing .cp-proof-wall-grid article{flex:0 0 min(78vw,340px);scroll-snap-align:start}
+    #calmpet-landing .cp-failed-visual img{min-height:440px}
+    #calmpet-landing .cp-pdp-details h2{font-size:clamp(2.45rem,7vw,3.25rem)}
+  }
+  @media(max-width:540px){
+    #calmpet-landing .cp-wrap,#calmpet-landing .cp-narrow{width:min(100% - 32px,1240px)}
+    #calmpet-landing section{padding:58px 0}
+    #calmpet-landing .cp-hero{padding:16px 0 64px}
+    #calmpet-landing .cp-hero-photo img{height:420px;border-radius:18px}
+    #calmpet-landing .cp-paw{width:48px;height:48px}
+    #calmpet-landing .cp-paw .cp-icon{width:25px;height:25px}
+    #calmpet-landing .cp-photo-note{left:8px;bottom:16px;font-size:.72rem}
+    #calmpet-landing .cp-social-proof{font-size:.73rem;gap:8px}
+    #calmpet-landing .cp-stat{padding:32px 24px}
+    #calmpet-landing .cp-mechanism-evidence{grid-template-columns:1fr;text-align:center}
+    #calmpet-landing .cp-failed-visual img{min-height:380px}
+    #calmpet-landing .cp-failed-visual figcaption{left:12px;right:12px;bottom:12px;font-size:.78rem}
+    #calmpet-landing .cp-product-stage{min-height:390px}
+    #calmpet-landing .cp-features{grid-template-columns:1fr 1fr;gap:8px}
+    #calmpet-landing .cp-feature{padding:11px 9px 11px 34px;font-size:.78rem}
+    #calmpet-landing .cp-feature:before{left:10px}
+    #calmpet-landing .cp-steps{grid-template-columns:1fr;gap:14px}
+    #calmpet-landing .cp-step{display:grid;grid-template-columns:118px 1fr;min-height:170px}
+    #calmpet-landing .cp-step-visual{height:auto;min-height:100%;border-bottom:0;border-right:1px solid var(--cp-border)}
+    #calmpet-landing .cp-step-visual:before{width:44px;height:44px}
+    #calmpet-landing .cp-story-slide{padding:16px;border-radius:18px}
+    #calmpet-landing .cp-story-review h3{font-size:1.45rem}
+    #calmpet-landing .cp-authority-card{border-radius:18px;padding:32px 20px}
+    #calmpet-landing .cp-brand-compare{width:calc(100% + 8px);margin-left:-4px;border-radius:14px}
+    #calmpet-landing .cp-brand-side,.cp-brand-criteria{grid-template-rows:112px repeat(4,minmax(76px,auto))}
+    #calmpet-landing .cp-brand-criteria>div{font-size:.7rem;padding:8px 4px}
+    #calmpet-landing .cp-brand-side-header img{width:68px;height:56px}
+    #calmpet-landing .cp-brand-side-header b{font-size:.63rem}
+    #calmpet-landing .cp-brand-check,#calmpet-landing .cp-brand-cross{width:26px;height:26px}
+    #calmpet-landing .cp-gallery-main{aspect-ratio:1.04/1}
+    #calmpet-landing .cp-gallery-thumbs{gap:7px}
+    #calmpet-landing .cp-gallery-thumb{height:72px}
+    #calmpet-landing .cp-pdp-benefits{grid-template-columns:1fr}
+    #calmpet-landing .cp-option{padding:14px 12px;grid-template-columns:20px 1fr auto}
+    #calmpet-landing .cp-option.is-featured{padding-top:34px}
+    #calmpet-landing .cp-option-copy b{font-size:1rem}
+    #calmpet-landing .cp-option-price{font-size:1.15rem}
+    #calmpet-landing .cp-guarantee{padding:58px 0}
+    #calmpet-landing .cp-guarantee-box{padding:28px 20px;gap:20px}
+    #calmpet-landing .cp-promise-seal{width:106px;height:106px}
+    #calmpet-landing .cp-faq details{padding:21px 2px}
+    #calmpet-landing .cp-faq summary{font-size:1.05rem}
+    #calmpet-landing .cp-faq details p{font-size:1rem;line-height:1.6}
+    #calmpet-landing .cp-sticky-copy{display:none}
+    #calmpet-landing .cp-sticky .cp-btn{width:100%}
+    #calmpet-landing .cp-btn{min-height:54px;width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    #calmpet-landing .cp-marquee-track{animation:none}
+    #calmpet-landing .cp-story-slide,#calmpet-landing .cp-btn,#calmpet-landing .cp-sticky,#calmpet-landing .cp-carousel-dot,#calmpet-landing .cp-collar-stack img{transition:none}
+  }
 </style>
 
 <div id="calmpet-landing">
+  <!-- ═══ SVG ICON SPRITE ═══ -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="cp-paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="5" ry="4"/><circle cx="6.5" cy="10" r="2"/><circle cx="10.5" cy="6.5" r="2"/><circle cx="15" cy="6.5" r="2"/><circle cx="18" cy="10.5" r="2"/></symbol>
+    <symbol id="cp-leaf" viewBox="0 0 24 24"><path d="M20 4C11 4 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16Z"/><path d="M4 21c3-6 7-9 12-12"/></symbol>
+    <symbol id="cp-cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6Z"/></symbol>
+    <symbol id="cp-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="cp-scissors" viewBox="0 0 24 24"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="m8.5 8.5 11 7.5M8.5 15.5 20 8"/></symbol>
+    <symbol id="cp-pill" viewBox="0 0 24 24"><path d="M8 4a5 5 0 0 0-4 8l8 8a5 5 0 0 0 7-7l-8-8a5 5 0 0 0-3-1Z"/><path d="m8 16 8-8M4 4l16 16"/></symbol>
+    <symbol id="cp-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v6c0 5-3 8-8 10-5-2-8-5-8-10V6Z"/><path d="m8 12 2.5 2.5L16 9"/></symbol>
+    <symbol id="cp-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 0 1 12 0c0 7 3 7 3 7H3s3 0 3-7Z"/><path d="M10 21h4"/></symbol>
+    <symbol id="cp-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v11h14V10M9 21v-7h6v7"/></symbol>
+    <symbol id="cp-bolt" viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7Z"/></symbol>
+    <symbol id="cp-treat" viewBox="0 0 24 24"><path d="M7 9a3 3 0 1 1-3-5 3 3 0 0 1 5 3h6a3 3 0 1 1 5 3 3 3 0 1 1-5 3H9a3 3 0 1 1-5 3 3 3 0 0 1 3-5Z"/></symbol>
+    <symbol id="cp-shirt" viewBox="0 0 24 24"><path d="m8 4-5 3 3 5 2-1v10h8V11l2 1 3-5-5-3a4 4 0 0 1-8 0Z"/></symbol>
+    <symbol id="cp-plug" viewBox="0 0 24 24"><path d="M8 3v6M16 3v6M6 9h12v2a6 6 0 0 1-6 6v4M8 21h8"/></symbol>
+    <symbol id="cp-training" viewBox="0 0 24 24"><path d="M4 5h7a3 3 0 0 1 3 3v11a3 3 0 0 0-3-3H4Z"/><path d="M20 5h-3a3 3 0 0 0-3 3v11a3 3 0 0 1 3-3h3Z"/></symbol>
+    <symbol id="cp-truck" viewBox="0 0 24 24"><path d="M3 6h11v11H3Z"/><path d="M14 10h4l3 3v4h-7Z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  </svg>
+
+  <!-- ═══ HERO ═══ -->
   <section class="cp-hero" id="top">
     <div class="cp-wrap cp-hero-grid">
       <div>
         <div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5</span><span class="cp-divider"></span><span>Trusted by 1,267 Dog Parents</span></div>
-        <h1>One Small Trigger Shouldn’t Take Over Your Dog’s Whole Day. <em>Give Them More Room for Calm.</em></h1>
+        <h1>One Small Trigger Shouldn't Take Over Your Dog's Whole Day. <em>Give Them More Room for Calm.</em></h1>
         <p class="cp-dek">The CalmPet Collar provides continuous pheromone support that helps lower the background stress building between triggers, so your dog has more room to settle, recover, and handle everyday life.</p>
         <ul class="cp-checks"><li><span class="cp-check">✓</span>Drug-Free</li><li><span class="cp-check">✓</span>24/7 Support</li><li><span class="cp-check">✓</span>Up to 60 Days</li></ul>
-        <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS <span>→</span></a><p class="cp-subnote">If it’s not right for your dog, you get every cent back.</p>
+        <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS <span>→</span></a>
+        <p class="cp-subnote">If it's not right for your dog, you get every cent back.</p>
       </div>
       <div class="cp-hero-photo">
-        {% if hero_image != blank %}{{ hero_image | image_url: width: 1400 | image_tag: alt: 'Calm dog wearing an orange CalmPet Collar beside its owner at the front door', loading: 'eager', preload: true }}{% else %}<div class="cp-media-placeholder">UPLOAD A CALMPET HERO IMAGE<br>IN THE THEME EDITOR</div>{% endif %}
-        <div class="cp-paw" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8.3 10.2c-1.5-1.7-3.4-4.6-2-5.8 1.2-1 2.8.1 3.7 2.1.2-2.3 1-5.1 2.7-5.1s2.2 2.4 1.8 4.8c1.4-1.7 3.3-3.2 4.4-2s-.3 3.4-2.1 4.9c2.2-.4 4.9 0 4.9 1.7 0 1.7-2.8 2.2-5.1 1.8 1.5 1.9 2.2 4.4.6 5.2-1.4.7-2.8-1.4-3.6-3.4-.9 2.1-2.7 4-4.1 3.1-1.5-.9-.4-3.4 1.1-5-2.3.7-4.9.5-5.2-1.1-.3-1.5 2.1-2.1 4.9-1.2Z"/></svg></div><div class="cp-photo-note">MORE ROOM FOR CALM. MORE LIFE TOGETHER.</div>
+        {% if hero_image != blank %}{{ hero_image | image_url: width: 1400 | image_tag: alt: 'Calm dog wearing an orange CalmPet Collar beside its owner at the front door', loading: 'eager', preload: true }}{% else %}<div class="cp-media-placeholder" style="height:608px;border-radius:var(--cp-radius-large)">UPLOAD A CALMPET HERO IMAGE<br>IN THE THEME EDITOR</div>{% endif %}
+        <div class="cp-paw" aria-hidden="true"><svg class="cp-icon"><use href="#cp-paw"/></svg></div>
+        <div class="cp-photo-note">MORE ROOM FOR CALM. MORE LIFE TOGETHER.</div>
       </div>
     </div>
   </section>
 
-  <div class="cp-marquee"><div class="cp-marquee-track"><div class="cp-marquee-set"><span class="cp-marquee-item"><i>✚</i>Vet Recommended</span><span class="cp-marquee-item"><i>○</i>Non-Sedating</span><span class="cp-marquee-item"><i>✂</i>Cut to Fit</span><span class="cp-marquee-item"><i>✓</i>60-Day Promise</span><span class="cp-marquee-item"><i>↗</i>Free Shipping</span></div><div class="cp-marquee-set" aria-hidden="true"><span class="cp-marquee-item"><i>✚</i>Vet Recommended</span><span class="cp-marquee-item"><i>○</i>Non-Sedating</span><span class="cp-marquee-item"><i>✂</i>Cut to Fit</span><span class="cp-marquee-item"><i>✓</i>60-Day Promise</span><span class="cp-marquee-item"><i>↗</i>Free Shipping</span></div></div></div>
+  <!-- ═══ MARQUEE ═══ -->
+  <div class="cp-marquee" aria-label="CalmPet product highlights"><div class="cp-marquee-track"><div class="cp-marquee-set"><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-cross"/></svg></i>Vet Recommended</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-pill"/></svg></i>Non-Sedating</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-scissors"/></svg></i>Cut to Fit</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-shield"/></svg></i>60-Day Promise</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-truck"/></svg></i>Free Shipping</span></div><div class="cp-marquee-set" aria-hidden="true"><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-cross"/></svg></i>Vet Recommended</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-pill"/></svg></i>Non-Sedating</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-scissors"/></svg></i>Cut to Fit</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-shield"/></svg></i>60-Day Promise</span><span class="cp-marquee-item"><i><svg class="cp-icon"><use href="#cp-truck"/></svg></i>Free Shipping</span></div></div></div>
 
-  <section class="cp-proof"><div class="cp-wrap"><div class="cp-proof-intro"><div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5 from Dog Parents</span></div><h2>The moments that make owners say, “Something finally feels different.”</h2></div><div class="cp-proof-row">{% for title in proof_titles %}<article class="cp-proof-card"><div class="cp-proof-photo">CUSTOMER PHOTO<br>COMING SOON</div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>{{ title }}</h3><p>Verified launch-customer story reserved for this space.</p><small>Dog Parent | Verified Buyer</small></div></article>{% endfor %}</div></div></section>
+  <!-- ═══ EARLY PROOF ═══ -->
+  <section class="cp-proof">
+    <div class="cp-wrap">
+      <div class="cp-proof-intro"><div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5 from Dog Parents</span></div><h2>The moments that make owners say, "Something finally feels different."</h2></div>
+      <div class="cp-proof-row" id="cp-proof-carousel">
+        {%- assign proof_titles = 'Calmer when home alone|An easier walk around the block|Settling sooner after a trigger' | split: '|' -%}
+        {%- assign proof_icons = 'cp-home|cp-paw|cp-bell' | split: '|' -%}
+        {% for title in proof_titles %}<article class="cp-proof-card{% if forloop.first %} is-active{% endif %}"><div class="cp-proof-photo"><svg class="cp-icon"><use href="#{{ proof_icons[forloop.index0] }}"/></svg><span>CUSTOMER PHOTO</span></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>{{ title }}</h3><p>Verified launch-customer story reserved for this space.</p><small>Dog Parent | Verified Buyer</small></div></article>{% endfor %}
+      </div>
+    </div>
+  </section>
 
-  <section class="cp-problem" id="problem"><div class="cp-wrap cp-split"><div><h2>Yesterday, they handled it. <span class="cp-highlight">Today, it feels like all your progress disappeared.</span></h2><p>Same dog. Same route. Same trigger. Completely different reaction.</p><div class="cp-scene-stack"><div class="cp-scene-row"><i>♬</i><div><b>Barking or pacing</b><span>Long after the noise stops</span></div></div><div class="cp-scene-row"><i>♣</i><div><b>Pulling so hard</b><span>You need both hands on the leash</span></div></div><div class="cp-scene-row"><i>⌂</i><div><b>Whining, chewing, or having accidents</b><span>When they are left alone</span></div></div></div><p class="cp-story-pull">You are not imagining it. And it does not automatically mean your training stopped working.</p></div><aside class="cp-stat"><div class="cp-stat-number">NEARLY<br>1 IN 2<small>DOGS</small></div><p>showed fear or anxiety around unfamiliar dogs.</p><p class="cp-stat-detail">47.4% in an owner-reported study of 43,517 U.S. dogs.</p><div class="cp-stat-source">Beaver, Veterinary Research Communications, 2026.</div></aside></div></section>
+  <!-- ═══ PROBLEM ═══ -->
+  <section class="cp-problem" id="problem">
+    <div class="cp-wrap cp-split">
+      <div>
+        <h2>Yesterday, they handled it. <span class="cp-highlight">Today, it feels like all your progress disappeared.</span></h2>
+        <p>Same dog. Same route. Same trigger. Completely different reaction.</p>
+        <div class="cp-scene-stack">
+          <div class="cp-scene-row"><i><svg class="cp-icon" aria-hidden="true"><use href="#cp-bell"/></svg></i><div><b>Barking or pacing</b><span>Long after the noise stops</span></div></div>
+          <div class="cp-scene-row"><i><svg class="cp-icon" aria-hidden="true"><use href="#cp-paw"/></svg></i><div><b>Pulling so hard</b><span>You need both hands on the leash</span></div></div>
+          <div class="cp-scene-row"><i><svg class="cp-icon" aria-hidden="true"><use href="#cp-home"/></svg></i><div><b>Whining, chewing, or having accidents</b><span>When they are left alone</span></div></div>
+        </div>
+        <div class="cp-story-pull">You are not imagining it. And it does not automatically mean your training stopped working.</div>
+      </div>
+      <aside class="cp-stat">
+        <div class="cp-stat-number"><span>NEARLY</span>1 IN 2<small>DOGS</small></div>
+        <p class="cp-stat-claim">showed fear or anxiety around unfamiliar dogs.</p>
+        <p class="cp-stat-detail">47.4% in an owner-reported study of 43,517 U.S. dogs.</p>
+        <div class="cp-stat-source">Beaver, Veterinary Research Communications, 2026.</div>
+      </aside>
+    </div>
+  </section>
 
-  <section class="cp-mechanism"><div class="cp-wrap cp-split"><div><h2>Why is your dog fine one day, then <span class="cp-highlight">reacting to everything the next day?</span></h2><p><strong>Your dog does not start every day at zero.</strong></p><p>A restless night. Time alone. A loud truck. A tense walk. Each experience can leave a little stress behind before your dog has fully settled from the last one.</p><p class="cp-mechanism-name">There is a name for this: <strong>trigger stacking.</strong></p><p>Think of it like a bucket slowly filling with water. Each stressful moment adds a little more. As the water rises, the amount of room left in the bucket gets smaller.</p><p>That remaining room is your dog's <strong>Safety Margin.</strong></p><p>Eventually, the doorbell, a passing dog, or an unexpected touch becomes <span class="cp-highlight"><strong>the final drop that makes the bucket overflow.</strong></span></p><p class="cp-mechanism-close">That is why your dog can handle the same trigger one day, then react to it the next. The trigger did not get bigger. <strong>Your dog's Safety Margin got smaller.</strong></p></div>{% if section.settings.bucket_image != blank %}<figure class="cp-bucket cp-bucket-image">{{ section.settings.bucket_image | image_url: width: 1200 | image_tag: alt: 'The same dog beside a bucket as everyday stress fills it from low to overflowing', loading: 'lazy' }}</figure>{% else %}<figure class="cp-bucket"><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>BUCKET LOW</span><span>PLENTY OF ROOM TO COPE</span></div><div class="cp-bank"><div class="cp-water cp-water-1"></div></div></div><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>TRIGGERS STACK</span><span>SAFETY MARGIN SHRINKS</span></div><div class="cp-bank"><div class="cp-water cp-water-2"></div></div></div><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>FINAL DROP</span><span>THE BUCKET OVERFLOWS</span></div><div class="cp-bank"><div class="cp-water cp-water-3"></div></div></div><figcaption class="cp-bucket-note">The same dog can meet the same trigger differently when the stress from earlier moments is still present.</figcaption></figure>{% endif %}</div></section>
+  <!-- ═══ MECHANISM ═══ -->
+  <section class="cp-mechanism">
+    <div class="cp-wrap cp-split">
+      <div>
+        <h2>Why is your dog fine one day, then <span class="cp-highlight">reacting to everything the next day?</span></h2>
+        <p><strong>Your dog does not start every day at zero.</strong></p>
+        <p>A restless night. Time alone. A loud truck. A tense walk. Each experience can leave a little stress behind before your dog has fully settled from the last one.</p>
+        <p class="cp-mechanism-name">There is a name for this: <strong>trigger stacking.</strong></p>
+        <p>Think of it like a bucket slowly filling with water. Each stressful moment adds a little more. As the water rises, the amount of room left in the bucket gets smaller.</p>
+        <p>That remaining room is your dog's <strong>Safety Margin.</strong></p>
+        <p>Eventually, the doorbell, a passing dog, or an unexpected touch becomes <span class="cp-highlight"><strong>the final drop that makes the bucket overflow.</strong></span></p>
+        <p class="cp-mechanism-close">That is why your dog can handle the same trigger one day, then react to it the next. The trigger did not get bigger. <strong>Your dog's Safety Margin got smaller.</strong></p>
+        <div class="cp-mechanism-evidence"><div class="cp-evidence-number">47.4%<small>OF DOGS</small></div><p>showed fear or anxiety in an owner-reported study of <strong>43,517 U.S. dogs</strong> — nearly one in two.</p></div>
+      </div>
+      {% if section.settings.bucket_image != blank %}
+        <figure class="cp-river-visual">{{ section.settings.bucket_image | image_url: width: 1200 | image_tag: alt: 'The same dog beside a bucket as everyday stress fills it from low to overflowing', loading: 'lazy' }}<figcaption class="cp-river-stages"><div><b>BUCKET LOW</b>Plenty of room to cope</div><div><b>TRIGGERS STACK</b>The Safety Margin shrinks</div><div><b>FINAL DROP</b>The bucket overflows</div></figcaption></figure>
+      {% else %}
+        <figure class="cp-bucket"><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>BUCKET LOW</span><span>PLENTY OF ROOM TO COPE</span></div><div class="cp-bank"><div class="cp-water cp-water-1"></div></div></div><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>TRIGGERS STACK</span><span>SAFETY MARGIN SHRINKS</span></div><div class="cp-bank"><div class="cp-water cp-water-2"></div></div></div><div class="cp-bucket-stage"><div class="cp-bucket-label"><span>FINAL DROP</span><span>THE BUCKET OVERFLOWS</span></div><div class="cp-bank"><div class="cp-water cp-water-3"></div></div></div></figure>
+      {% endif %}
+    </div>
+  </section>
 
-  <section class="cp-failed"><div class="cp-wrap cp-split"><div><h2>You did not fail your dog. <strong>The tools you tried were built for the trigger, not the buildup.</strong></h2><p>You might have tried:</p><ul class="cp-attempt-list"><li><span class="cp-attempt-icon">●</span>Calming treats</li><li><span class="cp-attempt-icon">◒</span>A pressure vest</li><li><span class="cp-attempt-icon">⌁</span>Room diffusers</li><li><span class="cp-attempt-icon">▤</span>More training</li><li><span class="cp-attempt-icon">♣</span>Avoiding situations</li></ul><p>Some may have helped a little. Some may not have helped at all.</p><p>A calming treat is often given when stress is already visible. A pressure vest is usually saved for predictable events. A diffuser stays in one room. And even familiar training cues can become harder to follow when your dog is already near their limit.</p><p>Each approach addresses a particular moment, place, or behavior.</p><p class="cp-failed-punch">But <span class="cp-highlight">trigger stacking can happen throughout the entire day.</span></p><p>That is why the results can feel so inconsistent.</p><p class="cp-failed-close"><strong>Trying harder is not the answer.</strong> What your dog needs is support that starts before stress becomes visible and stays with them throughout the day.</p></div><div class="cp-failed-visual">{% if lifestyle_image != blank %}{{ lifestyle_image | image_url: width: 1200 | image_tag: alt: 'Dog resting at home', loading: 'lazy' }}{% else %}<span>TRIED-TOOLS IMAGE<br>UPLOAD IN THE THEME EDITOR</span>{% endif %}</div></div></section>
+  <!-- ═══ FAILED TOOLS ═══ -->
+  <section class="cp-failed">
+    <div class="cp-wrap cp-split">
+      <div>
+        <h2>You did not fail your dog. <strong>The tools you tried were built for the trigger, not the buildup.</strong></h2>
+        <p>You might have tried:</p>
+        <ul class="cp-attempt-list">
+          <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-treat"/></svg></span>Calming treats</li>
+          <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shirt"/></svg></span>A pressure vest</li>
+          <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-plug"/></svg></span>Room diffusers</li>
+          <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-training"/></svg></span>More training</li>
+          <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-paw"/></svg></span>Even avoiding certain situations</li>
+        </ul>
+        <p>Some may have helped a little. Some may not have helped at all.</p>
+        <p>A calming treat is often given when stress is already visible. A pressure vest is usually saved for predictable events. A diffuser stays in one room. And even familiar training cues can become harder to follow when your dog is already near their limit.</p>
+        <p>Each approach addresses a particular moment, place, or behavior.</p>
+        <p class="cp-failed-punch">But <span class="cp-highlight">trigger stacking can happen throughout the entire day.</span></p>
+        <p>That is why the results can feel so inconsistent.</p>
+        <p class="cp-failed-close"><strong>Trying harder is not the answer.</strong> What your dog needs is support that starts before stress becomes visible and stays with them throughout the day.</p>
+      </div>
+      {% if lifestyle_image != blank %}
+        <figure class="cp-failed-visual">{{ lifestyle_image | image_url: width: 1200 | image_tag: alt: 'Caring owner sitting beside an alert dog after trying several situational calming tools', loading: 'lazy' }}<figcaption>What was missing was support that stayed with your dog between the moments you could see.</figcaption></figure>
+      {% else %}
+        <div class="cp-failed-placeholder">TRIED-TOOLS IMAGE<br>UPLOAD IN THE THEME EDITOR</div>
+      {% endif %}
+    </div>
+  </section>
 
-  <section class="cp-product"><div class="cp-wrap cp-split"><div class="cp-product-stage">{% if product_image != blank %}{{ product_image | image_url: width: 1000 | image_tag: alt: 'Orange adjustable CalmPet Collar', loading: 'lazy' }}{% else %}<div class="cp-media-placeholder">UPLOAD A CALMPET PRODUCT IMAGE</div>{% endif %}<div class="cp-round-badge">UP TO<br>60 DAYS</div></div><div class="cp-product-copy"><h2>If stress can stack throughout the day, calming support should <span class="cp-product-highlight">stay with your dog throughout the day.</span></h2><p>That is why CalmPet comes as a wearable collar.</p><p>While worn, the CalmPet Collar continuously releases a pheromone-based calming signal close to your dog's nose.</p><div class="cp-signal"><small>WE CALL THIS THE</small><strong>CalmPet Continuous Safety Signal</strong></div><p>Unlike a room diffuser, it travels with your dog. And unlike something you use only after stress becomes visible, it does not depend on you predicting when the next trigger will appear.</p><p>The signal stays close through naps, time alone, visitors, car rides, and everyday walks, <strong>without pills, sedatives, or another daily dose to remember.</strong></p><p>Designed to give your dog a calmer starting point and more <strong>Safety Margin</strong> before the next trigger pushes them toward their limit.</p><div class="cp-features"><div class="cp-feature">24/7 support while worn</div><div class="cp-feature">Recommended by Vets</div><div class="cp-feature">100% Natural Ingredients</div><div class="cp-feature">Lasts up to 60 Days</div></div><a class="cp-btn" href="#offer">Try CalmPet for 60 days <span>→</span></a><p class="cp-subnote" style="color:#f1dcca">If it’s not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div></section>
+  <!-- ═══ PRODUCT REVEAL ═══ -->
+  <section class="cp-product">
+    <div class="cp-wrap cp-split">
+      <div class="cp-product-stage">
+        {% if product_image != blank %}{{ product_image | image_url: width: 1000 | image_tag: alt: 'Orange adjustable CalmPet Collar', loading: 'lazy' }}{% else %}<div class="cp-media-placeholder">UPLOAD A CALMPET PRODUCT IMAGE</div>{% endif %}
+        <div class="cp-round-badge">UP TO<br>60 DAYS</div>
+      </div>
+      <div class="cp-product-copy">
+        <h2>If stress can stack throughout the day, calming support should <span class="cp-product-highlight">stay with your dog throughout the day.</span></h2>
+        <p>That is why CalmPet comes as a wearable collar.</p>
+        <p>While worn, the CalmPet Collar continuously releases a pheromone-based calming signal close to your dog's nose.</p>
+        <div class="cp-signal"><small>WE CALL THIS THE</small><strong>CalmPet Continuous Safety Signal</strong></div>
+        <p>Unlike a room diffuser, it travels with your dog. And unlike something you use only after stress becomes visible, it does not depend on you predicting when the next trigger will appear.</p>
+        <p>The signal stays close through naps, time alone, visitors, car rides, and everyday walks, <strong>without pills, sedatives, or another daily dose to remember.</strong></p>
+        <p>Designed to give your dog a calmer starting point and more <strong>Safety Margin</strong> before the next trigger pushes them toward their limit.</p>
+        <div class="cp-features"><div class="cp-feature">24/7 support while worn</div><div class="cp-feature">Recommended by Vets</div><div class="cp-feature">100% Natural Ingredients</div><div class="cp-feature">Lasts up to 60 Days</div></div>
+        <a class="cp-btn" href="#offer">Try CalmPet for 60 days <span>→</span></a>
+        <p class="cp-subnote">If it's not right for your dog, you get every cent back. No return required. No questions asked.</p>
+      </div>
+    </div>
+  </section>
 
-  <section class="cp-how" id="how"><div class="cp-wrap"><div class="cp-section-head"><h2><span class="cp-highlight">Fit It Once.</span> Let the Calming Signal Stay Close for Up to 60 Days.</h2><p>No pills. No daily dosing. Just buckle, adjust, trim, and leave it on.</p></div><div class="cp-steps">{% assign step_titles = 'Buckle It On|Check the Fit|Trim the Excess|Leave It On' | split: '|' %}{% assign step_bodies = 'Place the CalmPet Collar around your dog’s neck and fasten it securely.|Adjust the collar until you can comfortably slide two fingers between the collar and your dog’s neck.|Carefully cut off any extra length once you are happy with the fit.|Keep the collar on continuously so the CalmPet Continuous Safety Signal stays close throughout the day. Replace it after 60 days.' | split: '|' %}{% for title in step_titles %}<article class="cp-step"><div class="cp-step-visual">STEP PHOTO 0{{ forloop.index }}<br>COMING SOON</div><div class="cp-step-body"><span class="cp-step-num">STEP 0{{ forloop.index }}</span><h3>{{ title }}</h3><p>{{ step_bodies[forloop.index0] }}</p></div></article>{% endfor %}</div></div></section>
+  <!-- ═══ HOW TO USE ═══ -->
+  <section class="cp-how" id="how">
+    <div class="cp-wrap">
+      <div class="cp-section-head"><h2><span class="cp-highlight">Fit It Once.</span> Let the Calming Signal Stay Close for Up to 60 Days.</h2><p>No pills. No daily dosing. Just buckle, adjust, trim, and leave it on.</p></div>
+      <div class="cp-steps">
+        {%- assign step_titles = 'Buckle It On|Check the Fit|Trim the Excess|Leave It On' | split: '|' -%}
+        {%- assign step_bodies = "Place the CalmPet Collar around your dog's neck and fasten it securely.|Adjust the collar until you can comfortably slide two fingers between the collar and your dog's neck.|Carefully cut off any extra length once you are happy with the fit.|Keep the collar on continuously so the CalmPet Continuous Safety Signal stays close throughout the day. Replace it after 60 days." | split: '|' -%}
+        {% for title in step_titles %}<article class="cp-step"><div class="cp-step-visual"><span>STEP PHOTO 0{{ forloop.index }}</span><b>COMING SOON</b></div><div class="cp-step-body"><span class="cp-step-num">STEP 0{{ forloop.index }}</span><h3>{{ title }}</h3><p>{{ step_bodies[forloop.index0] }}</p></div></article>{% endfor %}
+      </div>
+    </div>
+  </section>
 
-  <section class="cp-stories"><div class="cp-wrap"><div class="cp-section-head"><h2>This Is What Having More Good Days With Your Dog Can Look Like.</h2><p>Quieter goodbyes. Easier walks. Faster recovery after a trigger. The small changes that can make the entire day feel different.</p></div><div class="cp-story-track">{% for title in story_titles %}<article class="cp-story-slide"><div class="cp-story-photo">CUSTOMER PHOTO {{ forloop.index }}<br>COMING SOON</div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>{{ title }}</h3><p>Reserved for a verified customer story about calmer behavior and faster recovery after everyday stress.</p><small>Dog Parent | Verified Buyer</small></div></article>{% endfor %}</div></div></section>
+  <!-- ═══ STORIES CAROUSEL ═══ -->
+  <section class="cp-stories">
+    <div class="cp-wrap">
+      <div class="cp-section-head"><h2>This Is What Having More Good Days With Your Dog Can Look Like.</h2><p>Quieter goodbyes. Easier walks. Faster recovery after a trigger. The small changes that can make the entire day feel different.</p></div>
+      <div class="cp-story-track" id="cp-story-track">
+        {%- assign story_titles = 'The first quiet hour at home|A walk that finally felt manageable|Settling sooner after the noise stopped' | split: '|' -%}
+        {% for title in story_titles %}<article class="cp-story-slide{% if forloop.first %} is-active{% endif %}"><div class="cp-story-photo">CUSTOMER PHOTO 0{{ forloop.index }}<br>COMING SOON</div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>{{ title }}</h3><p>Reserved for a verified customer story about calmer behavior and faster recovery after everyday stress.</p><small>Dog Parent | Verified Buyer</small></div></article>{% endfor %}
+      </div>
+      <div class="cp-carousel-controls"><button class="cp-carousel-arrow" id="cp-story-prev" type="button" aria-label="Previous customer story">‹</button><div class="cp-carousel-dots">{% for title in story_titles %}<button class="cp-carousel-dot{% if forloop.first %} active{% endif %}" type="button" aria-label="Story {{ forloop.index }}"></button>{% endfor %}</div><button class="cp-carousel-arrow" id="cp-story-next" type="button" aria-label="Next customer story">›</button></div>
+    </div>
+  </section>
 
+  <!-- ═══ CTA BAND ═══ -->
   <div class="cp-cta-band"><div class="cp-wrap"><h3>Give your dog more room before the next trigger arrives.</h3><a class="cp-btn" href="#offer">Try CalmPet for 60 days →</a></div></div>
 
-  <section class="cp-authority" id="science"><div class="cp-wrap"><article class="cp-authority-card"><span class="cp-eyebrow">Guideline-Endorsed Principle</span><blockquote>“Canine pheromones may be helpful alone or in conjunction with other techniques to decrease patient stress and fear.”</blockquote><p class="cp-caption">AAHA canine and feline behavior-management guidance includes pheromones as one possible tool for decreasing canine stress and fear.</p></article></div></section>
+  <!-- ═══ AUTHORITY ═══ -->
+  <section class="cp-authority" id="science">
+    <div class="cp-wrap">
+      <article class="cp-authority-card">
+        <span class="cp-eyebrow">GUIDELINE-ENDORSED PRINCIPLE</span>
+        <blockquote>"Canine pheromones may be helpful alone or in conjunction with other techniques to decrease patient stress and fear."</blockquote>
+        <p class="cp-caption">AAHA canine and feline behavior-management guidance includes pheromones as one possible tool for decreasing canine stress and fear.</p>
+      </article>
+    </div>
+  </section>
 
-  <section class="cp-compare"><div class="cp-wrap"><div class="cp-section-head"><h2>Why Dog Parents Choose CalmPet Over Treats, Vests &amp; Diffusers</h2><p>One wearable collar provides continuous support wherever your dog’s day takes them.</p></div><div class="cp-compare-grid"><div class="cp-compare-side"><div class="cp-compare-head">CALMPET COLLAR</div><div><span class="cp-compare-check">✓</span></div><div><span class="cp-compare-check">✓</span></div><div><span class="cp-compare-check">✓</span></div><div><span class="cp-compare-check">✓</span></div></div><div class="cp-compare-criteria"><div class="cp-compare-head">WHICH FITS REAL LIFE WITH YOUR DOG?</div><div>Continuous support while worn</div><div>Goes wherever your dog goes</div><div>Nothing to swallow or plug in</div><div>No trigger-by-trigger setup</div></div><div class="cp-compare-side"><div class="cp-compare-head">TREATS, VESTS &amp; DIFFUSERS</div><div><span class="cp-compare-cross">✕</span></div><div><span class="cp-compare-cross">✕</span></div><div><span class="cp-compare-cross">✕</span></div><div><span class="cp-compare-cross">✕</span></div></div></div></div></section>
-
-  <section class="cp-offer" id="offer"><div class="cp-wrap cp-offer-grid"><div class="cp-offer-gallery">{% if product_image != blank %}<div class="cp-collar-stack" id="calmpet-collar-stack" aria-label="Five CalmPet Collars">{% for collar in (1..8) %}{{ product_image | image_url: width: 800 | image_tag: alt: '', loading: 'lazy' }}{% endfor %}</div>{% else %}<div class="cp-media-placeholder">PRODUCT MEDIA<br>FROM SHOPIFY ADMIN</div>{% endif %}<span class="cp-gallery-badge">UP TO 60 DAYS EACH</span><span class="cp-stack-count" id="calmpet-stack-count">5 COLLARS</span></div><div><div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5 from Dog Parents</span></div><span class="cp-offer-kicker">CHOOSE YOUR CALMPET BUNDLE</span><h2>Give Your Dog More Room for Calm, Day After Day.</h2><p class="cp-offer-dek">Each CalmPet Collar provides continuous pheromone support for up to 60 days. Choose the bundle that fits your dog and your household.</p><div class="cp-offer-usps"><span>24/7 Support While Worn</span><span>Recommended by Vets</span><span>100% Natural Ingredients</span><span>Lasts Up to 60 Days</span></div>
-    {% form 'product', product, id: 'calmpet-offer-form' %}
-      <input id="calmpet-variant" type="hidden" name="id" value="{{ variant_five.id }}">
-      <div class="cp-options" id="calmpet-options">
-        <label class="cp-option" role="radio" aria-checked="false" tabindex="0" data-variant="{{ variant_one.id }}" data-quantity="1" data-count="1" data-level="1" data-title="1 CalmPet Collar | $49" data-sub="Up to 60 days | free shipping | no subscription" data-cta="Get 1 CalmPet Collar for $49 →"><input type="radio" name="calmpet_offer"><span>◉</span><span><h3>1 CalmPet Collar</h3><p>Up to 2 months for one dog</p></span><span class="cp-option-price"><s>$69</s> $49<small>SAVE $20</small></span></label>
-        <label class="cp-option is-selected" role="radio" aria-checked="true" tabindex="0" data-variant="{{ variant_five.id }}" data-quantity="1" data-count="5" data-level="2" data-title="10-Month CalmPet Bundle | $98" data-sub="Buy 2, get 3 free | $19.60 each | no subscription" data-cta="Get 5 CalmPet Collars for $98 →"><span class="cp-ribbon">MOST POPULAR</span><input type="radio" name="calmpet_offer" checked><span>◉</span><span><h3>10-Month CalmPet Bundle</h3><p>Five collars, up to 10 months for one dog</p></span><span class="cp-option-price"><s>$345</s> $98<small>$19.60 each · SAVE $247</small></span></label>
-        <label class="cp-option" role="radio" aria-checked="false" tabindex="0" data-variant="{{ variant_eight.id }}" data-quantity="1" data-count="8" data-level="3" data-title="8-Collar Family Bundle | $137" data-sub="Up to 16 months for one dog | $17.13 each" data-cta="Get 8 CalmPet Collars for $137 →"><span class="cp-ribbon">BEST FOR MULTI-DOG HOMES</span><input type="radio" name="calmpet_offer"><span>◉</span><span><h3>8-Collar Family Bundle</h3><p>Up to 16 months for one dog, or share across the pack</p></span><span class="cp-option-price"><s>$552</s> $137<small>$17.13 each · SAVE $415</small></span></label>
+  <!-- ═══ COMPARISON ═══ -->
+  <section class="cp-compare">
+    <div class="cp-wrap">
+      <div class="cp-section-head"><h2>Why Dog Parents Choose CalmPet Over Treats, Vests &amp; Diffusers</h2><p>One wearable collar provides continuous support wherever your dog's day takes them.</p></div>
+      <div class="cp-brand-compare" role="group" aria-label="CalmPet vs alternatives">
+        <div class="cp-brand-side">
+          <div class="cp-brand-side-header">{% if product_image != blank %}{{ product_image | image_url: width: 300 | image_tag: alt: 'CalmPet Collar' }}{% endif %}<b>CALMPET COLLAR</b></div>
+          <div><span class="cp-brand-check">✓</span></div>
+          <div><span class="cp-brand-check">✓</span></div>
+          <div><span class="cp-brand-check">✓</span></div>
+          <div><span class="cp-brand-check">✓</span></div>
+        </div>
+        <div class="cp-brand-criteria">
+          <div class="cp-criteria-head">WHICH FITS REAL LIFE WITH YOUR DOG?</div>
+          <div>Continuous support while worn</div>
+          <div>Goes wherever your dog goes</div>
+          <div>Nothing to swallow or plug in</div>
+          <div>No trigger-by-trigger setup</div>
+        </div>
+        <div class="cp-brand-side">
+          <div class="cp-brand-side-header">{% if lifestyle_image != blank %}{{ lifestyle_image | image_url: width: 300 | image_tag: alt: 'Calming treats, pressure vest, and room diffuser', style: 'border-radius:10px' }}{% endif %}<b>TREATS, VESTS &amp; DIFFUSERS</b></div>
+          <div><span class="cp-brand-cross">✕</span></div>
+          <div><span class="cp-brand-cross">✕</span></div>
+          <div><span class="cp-brand-cross">✕</span></div>
+          <div><span class="cp-brand-cross">✕</span></div>
+        </div>
       </div>
-      <div class="cp-bonus"><div class="cp-bonus-head"><span>Your Bonuses</span><small>MORE UNLOCK AS YOU UPGRADE</small></div><div class="cp-bonus-item" data-bonus="1"><span class="cp-bonus-icon">✓</span><div><b>Free Shipping</b><p>Included with every CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></div><div class="cp-bonus-item" data-bonus="2"><span class="cp-bonus-icon">$15</span><div><b>$15 CalmPet Credit</b><p>Use it toward your next CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></div><div class="cp-bonus-item is-locked" data-bonus="3" id="calmpet-guide"><span class="cp-bonus-icon">PDF</span><div><b>Trigger Stacking Field Guide</b><p>A practical guide for spotting the stack earlier.</p></div><span class="cp-bonus-status">LOCKED</span></div></div>
-      <div class="cp-promise"><span class="cp-promise-icon">✓</span><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Let your dog wear CalmPet for the full 60 days. If it is not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div>
-      <button class="cp-btn cp-checkout" id="calmpet-checkout" type="submit" {% unless product.available %}disabled{% endunless %}>Get 5 CalmPet Collars for $98 →</button>
-      <p class="cp-checkout-note">Your selection is added securely to your Shopify cart.</p><div class="cp-reassure"><span>Free Shipping</span><span>No Subscription</span><span>Full Refund Protection</span></div>
-    {% endform %}
-  </div></div></section>
+    </div>
+  </section>
 
-  <section class="cp-proof-wall"><div class="cp-wrap"><div class="cp-section-head"><h2>When calmer days arrive, dog parents notice the little things first.</h2><p>This space is reserved for verified CalmPet experiences, from quieter departures to easier walks and faster recovery after everyday triggers.</p></div><div class="cp-proof-wall-grid">{% for title in proof_wall_titles %}<article><span class="cp-stars">★★★★★</span><h3>Verified review reserved</h3><p>{{ title }}</p></article>{% endfor %}</div></div></section>
+  <!-- ═══ OFFER / PDP ═══ -->
+  <section class="cp-offer" id="offer">
+    <div class="cp-wrap cp-offer-grid">
+      <div class="cp-gallery">
+        <div class="cp-gallery-main" id="cp-gallery-main">
+          {% if product_image != blank %}
+            <img id="cp-main-image" src="{{ product_image | image_url: width: 1000 }}" alt="Orange CalmPet calming collar" style="opacity:0">
+            <div class="cp-collar-stack" id="cp-collar-stack" aria-label="Five CalmPet Collars">{% for collar in (1..8) %}{{ product_image | image_url: width: 800 | image_tag: alt: '', loading: 'lazy' }}{% endfor %}</div>
+          {% else %}
+            <div class="cp-media-placeholder">PRODUCT MEDIA<br>FROM SHOPIFY ADMIN</div>
+          {% endif %}
+          <span class="cp-gallery-badge">UP TO 60 DAYS EACH</span>
+          <span class="cp-stack-count" id="cp-stack-count">5 COLLARS</span>
+        </div>
+        {% if product_image != blank %}
+        <div class="cp-gallery-thumbs" aria-label="CalmPet product images">
+          <button class="cp-gallery-thumb active" type="button" data-mode="stack"><img src="{{ product_image | image_url: width: 300 }}" alt="CalmPet bundle"></button>
+          {% if lifestyle_image != blank %}<button class="cp-gallery-thumb" type="button" data-mode="image" data-src="{{ lifestyle_image | image_url: width: 1200 }}" data-alt="Dog wearing the CalmPet Collar beside its owner" data-fit="cover"><img src="{{ lifestyle_image | image_url: width: 300 }}" alt="Lifestyle view"></button>{% endif %}
+          {% if hero_image != blank %}<button class="cp-gallery-thumb" type="button" data-mode="image" data-src="{{ hero_image | image_url: width: 1200 }}" data-alt="Calm dog wearing the CalmPet Collar at home" data-fit="cover"><img src="{{ hero_image | image_url: width: 300 }}" alt="CalmPet at home"></button>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="cp-pdp-details">
+        <div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5 from Dog Parents</span></div>
+        <span class="cp-offer-kicker">CHOOSE YOUR CALMPET BUNDLE</span>
+        <h2>Give Your Dog More Room for Calm, Day After Day.</h2>
+        <p class="cp-pdp-sub">Each CalmPet Collar provides continuous pheromone support for up to 60 days. Choose the bundle that fits your dog and your household.</p>
+        <div class="cp-pdp-benefits"><span>24/7 Support While Worn</span><span>Recommended by Vets</span><span>100% Natural Ingredients</span><span>Lasts Up to 60 Days</span></div>
 
-  <section class="cp-guarantee"><div class="cp-wrap cp-guarantee-box"><div class="cp-promise-seal"><div><b>60</b>DAY<br>PROMISE</div></div><div><div class="cp-eyebrow">The CalmPet 60-Day Promise</div><h2>Try the full collar. Keep the full peace of mind.</h2><p>Let your dog wear CalmPet for the complete 60-day period. If you do not feel it made a meaningful difference, email us with your order number and we will refund every cent. <strong>No return required. No questions asked.</strong></p></div></div></section>
+        {% form 'product', product, id: 'cp-offer-form' %}
+          <input id="cp-variant" type="hidden" name="id" value="{{ variant_five.id }}">
+          <div class="cp-options" id="cp-options">
+            <label class="cp-option" data-variant="{{ variant_one.id }}" data-quantity="1" data-count="1" data-level="1" data-title="1 CalmPet Collar | $49" data-sub="Up to 60 days | free shipping | no subscription" data-cta="Get 1 CalmPet Collar for $49 →">
+              <input type="radio" name="cp_offer"><span class="cp-option-radio"></span>
+              <span class="cp-option-copy"><b>1 CalmPet Collar</b><small>Up to 2 months for one dog</small></span>
+              <span class="cp-option-price"><span class="regular"><s>$69</s></span> $49<small class="save">SAVE $20</small></span>
+            </label>
+            <label class="cp-option is-selected is-featured" data-variant="{{ variant_five.id }}" data-quantity="1" data-count="5" data-level="2" data-title="10-Month CalmPet Bundle | $98" data-sub="Buy 2, get 3 free | $19.60 each | no subscription" data-cta="Get 5 CalmPet Collars for $98 →">
+              <span class="cp-ribbon">MOST POPULAR</span>
+              <input type="radio" name="cp_offer" checked><span class="cp-option-radio"></span>
+              <span class="cp-option-copy"><b>10-Month CalmPet Bundle</b><small>Five collars, up to 10 months for one dog</small><span class="cp-deal-line">BUY 2, GET 3 FREE</span></span>
+              <span class="cp-option-price"><span class="regular"><s>$345</s></span> $98<small>$19.60 each</small><small class="save">SAVE $247</small></span>
+            </label>
+            <label class="cp-option is-featured cp-family" data-variant="{{ variant_eight.id }}" data-quantity="1" data-count="8" data-level="3" data-title="8-Collar Family Bundle | $137" data-sub="Up to 16 months for one dog | $17.13 each" data-cta="Get 8 CalmPet Collars for $137 →">
+              <span class="cp-ribbon">BEST FOR MULTI-DOG HOMES</span>
+              <input type="radio" name="cp_offer"><span class="cp-option-radio"></span>
+              <span class="cp-option-copy"><b>8-Collar Family Bundle</b><small>Up to 16 months for one dog, or share across the pack</small><span class="cp-deal-line">LOWEST PRICE PER COLLAR</span></span>
+              <span class="cp-option-price"><span class="regular"><s>$552</s></span> $137<small>$17.13 each</small><small class="save">SAVE $415</small></span>
+            </label>
+          </div>
 
-  <section class="cp-faq" id="faq"><div class="cp-wrap"><h2>Questions a careful dog parent should ask.</h2><div class="cp-faq-list"><details><summary>How does the CalmPet Collar work?</summary><p>It keeps pheromone-based support close to your dog throughout the day. That continuous signal is designed to help lower background stress before familiar triggers arrive.</p></details><details><summary>Will it make my dog sleepy?</summary><p>CalmPet is drug free and non sedating. There are no pills, ingestibles, or foggy eyes. Your dog should remain completely themselves.</p></details><details><summary>How quickly should I expect a change?</summary><p>Every dog is different. Look for observable shifts such as easier settling, faster recovery, or a calmer response to familiar triggers. The 60-day guarantee gives you the full life of one collar to decide.</p></details><details><summary>Does it replace training or veterinary care?</summary><p>No. CalmPet is supportive care that can sit alongside training and an appropriate care plan. Sudden behavior changes, self injury, severe panic, or aggression should be discussed with a veterinarian or qualified behavior professional.</p></details><details><summary>How do I fit it?</summary><p>Adjust it comfortably around your dog's neck, confirm you can slide two fingers underneath, then trim the excess length. The maximum size is approximately 25 inches.</p></details><details><summary>What if it does not work for my dog?</summary><p>Email us within 60 days with your order number. You will receive a full refund. You do not need to return the used collar, and you do not need to argue your case.</p></details></div></div></section>
+          <div class="cp-bonus"><div class="cp-bonus-head"><span>Your Bonuses</span><small>MORE UNLOCK AS YOU UPGRADE</small></div><div class="cp-bonus-grid"><article class="cp-bonus-item" data-bonus="1"><span class="cp-bonus-icon">✓</span><div><b>Free Shipping</b><p>Included with every CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item" data-bonus="2"><span class="cp-bonus-icon">$15</span><div><b>$15 CalmPet Credit</b><p>Use it toward your next CalmPet order.</p></div><span class="cp-bonus-status">UNLOCKED</span></article><article class="cp-bonus-item is-locked" data-bonus="3"><span class="cp-bonus-icon">PDF</span><div><b>Trigger Stacking Field Guide</b><p>A practical guide for spotting the stack earlier.</p></div><span class="cp-bonus-status">LOCKED</span></article></div></div>
 
+          <div class="cp-pdp-guarantee"><div class="cp-pdp-guarantee-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg></div><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Let your dog wear CalmPet for the full 60 days. If it is not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div>
+
+          <button class="cp-btn cp-checkout" id="cp-checkout" type="submit" {% unless product.available %}disabled{% endunless %}>Get 5 CalmPet Collars for $98 →</button>
+          <p class="cp-checkout-note">Your selection is added securely to your Shopify cart.</p>
+          <div class="cp-reassure"><span>Free Shipping</span><span>No Subscription</span><span>Full Refund Protection</span></div>
+        {% endform %}
+
+        <div class="cp-mini-faq"><h3>Quick Questions</h3><details><summary>How do I fit the CalmPet Collar?</summary><p>Adjust it around your dog's neck so you can comfortably slide two fingers underneath, then trim away the excess length.</p></details><details><summary>How long does each collar last?</summary><p>Each CalmPet Collar provides continuous pheromone support for up to 60 days while worn.</p></details><details><summary>What if CalmPet is not right for my dog?</summary><p>Tell us within 60 days and you get every cent back. No return required. No questions asked.</p></details></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROOF WALL ═══ -->
+  <section class="cp-proof-wall">
+    <div class="cp-wrap">
+      <div class="cp-section-head"><h2>When calmer days arrive, dog parents notice the little things first.</h2><p>This space is reserved for verified CalmPet experiences, from quieter departures to easier walks and faster recovery after everyday triggers.</p></div>
+      <div class="cp-proof-wall-grid">
+        {%- assign proof_wall_titles = 'Home-alone experience|Walking and reactivity experience|Noise and visitors experience|Settling and sleep experience|Indoor stress behavior experience|Rescue dog confidence experience' | split: '|' -%}
+        {% for title in proof_wall_titles %}<article><span class="cp-stars">★★★★★</span><h3>Verified review reserved</h3><p>{{ title }}</p></article>{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GUARANTEE ═══ -->
+  <section class="cp-guarantee">
+    <div class="cp-wrap cp-guarantee-box">
+      <div class="cp-promise-seal" aria-label="60-day money-back promise"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg><b>60</b><span>DAY<br>PROMISE</span></div>
+      <div>
+        <div class="cp-eyebrow">The CalmPet 60-Day Promise</div>
+        <h2>Try the full collar. Keep the full peace of mind.</h2>
+        <p>Let your dog wear CalmPet for the complete 60-day period. If you do not feel it made a meaningful difference, email us with your order number and we will refund every cent. <strong>No return required. No questions asked.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="cp-faq" id="faq">
+    <div class="cp-wrap">
+      <h2>Questions a careful dog parent should ask.</h2>
+      <div class="cp-faq-list">
+        <details><summary>How does the CalmPet Collar work?</summary><p>It keeps pheromone-based support close to your dog throughout the day. That continuous signal is designed to help lower background stress before familiar triggers arrive.</p></details>
+        <details><summary>Will it make my dog sleepy?</summary><p>CalmPet is drug free and non sedating. There are no pills, ingestibles, or foggy eyes. Your dog should remain completely themselves.</p></details>
+        <details><summary>How quickly should I expect a change?</summary><p>Every dog is different. Look for observable shifts such as easier settling, faster recovery, or a calmer response to familiar triggers. The 60-day guarantee gives you the full life of one collar to decide.</p></details>
+        <details><summary>Does it replace training or veterinary care?</summary><p>No. CalmPet is supportive care that can sit alongside training and an appropriate care plan. Sudden behavior changes, self injury, severe panic, or aggression should be discussed with a veterinarian or qualified behavior professional.</p></details>
+        <details><summary>How do I fit it?</summary><p>Adjust it comfortably around your dog's neck, confirm you can slide two fingers underneath, then trim the excess length. The maximum size is approximately 25 inches.</p></details>
+        <details><summary>What if it does not work for my dog?</summary><p>Email us within 60 days with your order number. You will receive a full refund. You do not need to return the used collar, and you do not need to argue your case.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
   <section class="cp-final"><div class="cp-narrow"><h2>Give your dog a calmer starting point for whatever today brings.</h2><p>Lower the background stress. Rebuild the Safety Margin. Try the CalmPet Collar for a full 60 days without risking a cent.</p><a class="cp-btn" href="#offer">Choose my CalmPet bundle</a></div></section>
-  <div class="cp-sticky" id="calmpet-sticky"><div class="cp-wrap cp-sticky-in"><div class="cp-sticky-copy"><span id="calmpet-sticky-title">10-Month CalmPet Bundle | $98</span><small id="calmpet-sticky-sub">Buy 2, get 3 free | $19.60 each | no subscription</small></div><a class="cp-btn" href="#offer">Choose your bundle</a></div></div>
+
+  <!-- ═══ STICKY BAR ═══ -->
+  <div class="cp-sticky" id="cp-sticky"><div class="cp-wrap cp-sticky-in"><div class="cp-sticky-copy"><span id="cp-sticky-title">10-Month CalmPet Bundle | $98</span><small id="cp-sticky-sub">Buy 2, get 3 free | $19.60 each | no subscription</small></div><a class="cp-btn" href="#offer">Choose your bundle</a></div></div>
 </div>
 
 <script>
   (() => {
-    const root = document.getElementById('calmpet-landing'); if (!root) return;
-    const options = [...root.querySelectorAll('.cp-option')], variant = root.querySelector('#calmpet-variant'), checkout = root.querySelector('#calmpet-checkout'), sticky = root.querySelector('#calmpet-sticky'), title = root.querySelector('#calmpet-sticky-title'), sub = root.querySelector('#calmpet-sticky-sub'), form = root.querySelector('#calmpet-offer-form'), stack = root.querySelector('#calmpet-collar-stack'), stackCount = root.querySelector('#calmpet-stack-count'), bonuses = [...root.querySelectorAll('.cp-bonus-item')];
-    const syncBundle = option => { options.forEach(item => { const selected = item === option; item.classList.toggle('is-selected', selected); item.setAttribute('aria-checked', selected ? 'true' : 'false'); }); option.querySelector('input').checked = true; variant.value = option.dataset.variant; checkout.textContent = option.dataset.cta; title.textContent = option.dataset.title; sub.textContent = option.dataset.sub; const count = Number(option.dataset.count), level = Number(option.dataset.level); if (stack) [...stack.children].forEach((image, index) => image.hidden = index >= count); if (stackCount) stackCount.textContent = `${count} ${count === 1 ? 'COLLAR' : 'COLLARS'}`; bonuses.forEach(item => { const unlocked = Number(item.dataset.bonus) <= level; item.classList.toggle('is-locked', !unlocked); item.querySelector('.cp-bonus-status').textContent = unlocked ? 'UNLOCKED' : 'LOCKED'; }); };
-    options.forEach(option => { option.addEventListener('click', () => syncBundle(option)); option.addEventListener('keydown', event => { if (event.key === ' ' || event.key === 'Enter') { event.preventDefault(); syncBundle(option); } }); });
-    const initial = root.querySelector('.cp-option.is-selected'); if (initial) syncBundle(initial);
-    const hero = root.querySelector('.cp-hero'); if (hero && 'IntersectionObserver' in window) new IntersectionObserver(([entry]) => sticky.classList.toggle('is-showing', !entry.isIntersecting), { threshold: .1 }).observe(hero);
+    const root = document.getElementById('calmpet-landing');
+    if (!root) return;
+
+    /* ═══ OFFER CARD SELECTION ═══ */
+    const options = [...root.querySelectorAll('.cp-option')];
+    const variant = root.querySelector('#cp-variant');
+    const checkout = root.querySelector('#cp-checkout');
+    const sticky = root.querySelector('#cp-sticky');
+    const stickyTitle = root.querySelector('#cp-sticky-title');
+    const stickySub = root.querySelector('#cp-sticky-sub');
+    const stack = root.querySelector('#cp-collar-stack');
+    const stackCount = root.querySelector('#cp-stack-count');
+    const bonuses = [...root.querySelectorAll('.cp-bonus-item')];
+
+    const syncBundle = option => {
+      options.forEach(item => {
+        const selected = item === option;
+        item.classList.toggle('is-selected', selected);
+      });
+      option.querySelector('input').checked = true;
+      if (variant) variant.value = option.dataset.variant;
+      if (checkout) checkout.textContent = option.dataset.cta;
+      if (stickyTitle) stickyTitle.textContent = option.dataset.title;
+      if (stickySub) stickySub.textContent = option.dataset.sub;
+      const count = Number(option.dataset.count);
+      const level = Number(option.dataset.level);
+      if (stack) [...stack.children].forEach((img, i) => img.hidden = i >= count);
+      if (stackCount) stackCount.textContent = `${count} ${count === 1 ? 'COLLAR' : 'COLLARS'}`;
+      bonuses.forEach(item => {
+        const unlocked = Number(item.dataset.bonus) <= level;
+        item.classList.toggle('is-locked', !unlocked);
+        item.querySelector('.cp-bonus-status').textContent = unlocked ? 'UNLOCKED' : 'LOCKED';
+      });
+    };
+    options.forEach(o => o.addEventListener('click', () => syncBundle(o)));
+    const initial = root.querySelector('.cp-option.is-selected');
+    if (initial) syncBundle(initial);
+
+    /* ═══ GALLERY THUMBNAILS ═══ */
+    const mainImage = root.querySelector('#cp-main-image');
+    const thumbs = [...root.querySelectorAll('.cp-gallery-thumb')];
+    thumbs.forEach(thumb => thumb.addEventListener('click', () => {
+      thumbs.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      if (thumb.dataset.mode === 'stack') {
+        if (mainImage) mainImage.style.opacity = '0';
+        if (stack) stack.style.opacity = '1';
+        if (stackCount) stackCount.style.opacity = '1';
+        return;
+      }
+      if (stack) stack.style.opacity = '0';
+      if (stackCount) stackCount.style.opacity = '0';
+      if (mainImage) {
+        mainImage.style.opacity = '0';
+        setTimeout(() => {
+          mainImage.src = thumb.dataset.src;
+          mainImage.alt = thumb.dataset.alt;
+          mainImage.style.objectFit = thumb.dataset.fit;
+          mainImage.style.width = thumb.dataset.fit === 'cover' ? '100%' : '88%';
+          mainImage.style.height = thumb.dataset.fit === 'cover' ? '100%' : '88%';
+          mainImage.style.opacity = '1';
+        }, 140);
+      }
+    }));
+
+    /* ═══ STORY CAROUSEL ═══ */
+    const storyTrack = root.querySelector('#cp-story-track');
+    const slides = [...root.querySelectorAll('.cp-story-slide')];
+    const storyDots = [...root.querySelectorAll('.cp-carousel-dot')];
+    let storyIndex = 0;
+    let storyFrame;
+    const setStoryIndex = index => {
+      storyIndex = index;
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      storyDots.forEach((d, i) => d.classList.toggle('active', i === index));
+    };
+    const syncStoryIndex = () => {
+      if (!storyTrack) return;
+      const edge = storyTrack.getBoundingClientRect().left;
+      let closest = 0, distance = Infinity;
+      slides.forEach((slide, i) => {
+        const d = Math.abs(slide.getBoundingClientRect().left - edge);
+        if (d < distance) { closest = i; distance = d; }
+      });
+      setStoryIndex(closest);
+    };
+    const scrollToStory = index => {
+      const next = (index + slides.length) % slides.length;
+      if (storyTrack && slides[next]) storyTrack.scrollTo({ left: slides[next].offsetLeft - slides[0].offsetLeft, behavior: 'smooth' });
+    };
+    if (storyTrack) {
+      storyTrack.addEventListener('scroll', () => { cancelAnimationFrame(storyFrame); storyFrame = requestAnimationFrame(syncStoryIndex); }, { passive: true });
+      storyDots.forEach((d, i) => d.addEventListener('click', () => scrollToStory(i)));
+      const prev = root.querySelector('#cp-story-prev');
+      const next = root.querySelector('#cp-story-next');
+      if (prev) prev.addEventListener('click', () => scrollToStory(storyIndex - 1));
+      if (next) next.addEventListener('click', () => scrollToStory(storyIndex + 1));
+      window.addEventListener('resize', syncStoryIndex, { passive: true });
+    }
+
+    /* ═══ STICKY BAR ═══ */
+    const hero = root.querySelector('.cp-hero');
+    if (hero && sticky && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => sticky.classList.toggle('is-showing', !entry.isIntersecting), { threshold: .1 }).observe(hero);
+    }
+
+    /* ═══ CART SUBMISSION ═══ */
+    const form = root.querySelector('#cp-offer-form');
     if (form) form.addEventListener('submit', async event => {
       event.preventDefault();
       const selected = root.querySelector('.cp-option.is-selected');
       if (!selected || !selected.dataset.variant) return;
-      const originalLabel = checkout.textContent;
-      checkout.disabled = true; checkout.setAttribute('aria-busy', 'true'); checkout.textContent = 'Adding to cart…';
+      const label = checkout.textContent;
+      checkout.disabled = true;
+      checkout.setAttribute('aria-busy', 'true');
+      checkout.textContent = 'Adding to cart…';
       try {
         await fetch('{{ routes.cart_clear_url }}', { method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest' } });
-        const response = await fetch('{{ routes.cart_add_url }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.variant), quantity: Number(selected.dataset.quantity) || 1 }] }) });
-        const result = await response.json();
-        if (!response.ok || result.status) throw new Error('Could not add the selected bundle.');
+        const res = await fetch('{{ routes.cart_add_url }}', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }, body: JSON.stringify({ items: [{ id: Number(selected.dataset.variant), quantity: Number(selected.dataset.quantity) || 1 }] }) });
+        const data = await res.json();
+        if (!res.ok || data.status) throw new Error('Could not add the selected bundle.');
         const drawer = document.querySelector('cart-drawer');
         if (!drawer) { window.location.assign('{{ routes.cart_url }}'); return; }
-        const drawerResponse = await fetch('{{ routes.root_url }}?section_id=cart-drawer');
-        const drawerMarkup = await drawerResponse.text();
+        const drawerRes = await fetch('{{ routes.root_url }}?section_id=cart-drawer');
+        const drawerMarkup = await drawerRes.text();
         const parsed = new DOMParser().parseFromString(drawerMarkup, 'text/html');
-        const refreshedDrawer = parsed.querySelector('cart-drawer');
-        if (refreshedDrawer && refreshedDrawer.querySelector('.drawer__inner') && drawer.querySelector('.drawer__inner')) {
-          drawer.querySelector('.drawer__inner').innerHTML = refreshedDrawer.querySelector('.drawer__inner').innerHTML;
+        const fresh = parsed.querySelector('cart-drawer');
+        if (fresh && fresh.querySelector('.drawer__inner') && drawer.querySelector('.drawer__inner')) {
+          drawer.querySelector('.drawer__inner').innerHTML = fresh.querySelector('.drawer__inner').innerHTML;
           drawer.classList.remove('is-empty');
         }
-        const cart = await fetch('{{ routes.cart_url }}.js').then(response => response.json());
+        const cart = await fetch('{{ routes.cart_url }}.js').then(r => r.json());
         document.querySelectorAll('#cart-icon-bubble .cart-count-bubble').forEach(bubble => {
-          const count = bubble.querySelector('[aria-hidden]'); const label = bubble.querySelector('.visually-hidden');
+          const count = bubble.querySelector('[aria-hidden]');
+          const sr = bubble.querySelector('.visually-hidden');
           if (count) count.textContent = cart.item_count;
-          if (label) label.textContent = `${cart.item_count} items`;
+          if (sr) sr.textContent = `${cart.item_count} items`;
         });
         drawer.open(checkout);
-      } catch (error) {
+      } catch (e) {
         window.location.assign('{{ routes.cart_url }}');
       } finally {
-        checkout.disabled = false; checkout.removeAttribute('aria-busy'); checkout.textContent = originalLabel;
+        checkout.disabled = false;
+        checkout.removeAttribute('aria-busy');
+        checkout.textContent = label;
       }
     });
   })();
@@ -158,7 +910,7 @@
     { "type": "product", "id": "product", "label": "Product" },
     { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
     { "type": "image_picker", "id": "lifestyle_image", "label": "Tried-tools / lifestyle image" },
-    { "type": "image_picker", "id": "bucket_image", "label": "Trigger-stacking image" },
+    { "type": "image_picker", "id": "bucket_image", "label": "Trigger-stacking bucket image" },
     { "type": "image_picker", "id": "product_image", "label": "Product image" }
   ]
 }
