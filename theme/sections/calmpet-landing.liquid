@@ -248,6 +248,7 @@
   #calmpet-landing .cp-brand-criteria .cp-criteria-head{font-family:var(--cp-font);font-size:18px}
   #calmpet-landing .cp-brand-check{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--cp-olive-dark);color:#fff;font-weight:900}
   #calmpet-landing .cp-brand-cross{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#939393;color:#fff;font-weight:900}
+  #calmpet-landing .cp-brand-varies{font-size:11px;font-weight:900;color:var(--cp-muted)}
 
   /* ═══ OFFER / PDP ═══ */
   #calmpet-landing .cp-offer{background:var(--cp-cream-soft);color:var(--cp-ink)}
@@ -297,6 +298,7 @@
   /* Bonus panel */
   #calmpet-landing .cp-bonus{position:relative;margin-top:18px;padding:22px 12px 16px;border:1.5px solid var(--cp-ink);border-radius:16px}
   #calmpet-landing .cp-bonus-label{position:absolute;top:-9px;left:16px;background:var(--cp-cream-soft);padding:0 8px;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--cp-ink)}
+  #calmpet-landing .cp-bonus-sub{position:absolute;top:-8px;right:16px;background:var(--cp-cream-soft);padding:0 8px;font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--cp-muted)}
   #calmpet-landing .cp-bonus-row{display:flex;align-items:flex-start;justify-content:center;gap:8px}
   #calmpet-landing .cp-bonus-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
   #calmpet-landing .cp-bonus-icon{position:relative;width:38px;height:38px;display:grid;place-items:center;margin:0 auto}
@@ -537,9 +539,9 @@
     <div class="cp-wrap">
       <div class="cp-proof-intro"><div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5 from Dog Parents</span></div><h2>The moments that make owners say, “Something finally feels different.”</h2></div>
       <div class="cp-proof-row" id="cp-proof-carousel">
-        <article class="cp-proof-card is-active"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-home-alone-v1.png?v=1789425532" alt="Dog calmer when home alone" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>Calmer when home alone</h3><p>Verified launch-customer story reserved for this space.</p><small>Dog Parent | Verified Buyer</small></div></article>
-        <article class="cp-proof-card"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-easier-walk-v1.png?v=1789425532" alt="An easier walk around the block" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>An easier walk around the block</h3><p>Verified launch-customer story reserved for this space.</p><small>Dog Parent | Verified Buyer</small></div></article>
-        <article class="cp-proof-card"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-settled-trigger-v1.png?v=1789425531" alt="Settling sooner after a trigger" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>Settling sooner after a trigger</h3><p>Verified launch-customer story reserved for this space.</p><small>Dog Parent | Verified Buyer</small></div></article>
+        <article class="cp-proof-card is-active"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-home-alone-v1.png?v=1789425532" alt="Dog calmer when home alone" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>Calmer when home alone</h3><p>Verified launch-customer story reserved for this space.</p><small>Illustrative image | Review reserved</small></div></article>
+        <article class="cp-proof-card"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-easier-walk-v1.png?v=1789425532" alt="An easier walk around the block" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>An easier walk around the block</h3><p>Verified launch-customer story reserved for this space.</p><small>Illustrative image | Review reserved</small></div></article>
+        <article class="cp-proof-card"><div class="cp-proof-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-customer-settled-trigger-v1.png?v=1789425531" alt="Settling sooner after a trigger" loading="lazy"></div><div class="cp-proof-body"><span class="cp-stars">★★★★★</span><h3>Settling sooner after a trigger</h3><p>Verified launch-customer story reserved for this space.</p><small>Illustrative image | Review reserved</small></div></article>
       </div>
     </div>
   </section>
@@ -587,7 +589,7 @@
   <section class="cp-failed">
     <div class="cp-wrap cp-split">
       <div>
-        <h2>You did not fail your dog. <span class="cp-highlight">The tools you tried were built for the trigger, not the buildup.</span></h2>
+        <h2>You did not fail your dog. <span class="cp-highlight">The tools you tried focused on the final trigger, not the stress your dog was already carrying.</span></h2>
         <p><strong>You might have tried:</strong></p>
         <ul class="cp-attempt-list">
           <li><span class="cp-attempt-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-treat"/></svg></span>Calming treats</li>
@@ -604,9 +606,9 @@
         <p class="cp-failed-close"><strong style="color:var(--cp-orange)">Trying harder is not the answer.</strong> What your dog needs is support that starts before stress becomes visible and stays with them throughout the day.</p>
       </div>
       {% if lifestyle_image != blank %}
-        <figure class="cp-failed-visual">{{ lifestyle_image | image_url: width: 1200 | image_tag: alt: 'Caring owner sitting beside an alert dog after trying several situational calming tools', loading: 'lazy' }}<figcaption>What was missing was support that stayed with your dog between the moments you could see.</figcaption></figure>
+        <figure class="cp-failed-visual">{{ lifestyle_image | image_url: width: 1200 | image_tag: alt: 'Caring owner sitting beside an alert dog after trying several situational calming tools', loading: 'lazy' }}<figcaption>The missing piece wasn't another reaction-time tool. It was support that could stay close before the next trigger appeared.</figcaption></figure>
       {% else %}
-        <figure class="cp-failed-visual"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-tried-tools.png?v=1789402445" alt="Caring owner sitting beside an alert dog after trying several situational calming tools" loading="lazy" width="1200"><figcaption>What was missing was support that stayed with your dog between the moments you could see.</figcaption></figure>
+        <figure class="cp-failed-visual"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-tried-tools.png?v=1789402445" alt="Caring owner sitting beside an alert dog after trying several situational calming tools" loading="lazy" width="1200"><figcaption>The missing piece wasn't another reaction-time tool. It was support that could stay close before the next trigger appeared.</figcaption></figure>
       {% endif %}
     </div>
   </section>
@@ -620,14 +622,14 @@
       </div></div>
       <div class="cp-product-copy">
         <h2>If stress can stack throughout the day, calming support should <span class="cp-product-highlight">stay with your dog throughout the day.</span></h2>
-        <p>That is why CalmPet comes as a wearable collar.</p>
-        <p>While worn, the CalmPet Collar continuously releases a pheromone-based calming signal close to your dog's nose.</p>
-        <div class="cp-signal"><small>WE CALL THIS THE</small><strong>CalmPet Continuous Safety Signal</strong></div>
-        <p>Unlike a room diffuser, it travels with your dog. And unlike something you use only after stress becomes visible, it does not depend on you predicting when the next trigger will appear.</p>
-        <p>The signal stays close through naps, time alone, visitors, car rides, and everyday walks, <strong>without pills, sedatives, or another daily dose to remember.</strong></p>
-        <p>Designed to give your dog a calmer starting point and more <strong>Safety Margin</strong> before the next trigger pushes them toward their limit.</p>
-        <div class="cp-features"><div class="cp-feature">24/7 support while worn</div><div class="cp-feature">Recommended by Vets</div><div class="cp-feature">100% Natural Ingredients</div><div class="cp-feature">Lasts up to 60 Days</div></div>
-        <a class="cp-btn" href="#offer">Try CalmPet for 60 days <span>→</span></a>
+        <p>Inside every CalmPet Collar is the <span class="cp-product-highlight"><strong>Safety Margin Tri-Blend</strong></span>, a three-part combination of dog-calming pheromones, lavender, and chamomile.</p>
+        <p>While worn, the collar continuously releases the blend close to your dog.</p>
+        <p>It stays with them through naps, time alone, visitors, car rides, and everyday walks.</p>
+        <p>Unlike a room diffuser, it does not stop at the front door. And unlike something you bring out after stress becomes visible, it does not depend on you predicting when the next trigger will arrive.</p>
+        <p class="cp-product-punch">No pills. No sedatives. No daily dose to remember.</p>
+        <p>Designed to support a calmer starting point and give your dog more <strong>Safety Margin</strong> before the next trigger pushes them toward their limit.</p>
+        <div class="cp-features"><div class="cp-feature">24/7 Support While Worn</div><div class="cp-feature">Recommended by Vets</div><div class="cp-feature">100% Natural Ingredients</div><div class="cp-feature">Lasts Up to 60 Days</div></div>
+        <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS</a>
         <p class="cp-subnote">If it's not right for your dog, you get every cent back. No return required. No questions asked.</p>
       </div>
     </div>
@@ -639,7 +641,7 @@
       <div class="cp-section-head"><h2><span class="cp-highlight">Fit It Once.</span> Let the Calming Signal Stay Close for Up to 60 Days.</h2><p>No pills. No daily dosing. Just buckle, adjust, trim, and leave it on.</p></div>
       <div class="cp-steps">
         {%- assign step_titles = 'Buckle It On|Check the Fit|Trim the Excess|Leave It On' | split: '|' -%}
-        {%- assign step_bodies = "Place the CalmPet Collar around your dog's neck and fasten it securely.|Adjust the collar until you can comfortably slide two fingers between the collar and your dog's neck.|Carefully cut off any extra length once you are happy with the fit.|Keep the collar on continuously so the CalmPet Continuous Safety Signal stays close throughout the day. Replace it after 60 days." | split: '|' -%}
+        {%- assign step_bodies = "Place the CalmPet Collar around your dog's neck and fasten it securely.|Adjust the collar until you can comfortably slide two fingers between the collar and your dog's neck.|Carefully cut off any extra length once you are happy with the fit.|Keep the collar on continuously so the Safety Margin Tri-Blend stays close throughout the day. Replace it after 60 days." | split: '|' -%}
         {%- assign step_images = 'https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-fit-step-01-buckle-v2.png?v=1789426377|https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-fit-step-02-check-v2.png?v=1789426377|https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-fit-step-03-trim-v2.png?v=1789426377|https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-fit-step-04-wear-v2.png?v=1789426377' | split: '|' -%}
         {% for title in step_titles %}<article class="cp-step"><div class="cp-step-visual"><img src="{{ step_images[forloop.index0] }}" alt="{{ title }}" loading="lazy"></div><div class="cp-step-body"><span class="cp-step-num">STEP 0{{ forloop.index }}</span><h3>{{ title }}</h3><p>{{ step_bodies[forloop.index0] }}</p></div></article>{% endfor %}
       </div>
@@ -651,9 +653,9 @@
     <div class="cp-wrap">
       <div class="cp-section-head"><h2>This Is What Having More Good Days With Your Dog Can Look Like.</h2><p>Quieter goodbyes. Easier walks. Faster recovery after a trigger. The small changes that can make the entire day feel different.</p></div>
       <div class="cp-story-track" id="cp-story-track">
-        <article class="cp-story-slide is-active"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-quiet-hour-v1.png?v=1789426643" alt="Dog settling quietly at home" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>The first quiet hour at home</h3><p>Reserved for a verified customer story about separation stress and settling while home alone.</p><small>Dog Parent | Verified Buyer</small></div></article>
-        <article class="cp-story-slide"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-manageable-walk-v1.png?v=1789426643" alt="Dog on a calm walk" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>A walk that finally felt manageable</h3><p>Reserved for a verified customer story about passing triggers and recovering more easily outside.</p><small>Dog Parent | Verified Buyer</small></div></article>
-        <article class="cp-story-slide"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-settled-noise-v1.png?v=1789426643" alt="Dog settling after a noise trigger" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>Settling sooner after the noise stopped</h3><p>Reserved for a verified customer story about doorbells, visitors, storms, or sudden household sounds.</p><small>Dog Parent | Verified Buyer</small></div></article>
+        <article class="cp-story-slide is-active"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-quiet-hour-v1.png?v=1789426643" alt="Dog settling quietly at home" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>The first quiet hour at home</h3><p>Reserved for a verified customer story about separation stress and settling while home alone.</p><small>Illustrative image | Review reserved</small></div></article>
+        <article class="cp-story-slide"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-manageable-walk-v1.png?v=1789426643" alt="Dog on a calm walk" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>A walk that finally felt manageable</h3><p>Reserved for a verified customer story about passing triggers and recovering more easily outside.</p><small>Illustrative image | Review reserved</small></div></article>
+        <article class="cp-story-slide"><div class="cp-story-photo"><img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-story-settled-noise-v1.png?v=1789426643" alt="Dog settling after a noise trigger" loading="lazy"></div><div class="cp-story-review"><span class="cp-stars">★★★★★</span><h3>Settling sooner after the noise stopped</h3><p>Reserved for a verified customer story about doorbells, visitors, storms, or sudden household sounds.</p><small>Illustrative image | Review reserved</small></div></article>
       </div>
       <div class="cp-carousel-controls"><button class="cp-carousel-arrow" id="cp-story-prev" type="button" aria-label="Previous customer story">‹</button><div class="cp-carousel-dots"><button class="cp-carousel-dot active" type="button" aria-label="Story 1"></button><button class="cp-carousel-dot" type="button" aria-label="Story 2"></button><button class="cp-carousel-dot" type="button" aria-label="Story 3"></button></div><button class="cp-carousel-arrow" id="cp-story-next" type="button" aria-label="Next customer story">›</button></div>
     </div>
@@ -688,16 +690,16 @@
         </div>
         <div class="cp-brand-criteria">
           <div class="cp-criteria-head">WHICH FITS REAL LIFE WITH YOUR DOG?</div>
-          <div>Continuous support while worn</div>
-          <div>Goes wherever your dog goes</div>
-          <div>Nothing to swallow or plug in</div>
+          <div>No pills, plugs, or compression</div>
+          <div>Moves with your dog indoors and outdoors</div>
           <div>No trigger-by-trigger setup</div>
+          <div>Up to 60 days from one fit</div>
         </div>
         <div class="cp-brand-side">
           <div class="cp-brand-side-header">{% if lifestyle_image != blank %}{{ lifestyle_image | image_url: width: 300 | image_tag: alt: 'Calming treats, pressure vest, and room diffuser', style: 'border-radius:10px' }}{% else %}<div class="cp-media-placeholder" style="width:110px;height:82px;font-size:9px;border-radius:10px">ALTERNATIVES IMAGE</div>{% endif %}<b>TREATS, VESTS &amp; DIFFUSERS</b></div>
           <div><span class="cp-brand-cross">✕</span></div>
-          <div><span class="cp-brand-cross">✕</span></div>
-          <div><span class="cp-brand-cross">✕</span></div>
+          <div><span class="cp-brand-varies">VARIES</span></div>
+          <div><span class="cp-brand-varies">VARIES</span></div>
           <div><span class="cp-brand-cross">✕</span></div>
         </div>
       </div>
@@ -756,24 +758,24 @@
           </div>
 
           <div class="cp-bonus">
-            <span class="cp-bonus-label">Bonuses Unlocked</span>
+            <span class="cp-bonus-label">Your Bonuses</span><small class="cp-bonus-sub">MORE UNLOCK AS YOU UPGRADE</small>
             <div class="cp-bonus-row">
               <div class="cp-bonus-item" data-bonus="1">
                 <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="13" height="10" rx="1"/><path d="M14 9h3l4 4v3h-7V9z"/><circle cx="5.5" cy="18" r="2"/><circle cx="18.5" cy="18" r="2"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                 <span class="cp-bonus-value">$9.99</span>
-                <span class="cp-bonus-name">FREE Shipping</span>
+                <span class="cp-bonus-name">Free Shipping</span>
               </div>
               <span class="cp-bonus-plus">+</span>
               <div class="cp-bonus-item" data-bonus="2">
                 <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                 <span class="cp-bonus-value">$15</span>
-                <span class="cp-bonus-name">FREE Credit</span>
+                <span class="cp-bonus-name">$15 CalmPet Credit</span>
               </div>
               <span class="cp-bonus-plus">+</span>
               <div class="cp-bonus-item is-locked" data-bonus="3">
                 <span class="cp-bonus-icon"><svg class="cp-bonus-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg><svg class="cp-bonus-lock" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
                 <span class="cp-bonus-value">$19</span>
-                <span class="cp-bonus-name">FREE Field Guide</span>
+                <span class="cp-bonus-name">Trigger Stacking Field Guide</span>
               </div>
             </div>
           </div>
@@ -781,7 +783,7 @@
           <div class="cp-pdp-guarantee"><div class="cp-pdp-guarantee-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg></div><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Let your dog wear CalmPet for the full 60 days. If it is not right for your dog, you get every cent back. No return required. No questions asked.</p></div></div>
 
           <button class="cp-btn cp-checkout" id="cp-checkout" type="submit" {% unless product.available %}disabled{% endunless %}>Get 5 CalmPet Collars for $98 →</button>
-          <p class="cp-checkout-note">Your selection is added securely to your Shopify cart.</p>
+          <p class="cp-checkout-note">Checkout link will be connected before launch.</p>
           <div class="cp-reassure"><span>Free Shipping</span><span>No Subscription</span><span>Full Refund Protection</span></div>
         {% endform %}
 
