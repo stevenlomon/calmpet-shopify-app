@@ -268,7 +268,8 @@
   #calmpet-landing .cp-pdp-details h2{max-width:650px;font-size:clamp(41px,4.4vw,59px);line-height:1.03;margin-bottom:12px}
   #calmpet-landing .cp-pdp-sub{font-size:16px;color:var(--cp-muted)}
   #calmpet-landing .cp-pdp-benefits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}
-  #calmpet-landing .cp-pdp-benefits span{background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:12px;padding:10px 12px;font-size:12px;font-weight:800}
+  #calmpet-landing .cp-pdp-benefits span{position:relative;background:var(--cp-paper);border:1px solid var(--cp-border);border-radius:12px;padding:10px 12px 10px 34px;font-size:12px;font-weight:800}
+  #calmpet-landing .cp-pdp-benefits span:before{content:"✓";position:absolute;left:12px;color:var(--cp-olive-dark);font-weight:900}
   #calmpet-landing .cp-options{display:grid;gap:13px;margin-top:22px}
   #calmpet-landing .cp-option{position:relative;display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;background:var(--cp-paper);border:1.5px solid var(--cp-border);border-radius:16px;padding:16px;cursor:pointer;overflow:hidden}
   #calmpet-landing .cp-option.is-selected{border:2px solid var(--cp-orange);background:#FFF0E3;box-shadow:var(--cp-shadow-playful)}
@@ -832,7 +833,13 @@
         item.querySelector('.cp-bonus-status').textContent = unlocked ? 'UNLOCKED' : 'LOCKED';
       });
     };
-    options.forEach(o => o.addEventListener('click', () => syncBundle(o)));
+    options.forEach(o => {
+      const radio = o.querySelector('input[type="radio"]');
+      if (radio) radio.addEventListener('change', () => syncBundle(o));
+      o.addEventListener('click', e => {
+        if (e.target !== radio) { e.preventDefault(); if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); } }
+      });
+    });
     const initial = root.querySelector('.cp-option.is-selected');
     if (initial) syncBundle(initial);
 
