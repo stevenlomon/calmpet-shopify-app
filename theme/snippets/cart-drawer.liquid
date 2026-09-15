@@ -50,7 +50,20 @@
       <footer class="cp-drawer-footer" id="cp-drawer-footer" hidden>
         <div class="cp-drawer-total"><span>Subtotal</span><strong id="cp-drawer-total">$0</strong></div>
         <a href="/checkout" class="cp-drawer-checkout" id="cp-drawer-checkout">CONTINUE TO SECURE CHECKOUT</a>
-        <small>Taxes calculated at checkout</small>
+        <div class="cp-drawer-payment-trust" aria-label="Secure payment methods">
+          <span class="cp-drawer-secure">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v7H6v-7a2 2 0 0 1 2-2Zm2 0h4V8a2 2 0 1 0-4 0v2Z"/></svg>
+            Secure checkout
+          </span>
+          <div class="cp-drawer-payments" role="list">
+            {%- assign cp_featured_payment_types = 'shopify_pay,paypal,google_pay,visa,master,american_express' | split: ',' -%}
+            {%- for type in cp_featured_payment_types -%}
+              {%- if shop.enabled_payment_types contains type -%}
+                <span role="listitem">{{ type | payment_type_svg_tag: class: 'cp-drawer-payment-icon' }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
       </footer>
     </div>
   </div>
@@ -122,7 +135,12 @@
   .cp-drawer-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;font-size:16px}
   .cp-drawer-total strong{font-size:20px}
   .cp-drawer-checkout{display:flex;align-items:center;justify-content:center;min-height:54px;padding:13px 16px;border:1.5px solid #3B1C06;border-radius:13px;background:#FD7100;color:#fff;text-decoration:none;font-size:14px;font-weight:900;box-shadow:0 3px 0 rgba(59,28,6,.15)}
-  .cp-drawer-footer>small{display:block;margin-top:8px;text-align:center;color:#765943;font-size:10px}
+  .cp-drawer-payment-trust{display:grid;gap:7px;margin-top:10px;text-align:center}
+  .cp-drawer-secure{display:flex;align-items:center;justify-content:center;gap:5px;color:#66704C;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+  .cp-drawer-secure svg{width:14px;height:14px;fill:currentColor}
+  .cp-drawer-payments{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px;min-height:24px}
+  .cp-drawer-payments span{display:flex}
+  .cp-drawer-payment-icon{width:34px;height:22px}
   @media(max-width:540px){.cp-drawer-header{padding:17px 16px 13px}.cp-drawer-header h2{font-size:26px}.cp-drawer-scroll{padding:15px 15px 20px}.cp-drawer-footer{padding:13px 15px calc(13px + env(safe-area-inset-bottom))}.cp-drawer-item{grid-template-columns:78px minmax(0,1fr);gap:11px}.cp-drawer-item img{width:78px;height:78px}.cp-drawer-item h3{font-size:16px}.cp-drawer-price{font-size:16px}}
   @media(prefers-reduced-motion:reduce){.cp-drawer-panel,.cp-drawer-overlay{transition:none}}
 </style>
