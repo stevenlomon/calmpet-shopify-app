@@ -37,7 +37,7 @@
   #calmpet-landing .cp-icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   /* ═══ SHARED COMPONENTS ═══ */
-  #calmpet-landing .cp-social-proof{display:flex;align-items:center;gap:13px;margin-bottom:20px;font-size:14px;font-weight:800}
+  #calmpet-landing .cp-social-proof{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:16px;font-weight:800;white-space:nowrap}
   #calmpet-landing .cp-stars{color:var(--cp-orange);letter-spacing:1.5px}
   #calmpet-landing .cp-divider{width:1px;height:20px;background:var(--cp-border)}
   #calmpet-landing .cp-section-head{text-align:center;max-width:780px;margin:0 auto 48px}
@@ -72,7 +72,7 @@
   #calmpet-landing .cp-hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:64px;align-items:center}
   #calmpet-landing .cp-hero h1 em{font-style:normal;color:var(--cp-orange)}
   #calmpet-landing .cp-dek{font-size:clamp(16px,1.5vw,18px);line-height:1.55;max-width:640px;margin:24px 0}
-  #calmpet-landing .cp-checks{display:grid;gap:8px;list-style:none;padding:0;margin:0 0 28px}
+  #calmpet-landing .cp-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 20px;max-width:470px;list-style:none;padding:0;margin:0 0 28px}
   #calmpet-landing .cp-checks li{display:flex;gap:10px;align-items:center;font-weight:700}
   #calmpet-landing .cp-check{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);font-size:13px;flex:0 0 auto}
   #calmpet-landing .cp-hero-photo{position:relative}
@@ -294,9 +294,9 @@
   #calmpet-landing .cp-bonus-label{position:absolute;top:-16px;left:18px;background:var(--cp-yellow);border:2px solid var(--cp-ink);border-radius:10px;padding:6px 14px;font-family:var(--cp-font);font-size:14px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--cp-ink);box-shadow:0 2px 0 rgba(59,28,6,.12)}
   #calmpet-landing .cp-bonus-sub{position:absolute;top:-10px;right:16px;background:var(--cp-paper);padding:0 7px;font-size:9px;font-weight:900;letter-spacing:.07em;color:var(--cp-muted)}
   #calmpet-landing .cp-bonus-row{display:grid;grid-template-columns:repeat(3,1fr);align-items:start;gap:8px}
-  #calmpet-landing .cp-bonus-item{position:relative;min-width:0;min-height:116px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;text-align:center;border-radius:14px;transition:background .25s ease,transform .25s ease}
+  #calmpet-landing .cp-bonus-item{position:relative;min-width:0;min-height:170px;display:grid;grid-template-rows:64px 16px 38px 18px 26px;align-items:center;justify-items:center;gap:4px;padding:8px 6px;text-align:center;border-radius:14px;transition:background .25s ease,transform .25s ease}
   #calmpet-landing .cp-bonus-item:not(.is-locked){background:#FFF6EA;transform:translateY(-1px)}
-  #calmpet-landing .cp-bonus-icon{position:relative;width:50px;height:50px;display:grid;place-items:center;margin:0 auto 2px;border-radius:14px;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);color:var(--cp-ink);transition:opacity .3s ease,filter .3s ease,transform .3s ease}
+  #calmpet-landing .cp-bonus-icon{position:relative;width:50px;height:50px;display:grid;place-items:center;margin:0 auto;border-radius:14px;background:var(--cp-yellow);border:1.5px solid var(--cp-ink);color:var(--cp-ink);transition:opacity .3s ease,filter .3s ease,transform .3s ease}
   #calmpet-landing .cp-bonus-item:not(.is-locked) .cp-bonus-icon{transform:rotate(-2deg)}
   #calmpet-landing .cp-bonus-item + .cp-bonus-item:before{content:"+";position:absolute;left:-10px;top:47px;width:20px;height:20px;display:grid;place-items:center;border:1px solid var(--cp-border);border-radius:50%;background:var(--cp-paper);color:var(--cp-muted);font-size:13px;font-weight:900}
   #calmpet-landing .cp-bonus-icon--cover{width:48px;height:64px;padding:0;overflow:hidden;border-radius:9px;background:#fff}
@@ -312,7 +312,7 @@
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-value{opacity:.24;filter:blur(2px)}
   #calmpet-landing .cp-bonus-name{font-size:12px;font-weight:900;line-height:1.25;color:var(--cp-olive-dark);transition:opacity .3s ease,filter .3s ease,color .3s ease}
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-name{color:var(--cp-muted);opacity:.24;filter:blur(3px)}
-  #calmpet-landing .cp-bonus-state{display:inline-flex;align-items:center;justify-content:center;min-height:20px;margin-top:2px;padding:3px 8px;border-radius:999px;background:var(--cp-orange);color:#fff;font-size:9px;font-weight:900;letter-spacing:.06em}
+  #calmpet-landing .cp-bonus-state{display:inline-flex;align-items:center;justify-content:center;min-height:20px;margin:0;padding:3px 8px;border-radius:999px;background:var(--cp-orange);color:#fff;font-size:9px;font-weight:900;letter-spacing:.06em}
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-state{background:var(--cp-brown)}
   #calmpet-landing .cp-bonus-item.is-locked .cp-bonus-state .cp-unlocked-word{display:none}
   #calmpet-landing .cp-bonus-item:not(.is-locked) .cp-bonus-state .cp-locked-word{display:none}
@@ -424,7 +424,10 @@
     #calmpet-landing .cp-paw{width:48px;height:48px}
     #calmpet-landing .cp-paw .cp-icon{width:25px;height:25px}
     #calmpet-landing .cp-photo-note{left:8px;bottom:16px;font-size:12px}
-    #calmpet-landing .cp-social-proof{font-size:12px;gap:8px}
+    #calmpet-landing .cp-social-proof{font-size:15px;gap:7px}
+    #calmpet-landing .cp-checks{gap:8px 12px}
+    #calmpet-landing .cp-checks li{gap:7px;font-size:13px}
+    #calmpet-landing .cp-check{width:22px;height:22px}
     #calmpet-landing .cp-stat{padding:32px 24px}
     #calmpet-landing .cp-mechanism-evidence{grid-template-columns:1fr;text-align:center}
     #calmpet-landing .cp-failed-visual{aspect-ratio:4/3}
@@ -481,7 +484,7 @@
     #calmpet-landing .cp-bonus{margin-top:22px;padding:28px 8px 12px}
     #calmpet-landing .cp-bonus-label{left:12px}
     #calmpet-landing .cp-bonus-row{gap:5px}
-    #calmpet-landing .cp-bonus-item{padding:7px 3px}
+    #calmpet-landing .cp-bonus-item{min-height:168px;padding:7px 3px}
     #calmpet-landing .cp-pdp-guarantee{grid-template-columns:44px 1fr;gap:11px;padding:13px 12px}
     #calmpet-landing .cp-pdp-guarantee-icon{width:44px;height:44px}
     #calmpet-landing .cp-pdp-guarantee-icon .cp-icon{width:24px;height:24px}
@@ -529,7 +532,7 @@
   </svg>
 
   <!-- ═══ TOPBAR ═══ -->
-  <div class="cp-topbar">NO SUBSCRIPTION · FREE U.S. SHIPPING · 60-DAY PROMISE</div>
+  <div class="cp-topbar">FREE U.S. SHIPPING · 60-DAY GUARANTEE</div>
 
   <!-- ═══ NAV ═══ -->
   <header class="cp-nav" id="top">
@@ -557,7 +560,7 @@
         <h1>One Small Trigger Shouldn't Take Over Your Dog's Whole Day. <em>Give Them More Room for Calm.</em></h1>
         <p class="cp-dek">The CalmPet Collar provides continuous pheromone support that helps lower the background stress building between triggers, so your dog has more room to settle, recover, and handle everyday life.</p>
         <ul class="cp-checks"><li><span class="cp-check">✓</span>Drug-Free</li><li><span class="cp-check">✓</span>24/7 Support</li><li><span class="cp-check">✓</span>Up to 60 Days</li><li><span class="cp-check">✓</span>No Subscription</li></ul>
-        <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS <span>→</span></a>
+        <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS</a>
         <p class="cp-subnote">If it's not right for your dog, you get every cent back.</p>
       </div>
       <div class="cp-hero-photo">
@@ -699,7 +702,7 @@
   </section>
 
   <!-- ═══ CTA BAND ═══ -->
-  <div class="cp-cta-band"><div class="cp-wrap"><h3>Give your dog more room before the next trigger arrives.</h3><a class="cp-btn" href="#offer">Try CalmPet for 60 days →</a></div></div>
+  <div class="cp-cta-band"><div class="cp-wrap"><h3>Give your dog more room before the next trigger arrives.</h3><a class="cp-btn" href="#offer">Try CalmPet for 60 days</a></div></div>
 
   <!-- ═══ AUTHORITY ═══ -->
   <section class="cp-authority" id="science">
@@ -772,14 +775,14 @@
         {% form 'product', product, id: 'cp-offer-form' %}
           <input id="cp-variant" type="hidden" name="id" value="{{ variant_five.id }}">
           <div class="cp-options" id="cp-options">
-            <label class="cp-option" data-variant="{{ variant_one.id }}" data-quantity="1" data-count="1" data-level="1" data-title="Try CalmPet Collar | $49" data-sub="$49 per collar | save $20 | free U.S. shipping" data-cta="Add 1 Collar to Cart · $49 →">
+            <label class="cp-option" data-variant="{{ variant_one.id }}" data-quantity="1" data-count="1" data-level="1" data-title="Try CalmPet Collar | $49" data-sub="$49 per collar | save $20 | free U.S. shipping" data-cta="Add 1 Collar to Cart · $49">
               <input type="radio" name="cp_offer"><span class="cp-option-radio"></span>
               <span class="cp-option-visual"><img src="{{ product.featured_image | image_url: width: 160 }}" alt="" width="80" height="80"><span class="cp-option-count">×1</span></span>
               <span class="cp-option-copy"><span class="cp-use-case">Try CalmPet</span><b>Try CalmPet Collar</b><small>One collar · up to 60 days for one dog</small><span class="cp-option-includes">FREE U.S. SHIPPING · $6.38 VALUE</span></span>
               <span class="cp-option-price"><span class="regular"><s>$69</s></span>$49<small class="per-unit">$49.00 per collar</small><small class="save">SAVE $20</small></span>
               <span class="cp-option-detail"><span>✓ Free tracked U.S. shipping · $6.38 value</span></span>
             </label>
-            <label class="cp-option is-selected is-featured" data-variant="{{ variant_five.id }}" data-quantity="5" data-count="5" data-level="2" data-title="Buy 2, Get 3 FREE | $98" data-sub="$19.60 per collar | save $247 | includes 12-month $15 credit" data-cta="Add 5 Collars to Cart · $98 →">
+            <label class="cp-option is-selected is-featured" data-variant="{{ variant_five.id }}" data-quantity="5" data-count="5" data-level="2" data-title="Buy 2, Get 3 FREE | $98" data-sub="$19.60 per collar | save $247 | includes 12-month $15 credit" data-cta="Add 5 Collars to Cart · $98">
               <span class="cp-ribbon">MOST POPULAR</span>
               <input type="radio" name="cp_offer" checked><span class="cp-option-radio"></span>
               <span class="cp-option-visual"><span class="cp-option-free">+3 FREE</span><img src="{{ product.featured_image | image_url: width: 160 }}" alt="" width="80" height="80"><span class="cp-option-count">×5</span></span>
@@ -787,7 +790,7 @@
               <span class="cp-option-price"><span class="regular"><s>$345</s></span>$98<small class="per-unit">$19.60 per collar</small><small class="save">SAVE $247 · 72%</small></span>
               <span class="cp-option-detail"><span>✓ 5 CalmPet Collars</span><span>✓ Free U.S. shipping</span><span>✓ $15 CalmPet Credit · valid 12 months</span></span>
             </label>
-            <label class="cp-option is-featured cp-family" data-variant="{{ variant_eight.id }}" data-quantity="8" data-count="8" data-level="3" data-title="Buy 3, Get 5 FREE | $147" data-sub="$18.38 per collar | save $405 | complete bonus stack + instant PDF" data-cta="Add 8 Collars to Cart · $147 →">
+            <label class="cp-option is-featured cp-family" data-variant="{{ variant_eight.id }}" data-quantity="8" data-count="8" data-level="3" data-title="Buy 3, Get 5 FREE | $147" data-sub="$18.38 per collar | save $405 | complete bonus stack + instant PDF" data-cta="Add 8 Collars to Cart · $147">
               <span class="cp-ribbon">BEST VALUE</span>
               <input type="radio" name="cp_offer"><span class="cp-option-radio"></span>
               <span class="cp-option-visual"><span class="cp-option-free">+5 FREE</span><img src="{{ product.featured_image | image_url: width: 160 }}" alt="" width="80" height="80"><span class="cp-option-count">×8</span></span>
@@ -817,7 +820,7 @@
               <div class="cp-bonus-item" data-bonus="3">
                 <span class="cp-bonus-icon cp-bonus-icon--cover"><img class="cp-bonus-cover" src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-trigger-stacking-guide-cover.png?v=1789464579" alt="Trigger Stacking Field Guide cover" width="96" height="128" loading="lazy"><svg class="cp-bonus-lock" aria-hidden="true"><use href="#cp-lock"/></svg></span>
                 <span class="cp-bonus-value">$19 value</span>
-                <span class="cp-bonus-name">Trigger Stacking Field Guide</span>
+                <span class="cp-bonus-name">Trigger Stacking Guide</span>
                 <span class="cp-bonus-note">Instant PDF download</span>
                 <span class="cp-bonus-state"><span class="cp-unlocked-word">UNLOCKED</span><span class="cp-locked-word">LOCKED</span></span>
               </div>
@@ -826,7 +829,7 @@
 
           <div class="cp-pdp-guarantee"><div class="cp-pdp-guarantee-icon"><svg class="cp-icon" aria-hidden="true"><use href="#cp-shield"/></svg></div><div><h3>Protected by the CalmPet 60-Day Promise</h3><p>Try CalmPet for the full 60 days. If it is not right for your dog, get every cent back. No return required.</p></div></div>
 
-          <button class="cp-btn cp-checkout" id="cp-checkout" type="submit" {% unless product.available %}disabled{% endunless %}>Add 5 Collars to Cart · $98 →</button>
+          <button class="cp-btn cp-checkout" id="cp-checkout" type="submit" {% unless product.available %}disabled{% endunless %}>Add 5 Collars to Cart · $98</button>
           <div class="cp-reassure"><span>Free Shipping</span><span>No Subscription</span><span>Full Refund Protection</span></div>
         {% endform %}
 

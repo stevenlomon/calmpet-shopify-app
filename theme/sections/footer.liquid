@@ -3,12 +3,21 @@
   CalmPet footer — compact support and legal navigation
 {%- endcomment -%}
 
+{%- assign footer_logo = images['CalmPet_Logo.png'] | default: settings.logo -%}
+{%- assign support_email = settings.lp_support_email | default: 'hello@calmpet.club' -%}
+
 <footer class="lp-footer">
   <div class="lp-footer-inner">
-    <div class="lp-footer-content">
-      <a href="{{ routes.root_url }}" class="lp-footer-brand">CalmPet<span>•</span></a>
-      <p>CalmPet is a pet-wellness product designed to support calmer behavior. Individual results vary. It is not intended to diagnose, treat, cure, or prevent disease. Serious or sudden behavioral concerns should be discussed with a veterinarian. © {{ 'now' | date: '%Y' }} CalmPet.club</p>
-    </div>
+    <a href="{{ routes.root_url }}" class="lp-footer-brand" aria-label="CalmPet home">{% if footer_logo != blank %}{{ footer_logo | image_url: width: 340 | image_tag: alt: 'CalmPet', loading: 'lazy' }}{% else %}Calm<span>Pet</span>{% endif %}</a>
+    <nav class="lp-footer-links" aria-label="Support and legal information">
+      <a href="mailto:{{ support_email }}">Contact</a>
+      <a href="/policies/shipping-policy">Shipping</a>
+      <a href="/policies/refund-policy">Returns</a>
+      <a href="/policies/privacy-policy">Privacy</a>
+      <a href="/policies/terms-of-service">Terms</a>
+    </nav>
+    <p class="lp-footer-disclaimer">CalmPet supports everyday calm and is not intended to diagnose, treat, cure, or prevent disease. Individual results vary.</p>
+    <p class="lp-footer-copyright">© {{ 'now' | date: '%Y' }} CalmPet.club</p>
   </div>
 </footer>
 
@@ -16,21 +25,19 @@
   .lp-footer {
     background: #301500;
     color: rgba(255, 255, 255, 0.7);
-    padding: 38px 18px 88px;
+    padding: 32px 18px 86px;
   }
   .lp-footer-inner {
     max-width: 1100px;
     margin: 0 auto;
   }
-  .lp-footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem;
-    max-width: 1180px;
-    margin: 0 auto;
-  }
   .lp-footer-brand {
+    display: block;
+    width: 172px;
+    margin: 0 auto 20px;
+    padding: 9px 13px;
+    background: #fff6ea;
+    border-radius: 12px;
     color: #fff;
     font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
     font-size: 3rem;
@@ -39,20 +46,38 @@
     text-decoration: none;
     white-space: nowrap;
   }
+  .lp-footer-brand img { width: 100%; height: auto; }
   .lp-footer-brand span { color: #fd7100; }
-  .lp-footer-content p {
-    color: #d4b69d;
-    font-size: 1.2rem;
-    line-height: 1.5;
-    max-width: 690px;
-    margin: 0;
+  .lp-footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 22px;
   }
-  @media screen and (min-width: 750px) {
-    .lp-footer-content { max-width: 1100px; }
+  .lp-footer-links a {
+    color: rgba(255,255,255,.68);
+    font-size: 1.15rem;
+    text-decoration: none;
+  }
+  .lp-footer-links a:hover { color: #fff; text-decoration: underline; }
+  .lp-footer-disclaimer {
+    max-width: 720px;
+    margin: 22px auto 0;
+    color: rgba(255,255,255,.42);
+    font-size: 1rem;
+    line-height: 1.45;
+    text-align: center;
+  }
+  .lp-footer-copyright {
+    margin: 12px 0 0;
+    color: rgba(255,255,255,.48);
+    font-size: 1rem;
+    text-align: center;
   }
   @media screen and (max-width: 749px) {
-    .lp-footer-content { display: block; }
-    .lp-footer-brand { display: inline-block; margin-bottom: 1.8rem; }
+    .lp-footer { padding-top: 28px; }
+    .lp-footer-brand { width: 154px; }
+    .lp-footer-links { gap: 9px 18px; }
   }
 {% endstylesheet %}
 
