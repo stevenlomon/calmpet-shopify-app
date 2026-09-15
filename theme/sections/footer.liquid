@@ -3,12 +3,13 @@
   CalmPet footer — compact support and legal navigation
 {%- endcomment -%}
 
-{%- assign footer_logo = images['CalmPet_Logo.png'] | default: settings.logo -%}
 {%- assign support_email = settings.lp_support_email | default: 'hello@calmpet.club' -%}
 
 <footer class="lp-footer">
   <div class="lp-footer-inner">
-    <a href="{{ routes.root_url }}" class="lp-footer-brand" aria-label="CalmPet home">{% if footer_logo != blank %}{{ footer_logo | image_url: width: 340 | image_tag: alt: 'CalmPet', loading: 'lazy' }}{% else %}Calm<span>Pet</span>{% endif %}</a>
+    <a href="{{ routes.root_url }}" class="lp-footer-brand" aria-label="CalmPet home">
+      <img src="https://cdn.shopify.com/s/files/1/1019/2273/4464/files/calmpet-logo-white.png?v=1789475292" alt="CalmPet" loading="lazy" width="640" height="256">
+    </a>
     <nav class="lp-footer-links" aria-label="Support and legal information">
       <a href="mailto:{{ support_email }}">Contact</a>
       <a href="/policies/shipping-policy">Shipping</a>
@@ -33,21 +34,15 @@
   }
   .lp-footer-brand {
     display: block;
-    width: 172px;
+    width: 184px;
     margin: 0 auto 20px;
-    padding: 9px 13px;
-    background: #fff6ea;
-    border-radius: 12px;
-    color: #fff;
-    font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: -.08em;
     text-decoration: none;
-    white-space: nowrap;
   }
-  .lp-footer-brand img { width: 100%; height: auto; }
-  .lp-footer-brand span { color: #fd7100; }
+  .lp-footer-brand img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
   .lp-footer-links {
     display: flex;
     justify-content: center;
@@ -76,7 +71,7 @@
   }
   @media screen and (max-width: 749px) {
     .lp-footer { padding-top: 28px; }
-    .lp-footer-brand { width: 154px; }
+    .lp-footer-brand { width: 166px; }
     .lp-footer-links { gap: 9px 18px; }
   }
 {% endstylesheet %}
