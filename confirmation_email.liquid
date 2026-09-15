@@ -3839,6 +3839,33 @@
           </table>
           {% endif %}
 
+          {% assign cp_show_credit = false %}
+          {% for line_item in line_items %}
+            {% if line_item.quantity >= 5 %}
+              {% assign cp_show_credit = true %}
+            {% endif %}
+          {% endfor %}
+          {% if cp_show_credit %}
+          <table class="row section">
+            <tr>
+              <td class="section__cell">
+                <center>
+                  <table class="container">
+                    <tr>
+                      <td>
+                        <div class="cp-bonus-box">
+                          <h3>Your $15 CalmPet Credit</h3>
+                          <p>Use code <strong style="color:#FD7100;font-size:16px;letter-spacing:0.5px;">CALMPET15</strong> at checkout on your next order to save $15.</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </center>
+              </td>
+            </tr>
+          </table>
+          {% endif %}
+
           <table class="row footer">
   <tr>
     <td class="footer__cell">
