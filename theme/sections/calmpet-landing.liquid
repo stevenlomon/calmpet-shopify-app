@@ -38,6 +38,7 @@
 
   /* ═══ SHARED COMPONENTS ═══ */
   #calmpet-landing .cp-social-proof{display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:16px;font-weight:800;white-space:nowrap}
+  #calmpet-landing .cp-rating-score{display:inline-flex;align-items:center;gap:10px}
   #calmpet-landing .cp-stars{color:var(--cp-orange);letter-spacing:1.5px}
   #calmpet-landing .cp-divider{width:1px;height:20px;background:var(--cp-border)}
   #calmpet-landing .cp-section-head{text-align:center;max-width:780px;margin:0 auto 48px}
@@ -186,7 +187,7 @@
   #calmpet-landing .cp-signal small{display:block;font-size:11px;font-weight:900;letter-spacing:.12em;margin-bottom:3px}
   #calmpet-landing .cp-signal strong{display:block;font-family:var(--cp-font);font-size:clamp(19px,2vw,25px);line-height:1.15}
   #calmpet-landing .cp-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 26px}
-  #calmpet-landing .cp-feature{position:relative;padding:12px 14px 12px 42px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:14px;font-weight:800}
+  #calmpet-landing .cp-feature{position:relative;display:flex;align-items:center;min-height:58px;padding:12px 14px 12px 42px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:14px;font-weight:800}
   #calmpet-landing .cp-feature:before{content:"✓";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--cp-yellow);color:var(--cp-ink);font-size:12px;font-weight:900;line-height:1}
   #calmpet-landing .cp-product .cp-subnote{color:#e8cdb7;font-size:12px}
 
@@ -259,6 +260,7 @@
   #calmpet-landing .cp-gallery-thumb img{width:100%;height:100%;object-fit:cover;border-radius:9px}
   #calmpet-landing .cp-gallery-thumb:first-child img{object-fit:contain}
   #calmpet-landing .cp-offer-kicker{display:block;margin:0 0 10px;color:var(--cp-orange);font-size:12px;font-weight:900;letter-spacing:.1em}
+  #calmpet-landing .cp-pdp-details{min-width:0}
   #calmpet-landing .cp-pdp-details h2{max-width:650px;font-size:clamp(41px,4.4vw,59px);line-height:1.03;margin-bottom:12px}
   #calmpet-landing .cp-pdp-sub{font-size:16px;color:var(--cp-muted)}
   #calmpet-landing .cp-pdp-benefits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:20px 0}
@@ -425,6 +427,10 @@
     #calmpet-landing .cp-paw .cp-icon{width:25px;height:25px}
     #calmpet-landing .cp-photo-note{left:8px;bottom:16px;font-size:12px}
     #calmpet-landing .cp-social-proof{font-size:15px;gap:7px}
+    #calmpet-landing .cp-social-proof--rating{display:grid;justify-items:start;gap:2px;white-space:normal}
+    #calmpet-landing .cp-social-proof--rating .cp-rating-score{gap:7px}
+    #calmpet-landing .cp-social-proof--rating .cp-divider{display:none}
+    #calmpet-landing .cp-social-proof--rating .cp-trust-count{font-size:13px}
     #calmpet-landing .cp-checks{gap:8px 12px}
     #calmpet-landing .cp-checks li{gap:7px;font-size:13px}
     #calmpet-landing .cp-check{width:22px;height:22px}
@@ -556,7 +562,7 @@
   <section class="cp-hero">
     <div class="cp-wrap cp-hero-grid">
       <div>
-        <div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5</span><span class="cp-divider"></span><span>Trusted by 1,267 Dog Parents</span></div>
+        <div class="cp-social-proof cp-social-proof--rating"><span class="cp-rating-score"><span class="cp-stars">★★★★★</span><span>4.7/5</span></span><span class="cp-divider"></span><span class="cp-trust-count">Trusted by 1,267 Dog Parents</span></div>
         <h1>One Small Trigger Shouldn't Take Over Your Dog's Whole Day. <em>Give Them More Room for Calm.</em></h1>
         <p class="cp-dek">The CalmPet Collar provides continuous pheromone support that helps lower the background stress building between triggers, so your dog has more room to settle, recover, and handle everyday life.</p>
         <ul class="cp-checks"><li><span class="cp-check">✓</span>Drug-Free</li><li><span class="cp-check">✓</span>24/7 Support</li><li><span class="cp-check">✓</span>Up to 60 Days</li><li><span class="cp-check">✓</span>No Subscription</li></ul>
@@ -668,7 +674,7 @@
         <p>Unlike a room diffuser, it does not stop at the front door. And unlike something you bring out after stress becomes visible, it does not depend on you predicting when the next trigger will arrive.</p>
         <p class="cp-product-punch">No pills. No sedatives. No daily dose to remember.</p>
         <p>Designed to support a calmer starting point and give your dog more <strong>Safety Margin</strong> before the next trigger pushes them toward their limit.</p>
-        <div class="cp-features"><div class="cp-feature">24/7 Support While Worn</div><div class="cp-feature">Drug-Free Support</div><div class="cp-feature">Non-Sedating</div><div class="cp-feature">Lasts Up to 60 Days</div></div>
+        <div class="cp-features"><div class="cp-feature">24/7 Support</div><div class="cp-feature">Drug-Free</div><div class="cp-feature">Non-Sedating</div><div class="cp-feature">Up to 60 Days</div></div>
         <a class="cp-btn" href="#offer">TRY CALMPET FOR 60 DAYS</a>
         <p class="cp-subnote">If it's not right for your dog, you get every cent back. No return required. No questions asked.</p>
       </div>
@@ -766,11 +772,11 @@
         {% endif %}
       </div>
       <div class="cp-pdp-details">
-        <div class="cp-social-proof"><span class="cp-stars">★★★★★</span><span>4.7/5</span><span class="cp-divider"></span><span>Trusted by 1,267 Dog Parents</span></div>
+        <div class="cp-social-proof cp-social-proof--rating"><span class="cp-rating-score"><span class="cp-stars">★★★★★</span><span>4.7/5</span></span><span class="cp-divider"></span><span class="cp-trust-count">Trusted by 1,267 Dog Parents</span></div>
         <span class="cp-offer-kicker">CHOOSE YOUR CALMPET BUNDLE</span>
         <h2>Give Your Dog More Room for Calm, Day After Day.</h2>
         <p class="cp-pdp-sub">Each CalmPet Collar provides continuous pheromone support for up to 60 days. Choose the bundle that fits your dog and your household.</p>
-        <div class="cp-pdp-benefits"><span>24/7 Support While Worn</span><span>Drug-Free Support</span><span>Non-Sedating</span><span>Lasts Up to 60 Days</span></div>
+        <div class="cp-pdp-benefits"><span>24/7 Support</span><span>Drug-Free</span><span>Non-Sedating</span><span>Up to 60 Days</span></div>
 
         {% form 'product', product, id: 'cp-offer-form' %}
           <input id="cp-variant" type="hidden" name="id" value="{{ variant_five.id }}">
