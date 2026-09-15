@@ -1,1052 +1,182 @@
-{% comment %}
-  Renders cart drawer
+{%- assign cp_product_handle = settings.lp_product | default: 'adjustable-pet-calming-collar' -%}
+{%- assign cp_product = all_products[cp_product_handle] -%}
+{%- assign cp_variant_one = cp_product.variants.first -%}
+{%- assign cp_variant_five = cp_product.variants[1] | default: cp_product.variants.first -%}
+{%- assign cp_variant_eight = cp_product.variants[2] | default: cp_product.variants.last -%}
 
-  Usage:
-  {% render 'cart-drawer' %}
-{% endcomment %}
-
-{{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
-
-<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-
-<style>
-  .drawer {
-    visibility: hidden;
-  }
-</style>
-
-<cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
-  <div id="CartDrawer" class="cart-drawer">
-    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
-    <div
-      class="drawer__inner gradient color-{{ settings.cart_color_scheme }}"
-      role="dialog"
-      aria-modal="true"
-      aria-label="{{ 'sections.cart.title' | t }}"
-      tabindex="-1"
-    >
-      {%- if cart == empty -%}
-        <div class="drawer__inner-empty">
-          <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
-            <div class="cart-drawer__empty-content">
-              <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
-              <button
-                class="drawer__close"
-                type="button"
-                onclick="this.closest('cart-drawer').close()"
-                aria-label="{{ 'accessibility.close' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-close.svg' | inline_asset_content -}}
-                </span>
-              </button>
-              <button type="button" class="button" onclick="this.closest('cart-drawer').close()">
-                {{ 'general.continue_shopping' | t }}
-              </button>
-
-              {%- if shop.customer_accounts_enabled and customer == null -%}
-                <p class="cart__login-title h3">{{ 'sections.cart.login.title' | t }}</p>
-                <p class="cart__login-paragraph">
-                  {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
-                </p>
-              {%- endif -%}
-            </div>
-          </div>
-          {%- if settings.cart_drawer_collection != blank -%}
-            <div class="cart-drawer__collection">
-              {% render 'card-collection', card_collection: settings.cart_drawer_collection, columns: 1 %}
-            </div>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-      <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
-        <button
-          class="drawer__close"
-          type="button"
-          onclick="this.closest('cart-drawer').close()"
-          aria-label="{{ 'accessibility.close' | t }}"
-        >
-          <span class="svg-wrapper">
-            {{- 'icon-close.svg' | inline_asset_content -}}
-          </span>
-        </button>
+<cart-drawer class="drawer cp-cart-drawer{% if cart == empty %} is-empty{% endif %}">
+  <div id="CartDrawer" class="cp-drawer-shell">
+    <div id="CartDrawer-Overlay" class="cp-drawer-overlay"></div>
+    <div class="drawer__inner cp-drawer-panel" role="dialog" aria-modal="true" aria-label="Your CalmPet cart" tabindex="-1">
+      <header class="cp-drawer-header">
+        <div><span class="cp-drawer-eyebrow">CALMPET</span><h2>Your cart</h2></div>
+        <button class="drawer__close cp-drawer-close" type="button" aria-label="Close cart" onclick="this.closest('cart-drawer').close()">×</button>
+      </header>
+      <div class="cp-drawer-urgency" id="cp-drawer-urgency" hidden>
+        <strong>CalmPet Collars are selling fast.</strong>
+        <span>Your selected offer is held for <b id="cp-cart-timer">05:00</b></span>
       </div>
-      {%- unless cart == empty -%}
-        <div class="bb-cart-timer-bar">
-          <svg class="bb-timer-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 6v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 1.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          Your cart is reserved for <span id="bb-cart-timer">05:00</span>
+      <div class="cp-drawer-scroll">
+        <div class="cp-drawer-loading" id="cp-drawer-loading">Updating your cart…</div>
+        <div class="cp-drawer-empty" id="cp-drawer-empty" hidden>
+          <h3>Your cart is empty</h3>
+          <p>Choose the CalmPet bundle that fits your dog and household.</p>
+          <button type="button" onclick="this.closest('cart-drawer').close();document.querySelector('#offer')?.scrollIntoView({behavior:'smooth'})">Choose your bundle</button>
         </div>
-      {%- endunless -%}
-      <cart-drawer-items
-        view-event-payload="{{ cart | standard_event_data: 'view', context: 'dialog' | escape }}"
-        view-event-trigger="manual"
-        {% if cart == empty %}
-          class=" is-empty"
-        {% endif %}
-      >
-        <form
-          action="{{ routes.cart_url }}"
-          id="CartDrawer-Form"
-          class="cart__contents cart-drawer__form"
-          method="post"
-        >
-          <div id="CartDrawer-CartItems" class="drawer__contents js-contents" style="position:relative;">
-            <div class="bb-cart-spinner">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4m-3.93 7.07l-2.83-2.83M7.76 7.76L4.93 4.93"/></svg>
-            </div>
-            {%- if cart != empty -%}
-              <div class="drawer__cart-items-wrapper">
-                <table class="cart-items" role="table">
-                  <thead role="rowgroup">
-                    <tr role="row">
-                      <th id="CartDrawer-ColumnProductImage" role="columnheader">
-                        <span class="visually-hidden">{{ 'sections.cart.headings.image' | t }}</span>
-                      </th>
-                      <th
-                        id="CartDrawer-ColumnProduct"
-                        class="caption-with-letter-spacing"
-                        scope="col"
-                        role="columnheader"
-                      >
-                        {{ 'sections.cart.headings.product' | t }}
-                      </th>
-                      <th
-                        id="CartDrawer-ColumnTotal"
-                        class="right caption-with-letter-spacing"
-                        scope="col"
-                        role="columnheader"
-                      >
-                        {{ 'sections.cart.headings.total' | t }}
-                      </th>
-                      <th id="CartDrawer-ColumnQuantity" role="columnheader">
-                        <span class="visually-hidden">{{ 'sections.cart.headings.quantity' | t }}</span>
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody role="rowgroup">
-                    {%- for item in cart.items -%}
-                      <tr
-                        id="CartDrawer-Item-{{ item.index | plus: 1 }}"
-                        class="cart-item{% if item.parent_relationship.parent != null %} cart-item__nested-line{% endif %}"
-                        role="row"
-                        {% if item.parent_relationship.parent != null %}
-                          aria-label="{{- 'products.product.nested_label' | t: title: item.product.title, parent_title: item.parent_relationship.parent.title | escape -}}"
-                        {% endif %}
-                      >
-                        <td
-                          class="cart-item__media"
-                          role="cell"
-                          headers="CartDrawer-ColumnProductImage"
-                        >
-                          {% if item.image %}
-                            {% comment %} Product link disabled — landing page serves as product page {% endcomment %}
-                            <img
-                              class="cart-item__image"
-                              src="{{ item.image | image_url: width: 300 }}"
-                              alt="{{ item.image.alt | escape }}"
-                              loading="lazy"
-                              width="150"
-                              height="{{ 150 | divided_by: item.image.aspect_ratio | ceil }}"
-                            >
-                          {% endif %}
-                        </td>
-
-                        <td class="cart-item__details" role="cell" headers="CartDrawer-ColumnProduct">
-                          {%- if settings.show_vendor -%}
-                            <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
-                          {%- endif -%}
-
-                          <div class="cart-item__title">
-                            <span class="cart-item__name h4 break">
-                              {{- item.product.title | escape -}}
-                            </span>
-                            {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-drawer-' | append: item.key | replace: ':', '-' -%}
-                            {%- render 'cart-disclosure-indicator',
-                              product: item.product,
-                              modal_id: cart_disclosure_modal_id
-                            -%}
-                          </div>
-
-                          {%- if item.original_price != item.final_price -%}
-                            <div class="cart-item__discounted-prices">
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.regular_price' | t }}
-                              </span>
-                              <s class="cart-item__old-price product-option">
-                                {{- item.original_price | money -}}
-                              </s>
-                              <span class="visually-hidden">
-                                {{ 'products.product.price.sale_price' | t }}
-                              </span>
-                              <strong class="cart-item__final-price product-option">
-                                {{ item.final_price | money }}
-                              </strong>
-                            </div>
-                          {%- else -%}
-                            <div class="product-option">
-                              {{ item.original_price | money }}
-                            </div>
-                          {%- endif -%}
-
-                          {%- if item.product.has_only_default_variant == false
-                            or item.properties.size != 0
-                            or item.selling_plan_allocation != null
-                          -%}
-                            <dl>
-                              {%- if item.product.has_only_default_variant == false -%}
-                                {%- for option in item.options_with_values -%}
-                                  <div class="product-option">
-                                    <dt>{{ option.name }}:</dt>
-                                    <dd>
-                                      {{ option.value -}}
-                                      {%- unless forloop.last %}, {% endunless %}
-                                    </dd>
-                                  </div>
-                                {%- endfor -%}
-                              {%- endif -%}
-
-                              {%- for property in item.properties -%}
-                                {%- assign property_first_char = property.first | slice: 0 -%}
-                                {%- if property.last != blank and property_first_char != '_' -%}
-                                  <div class="product-option">
-                                    <dt>{{ property.first }}:</dt>
-                                    <dd>
-                                      {%- if property.last contains '/uploads/' -%}
-                                        <a
-                                          href="{{ property.last }}"
-                                          class="link"
-                                          target="_blank"
-                                          aria-describedby="a11y-new-window-message"
-                                        >
-                                          {{ property.last | split: '/' | last }}
-                                        </a>
-                                      {%- else -%}
-                                        {{ property.last }}
-                                      {%- endif -%}
-                                    </dd>
-                                  </div>
-                                {%- endif -%}
-                              {%- endfor -%}
-                            </dl>
-
-                            <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
-                          {%- endif -%}
-
-                          <ul
-                            class="discounts list-unstyled"
-                            role="list"
-                            aria-label="{{ 'customer.order.discount' | t }}"
-                          >
-                            {%- for discount in item.line_level_discount_allocations -%}
-                              <li class="discounts__discount">
-                                {{- 'icon-discount.svg' | inline_asset_content -}}
-                                {{ discount.discount_application.title }}
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-
-                        </td>
-
-                        <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
-                          {%- render 'loading-spinner' -%}
-                          <div class="cart-item__price-wrapper">
-                            {%- if item.original_line_price != item.final_line_price -%}
-                              <div class="cart-item__discounted-prices">
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </span>
-                                <s class="cart-item__old-price price price--end">
-                                  {{ item.original_line_price | money }}
-                                </s>
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </span>
-                                <span class="price price--end">
-                                  {{ item.final_line_price | money }}
-                                </span>
-                              </div>
-                            {%- else -%}
-                              <span class="price price--end">
-                                {{ item.original_line_price | money }}
-                              </span>
-                            {%- endif -%}
-
-                            {%- if item.variant.available and item.unit_price_measurement -%}
-                              {% render 'unit-price',
-                                price: item.unit_price,
-                                measurement: item.unit_price_measurement
-                              %}
-                            {%- endif -%}
-                          </div>
-                        </td>
-                        {%- liquid
-                          assign has_qty_rules = false
-                          if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
-                            assign has_qty_rules = true
-                          endif
-
-                          assign has_vol_pricing = false
-                          if item.variant.quantity_price_breaks.size > 0
-                            assign has_vol_pricing = true
-                          endif
-                        -%}
-                        {%- assign bb_show_qty = false -%}
-                        <td
-                          class="cart-item__quantity {% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}"
-                          role="cell"
-                          headers="CartDrawer-ColumnQuantity"
-                        >
-                          {%- if bb_show_qty -%}
-                          <quantity-popover>
-                            <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
-                              <div class="quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}">
-                                <quantity-input class="quantity cart-quantity">
-                                  <button
-                                    class="quantity__button"
-                                    name="minus"
-                                    type="button"
-                                    {% if item.instructions and item.instructions.can_update_quantity == false %}
-                                      disabled
-                                    {% endif %}
-                                  >
-                                    <span class="visually-hidden">
-                                      {{-
-                                        'products.product.quantity.decrease'
-                                        | t: product: item.product.title
-                                        | escape
-                                      -}}
-                                    </span>
-                                    <span class="svg-wrapper">
-                                      {{- 'icon-minus.svg' | inline_asset_content -}}
-                                    </span>
-                                  </button>
-                                  <input
-                                    class="quantity__input"
-                                    type="number"
-                                    data-quantity-variant-id="{{ item.variant.id }}"
-                                    data-quantity-line-key="{{ item.key }}"
-                                    name="updates[]"
-                                    value="{{ item.quantity }}"
-                                    {% # theme-check-disable %}
-                                    data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
-                                    min="0"
-                                    data-min="{{ item.variant.quantity_rule.min }}"
-                                    {% if item.variant.quantity_rule.max != null %}
-                                      max="{{ item.variant.quantity_rule.max }}"
-                                    {% endif %}
-                                    step="{{ item.variant.quantity_rule.increment }}"
-                                    {% # theme-check-enable %}
-                                    aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                                    id="Drawer-quantity-{{ item.index | plus: 1 }}"
-                                    data-index="{{ item.index | plus: 1 }}"
-                                    {% if item.instructions and item.instructions.can_update_quantity == false %}
-                                      disabled
-                                    {% endif %}
-                                  >
-                                  <button
-                                    class="quantity__button"
-                                    name="plus"
-                                    type="button"
-                                    {% if item.instructions and item.instructions.can_update_quantity == false %}
-                                      disabled
-                                    {% endif %}
-                                  >
-                                    <span class="visually-hidden">
-                                      {{-
-                                        'products.product.quantity.increase'
-                                        | t: product: item.product.title
-                                        | escape
-                                      -}}
-                                    </span>
-                                    <span class="svg-wrapper">
-                                      {{- 'icon-plus.svg' | inline_asset_content -}}
-                                    </span>
-                                  </button>
-                                </quantity-input>
-                              </div>
-                              <button
-                                type="button"
-                                class="button button--tertiary cart-remove-button"
-                                aria-label="Clear cart"
-                                onclick="bbClearCart()"
-                              >
-                                <span class="svg-wrapper">
-                                  {{- 'icon-remove.svg' | inline_asset_content -}}
-                                </span>
-                              </button>
-                            </div>
-                            {%- if has_qty_rules or has_vol_pricing -%}
-                              <button
-                                type="button"
-                                class="quantity-popover__info-button quantity-popover__info-button--icon-with-label button button--tertiary"
-                                aria-expanded="false"
-                              >
-                                <span class="svg-wrapper">
-                                  {{- 'icon-info.svg' | inline_asset_content -}}
-                                </span>
-                                <span>
-                                  {%- if has_vol_pricing -%}
-                                    {{ 'products.product.volume_pricing.note' | t }}
-                                  {%- elsif has_qty_rules -%}
-                                    {{ 'products.product.quantity.note' | t }}
-                                  {%- endif -%}
-                                </span>
-                              </button>
-                            {%- endif -%}
-                            {%- if has_vol_pricing or has_qty_rules -%}
-                              <div
-                                class="cart-items__info global-settings-popup quantity-popover__info"
-                                tabindex="-1"
-                                hidden
-                              >
-                                {%- if has_qty_rules == false -%}
-                                  <span class="volume-pricing-label caption">
-                                    {{- 'products.product.volume_pricing.title' | t -}}
-                                  </span>
-                                {%- endif -%}
-                                <div class="quantity__rules caption">
-                                  {%- if item.variant.quantity_rule.increment > 1 -%}
-                                    <span class="divider">
-                                      {{-
-                                        'products.product.quantity.multiples_of'
-                                        | t: quantity: item.variant.quantity_rule.increment
-                                      -}}
-                                    </span>
-                                  {%- endif -%}
-                                  {%- if item.variant.quantity_rule.min > 1 -%}
-                                    <span class="divider">
-                                      {{-
-                                        'products.product.quantity.min_of'
-                                        | t: quantity: item.variant.quantity_rule.min
-                                      -}}
-                                    </span>
-                                  {%- endif -%}
-                                  {%- if item.variant.quantity_rule.max != null -%}
-                                    <span class="divider">
-                                      {{-
-                                        'products.product.quantity.max_of'
-                                        | t: quantity: item.variant.quantity_rule.max
-                                      -}}
-                                    </span>
-                                  {%- endif -%}
-                                </div>
-                                <button
-                                  class="button-close button button--tertiary"
-                                  type="button"
-                                  aria-label="{{ 'accessibility.close' | t }}"
-                                >
-                                  <span class="svg-wrapper">
-                                    {{- 'icon-close.svg' | inline_asset_content -}}
-                                  </span>
-                                </button>
-                                {%- if item.variant.quantity_price_breaks.size > 0 -%}
-                                  <volume-pricing class="parent-display">
-                                    <ul class="list-unstyled">
-                                      <li>
-                                        <span>{{ item.variant.quantity_rule.min }}+</span>
-                                        <span>{{ item.variant.price | money_with_currency }}/ea</span>
-                                      </li>
-                                      {%- for price_break in item.variant.quantity_price_breaks -%}
-                                        <li>
-                                          <span>
-                                            {{- price_break.minimum_quantity -}}
-                                            <span aria-hidden="true">+</span></span
-                                          >
-                                          <span>{{ price_break.price | money_with_currency }}/ea</span>
-                                        </li>
-                                      {%- endfor -%}
-                                    </ul>
-                                  </volume-pricing>
-                                {%- endif -%}
-                              </div>
-                            {%- endif -%}
-                            <div
-                              id="CartDrawer-LineItemError-{{ item.index | plus: 1 }}"
-                              class="cart-item__error"
-                              role="alert"
-                            >
-                              <small class="cart-item__error-text"></small>
-                              <span class="svg-wrapper">
-                                {{- 'icon-error.svg' | inline_asset_content -}}
-                              </span>
-                            </div>
-                          </quantity-popover>
-                          {%- else -%}
-                          <div class="bb-trash-row">
-                            <span class="bb-qty-label">Qty: {{ item.quantity }}</span>
-                            <button
-                              type="button"
-                              class="bb-trash-btn"
-                              aria-label="Clear cart"
-                              onclick="bbClearCart()"
-                            >
-                              <span class="svg-wrapper">
-                                {{- 'icon-remove.svg' | inline_asset_content -}}
-                              </span>
-                            </button>
-                          </div>
-                          {%- endif -%}
-                        </td>
-                      </tr>
-                    {%- endfor -%}
-                  </tbody>
-                </table>
-              </div>
-            {%- endif -%}
-            <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
-            <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">
-              {{ 'accessibility.loading' | t }}
-            </p>
+        <div class="cp-drawer-expired" id="cp-drawer-expired" hidden>
+          <strong>Your CalmPet offer has expired.</strong>
+          <span>Refresh availability to restore your bundle.</span>
+          <button type="button" data-cp-action="restore">Restore my bundle</button>
+        </div>
+        <div id="cp-drawer-items" class="cp-drawer-items" aria-live="polite"></div>
+        <section class="cp-drawer-edit" id="cp-drawer-edit" hidden>
+          <div class="cp-drawer-section-head"><strong>Change bundle</strong><button type="button" data-cp-action="close-edit">Done</button></div>
+          <div class="cp-drawer-bundle-list">
+            <button type="button" data-cp-action="select-bundle" data-variant="{{ cp_variant_one.id }}" data-quantity="1"><span><b>Try CalmPet</b><small>1 collar · up to 60 days</small></span><strong>$49</strong></button>
+            <button type="button" data-cp-action="select-bundle" data-variant="{{ cp_variant_five.id }}" data-quantity="5"><span><b>Buy 2, Get 3 FREE</b><small>5 collars · up to 10 months</small></span><strong>$98</strong></button>
+            <button type="button" data-cp-action="select-bundle" data-variant="{{ cp_variant_eight.id }}" data-quantity="8"><span><b>Buy 3, Get 5 FREE</b><small>8 collars · multi-dog families</small></span><strong>$147</strong></button>
           </div>
-          <div id="CartDrawer-CartErrors" role="alert"></div>
-        </form>
-      </cart-drawer-items>
-      <div class="drawer__footer">
-        {%- if settings.show_cart_note -%}
-          <details id="Details-CartDrawer">
-            <summary>
-              <span class="summary__title">
-                {{ 'sections.cart.note' | t }}
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </summary>
-            <cart-note class="cart__note field">
-              <label class="visually-hidden" for="CartDrawer-Note">{{ 'sections.cart.note' | t }}</label>
-              <textarea
-                id="CartDrawer-Note"
-                class="text-area text-area--resize-vertical field__input"
-                name="note"
-                placeholder="{{ 'sections.cart.note' | t }}"
-              >{{ cart.note }}</textarea>
-            </cart-note>
-          </details>
-        {%- endif -%}
-
-        <!-- Start blocks -->
-        <!-- Subtotals -->
-
-        <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
-          <div>
-            {%- if cart.cart_level_discount_applications.size > 0 -%}
-              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                {%- for discount in cart.cart_level_discount_applications -%}
-                  <li class="discounts__discount discounts__discount--end">
-                    {{- 'icon-discount.svg' | inline_asset_content -}}
-                    {{ discount.title | escape }}
-                    (-{{ discount.total_allocated_amount | money }})
-                  </li>
-                {%- endfor -%}
-              </ul>
-            {%- endif -%}
-          </div>
-
-          {%- assign bb_total_savings = 0 -%}
-          {%- assign bb_original_total = 0 -%}
-          {%- for item in cart.items -%}
-            {%- if item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price -%}
-              {%- assign bb_item_original = item.variant.compare_at_price | times: item.quantity -%}
-            {%- else -%}
-              {%- assign bb_item_original = item.original_line_price -%}
-            {%- endif -%}
-            {%- assign bb_original_total = bb_original_total | plus: bb_item_original -%}
-            {%- assign bb_item_savings = bb_item_original | minus: item.final_line_price -%}
-            {%- if bb_item_savings > 0 -%}
-              {%- assign bb_total_savings = bb_total_savings | plus: bb_item_savings -%}
-            {%- endif -%}
-          {%- endfor -%}
-
-          <div class="totals" role="status">
-            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">
-              {%- if bb_total_savings > 0 -%}
-                <span class="bb-total-compare">{{ bb_original_total | money }}</span>
-              {%- endif -%}
-              {{ cart.total_price | money_with_currency }}
-            </p>
-          </div>
-
-          {%- if bb_total_savings > 0 -%}
-            <div class="bb-cart-savings">You save {{ bb_total_savings | money }}</div>
-          {%- endif -%}
-
-          <small class="tax-note caption-large rte">
-            {%- if cart.duties_included and cart.taxes_included -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.duties_and_taxes_included_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included == false and cart.taxes_included -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.taxes_included_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included and cart.taxes_included == false -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- elsif cart.duties_included == false and cart.taxes_included == false -%}
-              {%- if shop.shipping_policy.body == blank -%}
-                {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-              {%- else -%}
-                {{
-                  'sections.cart.taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                  | t: link: shop.shipping_policy.url
-                }}
-              {%- endif -%}
-            {%- endif -%}
-          </small>
-        </div>
-
-        <!-- Discount code -->
-        <div class="bb-discount-row">
-          <input type="text" id="bb-discount-input" class="bb-discount-input" placeholder="Discount code" autocomplete="off">
-          <button type="button" class="bb-discount-btn" onclick="bbApplyDiscount()">Apply</button>
-        </div>
-        <div id="bb-discount-msg" class="bb-discount-msg"></div>
-
-        <!-- CTAs -->
-
-        <div class="cart__ctas" {{ block.shopify_attributes }}>
-          <button
-            type="submit"
-            id="CartDrawer-Checkout"
-            class="cart__checkout-button button bb-checkout-btn"
-            name="checkout"
-            form="CartDrawer-Form"
-            {% if cart == empty %}
-              disabled
-            {% endif %}
-          >
-            Checkout &middot; {{ cart.total_price | money }}
-          </button>
-        </div>
-
-        <div class="bb-cart-trust">
-          <svg class="bb-trust-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 1l5.5 2.5v4c0 3.5-2.5 5.5-5.5 7-3-1.5-5.5-3.5-5.5-7v-4L8 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M5.5 8l1.5 2 3.5-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          60-Day Money-Back Guarantee
+        </section>
+        <section class="cp-drawer-gifts" id="cp-drawer-gifts" hidden>
+          <strong>YOUR GIFTS</strong>
+          <div id="cp-drawer-gift-list"></div>
+        </section>
+        <div class="cp-drawer-proof" id="cp-drawer-proof" hidden>
+          <div class="cp-drawer-rating"><span>★★★★★</span><b>4.7/5</b> · Trusted by 1,267 Dog Parents</div>
+          <div>✓ ONE-TIME PURCHASE · NO SUBSCRIPTION</div>
+          <div>✓ Protected by the CalmPet 60-Day Promise</div>
         </div>
       </div>
+      <footer class="cp-drawer-footer" id="cp-drawer-footer" hidden>
+        <div class="cp-drawer-total"><span>Subtotal</span><strong id="cp-drawer-total">$0</strong></div>
+        <a href="/checkout" class="cp-drawer-checkout" id="cp-drawer-checkout">CONTINUE TO SECURE CHECKOUT →</a>
+        <small>Taxes calculated at checkout</small>
+      </footer>
     </div>
   </div>
 </cart-drawer>
 
+<script type="application/json" id="cp-cart-config">
+{"productId":{{ cp_product.id | json }},"image":{% if cp_product.featured_image %}{{ cp_product.featured_image | image_url: width: 360 | json }}{% else %}null{% endif %},"offers":[{"variantId":{{ cp_variant_one.id | json }},"quantity":1,"level":1,"name":"Try CalmPet Collar","useCase":"1 collar · up to 60 days for one dog","price":4900,"anchor":6900,"perUnit":"$49 per collar","saving":"Save $20"},{"variantId":{{ cp_variant_five.id | json }},"quantity":5,"level":2,"name":"Buy 2, Get 3 FREE","useCase":"5 CalmPet Collars · up to 10 months","price":9800,"anchor":34500,"perUnit":"$19.60 per collar","saving":"Save $247 · 72%"},{"variantId":{{ cp_variant_eight.id | json }},"quantity":8,"level":3,"name":"Buy 3, Get 5 FREE","useCase":"8 CalmPet Collars · multi-dog families","price":14700,"anchor":55200,"perUnit":"$18.38 per collar","saving":"Save $405 · 73%"}]}
+</script>
+
 <style>
-  .bb-trash-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-    margin-top: -4.5rem;
-  }
-  .bb-qty-label {
-    font-size: 1.3rem;
-    font-family: "Nunito Sans", sans-serif;
-    color: rgba(59,28,6,0.55);
-    font-weight: 700;
-  }
-  .bb-trash-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 3.5rem;
-    min-height: 3.5rem;
-    border: none;
-    background: none;
-    color: rgba(59,28,6,0.5);
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    transition: color 0.2s ease;
-  }
-  .bb-trash-btn:hover { color: #3B1C06; }
-  .bb-trash-btn .svg-wrapper {
-    width: 1.5rem;
-    height: 1.5rem;
-    display: flex;
-  }
-  .bb-trash-btn .svg-wrapper svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .bb-cart-clearing .cart-item {
-    opacity: 0.25;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-  .bb-cart-clearing .drawer__footer {
-    opacity: 0.25;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-  .bb-cart-spinner {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-  }
-  .bb-cart-clearing .bb-cart-spinner { display: block; }
-  .bb-cart-spinner svg {
-    width: 32px;
-    height: 32px;
-    animation: bb-spin 0.8s linear infinite;
-    color: rgb(var(--color-foreground));
-  }
-  @keyframes bb-spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* CalmPet brand layer */
-  .cart-drawer .drawer__inner {
-    background: #FFF6EA;
-    color: #3B1C06;
-    font-family: "Nunito Sans", sans-serif;
-  }
-  .drawer__heading {
-    font-family: "Fredoka", sans-serif;
-    font-weight: 700;
-    color: #3B1C06;
-  }
-  .cart-drawer .drawer__close svg { color: #3B1C06; }
-  .cart-item__name, .cart-item__details * { color: #3B1C06; }
-  .cart-item__image { border-radius: 12px; }
-
-  /* Timer bar */
-  .bb-cart-timer-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1rem;
-    margin-bottom: 1.5rem;
-    background: #F7EAD8;
-    border-bottom: 1px solid #E8D8C3;
-    font-size: 1.3rem;
-    letter-spacing: 0.02em;
-    color: #3B1C06;
-  }
-  .bb-timer-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-    flex-shrink: 0;
-    color: #FD7100;
-  }
-  #bb-cart-timer {
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: #FD7100;
-  }
-
-  /* Compare-at total */
-  .bb-total-compare {
-    text-decoration: line-through;
-    opacity: 0.5;
-    margin-right: 0.4rem;
-    font-weight: 400;
-  }
-
-  /* Savings callout */
-  .bb-cart-savings {
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #66704C;
-    padding: 0.4rem 0 0.2rem;
-  }
-
-  /* Checkout button */
-  .cart__ctas .bb-checkout-btn.button {
-    font-size: 1.5rem;
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    background-color: #FD7100;
-    color: #3B1C06;
-    border: none;
-    border-radius: 14px;
-    min-height: 52px;
-    box-shadow: none;
-  }
-  .cart__ctas .bb-checkout-btn.button::before,
-  .cart__ctas .bb-checkout-btn.button::after {
-    content: none;
-  }
-  .cart__ctas .bb-checkout-btn.button:not([disabled]):hover {
-    background-color: #FF8420;
-  }
-  .cart__ctas .bb-checkout-btn.button:not([disabled]):active {
-    background-color: #F56A00;
-  }
-
-  /* Discount code */
-  .bb-discount-row {
-    display: flex;
-    gap: 0.6rem;
-    margin-top: 1rem;
-    margin-bottom: 1.2rem;
-  }
-  .bb-discount-input {
-    flex: 1;
-    padding: 0.8rem 1rem;
-    border: 1.5px solid #E8D8C3;
-    border-radius: 12px;
-    font-size: 1.3rem;
-    font-family: "Nunito Sans", sans-serif;
-    background: #FFFDF9;
-    color: #3B1C06;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-  .bb-discount-input:focus {
-    border-color: #FD7100;
-  }
-  .bb-discount-input::placeholder {
-    color: rgba(59,28,6,0.35);
-  }
-  .bb-discount-btn {
-    padding: 0.8rem 1.4rem;
-    border: 1.5px solid #3B1C06;
-    border-radius: 12px;
-    background: #3B1C06;
-    color: #FFF6EA;
-    font-size: 1.3rem;
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-  }
-  .bb-discount-btn:hover { opacity: 0.85; }
-  .bb-discount-msg {
-    font-size: 1.2rem;
-    margin-top: 0.4rem;
-    min-height: 1.6rem;
-  }
-  .bb-discount-msg.success { color: #66704C; }
-  .bb-discount-msg.error { color: #c62828; }
-
-  /* Trust badge */
-  .bb-cart-trust {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem 0 0;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: #8B9565;
-  }
-  .bb-trust-icon {
-    width: 1.4rem;
-    height: 1.4rem;
-    flex-shrink: 0;
-    color: #8B9565;
-  }
+  cart-drawer.cp-cart-drawer{position:fixed;inset:0;z-index:10000;display:block;visibility:hidden;font-family:"Nunito Sans",sans-serif;color:#3B1C06}
+  cart-drawer.cp-cart-drawer.active{visibility:visible}
+  .cp-drawer-shell{position:absolute;inset:0;display:flex;justify-content:flex-end}
+  .cp-drawer-overlay{position:absolute;inset:0;background:rgba(40,19,4,.48);opacity:0;transition:opacity .22s ease}
+  .cp-cart-drawer.active .cp-drawer-overlay{opacity:1}
+  .cp-drawer-panel{position:relative;z-index:2;width:min(480px,100vw);height:100%;max-height:100vh;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;background:#FFF6EA;box-shadow:-12px 0 40px rgba(59,28,6,.18);transform:translateX(100%);transition:transform .25s ease;overflow:hidden}
+  .cp-cart-drawer.active .cp-drawer-panel{transform:translateX(0)}
+  .cp-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:22px 22px 16px;background:#FFFDF9;border-bottom:1px solid #E8D8C3}
+  .cp-drawer-header h2{margin:0;font:700 30px/1 "Fredoka",sans-serif;color:#3B1C06}
+  .cp-drawer-eyebrow{display:block;margin-bottom:4px;color:#FD7100;font-size:10px;font-weight:900;letter-spacing:.12em}
+  .cp-drawer-close{width:42px;height:42px;border:0;background:transparent;color:#3B1C06;font-size:38px;font-weight:300;line-height:1;cursor:pointer}
+  .cp-drawer-urgency{padding:13px 20px;background:#FFF0E3;border-bottom:1px solid #FD7100;text-align:center}
+  .cp-drawer-urgency strong,.cp-drawer-urgency span{display:block}
+  .cp-drawer-urgency strong{font:700 16px/1.2 "Fredoka",sans-serif}
+  .cp-drawer-urgency span{margin-top:3px;font-size:13px}
+  .cp-drawer-urgency b{color:#FD7100;font-variant-numeric:tabular-nums}
+  .cp-drawer-scroll{overflow-y:auto;padding:18px 20px 24px;overscroll-behavior:contain}
+  .cp-drawer-loading{text-align:center;padding:36px 0;color:#765943;font-size:14px;font-weight:800}
+  .cp-drawer-empty,.cp-drawer-expired{padding:42px 14px;text-align:center}
+  .cp-drawer-empty h3{margin:0 0 8px;font:700 25px "Fredoka",sans-serif}
+  .cp-drawer-empty p{margin:0 0 18px;color:#765943}
+  .cp-drawer-empty button,.cp-drawer-expired button{min-height:46px;padding:11px 18px;border:1.5px solid #3B1C06;border-radius:12px;background:#FD7100;color:#fff;font-weight:900;cursor:pointer}
+  .cp-drawer-expired{margin-bottom:16px;padding:18px;border:1.5px solid #FD7100;border-radius:14px;background:#FFF0E3}
+  .cp-drawer-expired strong,.cp-drawer-expired span{display:block}
+  .cp-drawer-expired span{margin:5px 0 14px;color:#765943;font-size:13px}
+  .cp-drawer-item{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding:0 0 18px;border-bottom:1px solid #E8D8C3}
+  .cp-drawer-item+.cp-drawer-item{padding-top:18px}
+  .cp-drawer-item img{width:92px;height:92px;object-fit:cover;border:1px solid #E8D8C3;border-radius:14px;background:#FFFDF9}
+  .cp-drawer-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .cp-drawer-item h3{margin:0;font:700 18px/1.1 "Fredoka",sans-serif;color:#3B1C06}
+  .cp-drawer-price{white-space:nowrap;font-size:18px;font-weight:900}
+  .cp-drawer-item-sub{display:block;margin-top:5px;color:#765943;font-size:12px;font-weight:700;line-height:1.35}
+  .cp-drawer-value{display:flex;align-items:baseline;gap:8px;margin-top:9px}
+  .cp-drawer-value s{color:#8d6f5c;font-size:12px}
+  .cp-drawer-value strong{font-size:13px;color:#66704C}
+  .cp-drawer-actions{display:flex;align-items:center;justify-content:space-between;margin-top:11px}
+  .cp-drawer-actions button{border:0;background:transparent;padding:0;color:#3B1C06;font-size:12px;font-weight:900;text-decoration:underline;cursor:pointer}
+  .cp-drawer-edit{margin-top:14px;padding:14px;border:1.5px solid #3B1C06;border-radius:14px;background:#FFFDF9}
+  .cp-drawer-section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .cp-drawer-section-head>strong{font:700 17px "Fredoka",sans-serif}
+  .cp-drawer-section-head button{border:0;background:none;color:#765943;font-weight:800;cursor:pointer}
+  .cp-drawer-bundle-list{display:grid;gap:8px}
+  .cp-drawer-bundle-list>button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:11px 12px;border:1px solid #E8D8C3;border-radius:11px;background:#FFF6EA;color:#3B1C06;text-align:left;cursor:pointer}
+  .cp-drawer-bundle-list>button.is-current{border:2px solid #FD7100;background:#FFF0E3}
+  .cp-drawer-bundle-list span,.cp-drawer-bundle-list b,.cp-drawer-bundle-list small{display:block}
+  .cp-drawer-bundle-list b{font-size:13px}
+  .cp-drawer-bundle-list small{margin-top:2px;color:#765943;font-size:10px}
+  .cp-drawer-bundle-list strong{font-size:15px}
+  .cp-drawer-gifts{margin-top:18px;padding:15px;border:1.5px solid #3B1C06;border-radius:14px;background:#FFFDF9}
+  .cp-drawer-gifts>strong{display:block;margin-bottom:9px;font:700 15px "Fredoka",sans-serif;letter-spacing:.06em}
+  .cp-drawer-gift{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;font-weight:800}
+  .cp-drawer-gift span:first-child{width:22px;height:22px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:#66704C;color:#fff;font-size:11px}
+  .cp-drawer-gift.is-locked{color:#9a8b7f}
+  .cp-drawer-gift.is-locked span:first-child{background:#E8D8C3;color:#765943}
+  .cp-drawer-proof{display:grid;gap:7px;margin-top:18px;padding-top:16px;border-top:1px dashed #C8B49E;font-size:11px;font-weight:900}
+  .cp-drawer-rating{font-weight:700}
+  .cp-drawer-rating span{color:#FD7100;letter-spacing:1px}
+  .cp-drawer-footer{padding:16px 20px calc(16px + env(safe-area-inset-bottom));background:#FFFDF9;border-top:1px solid #E8D8C3;box-shadow:0 -8px 22px rgba(59,28,6,.06)}
+  .cp-drawer-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;font-size:16px}
+  .cp-drawer-total strong{font-size:20px}
+  .cp-drawer-checkout{display:flex;align-items:center;justify-content:center;min-height:54px;padding:13px 16px;border:1.5px solid #3B1C06;border-radius:13px;background:#FD7100;color:#fff;text-decoration:none;font-size:14px;font-weight:900;box-shadow:0 3px 0 rgba(59,28,6,.15)}
+  .cp-drawer-footer>small{display:block;margin-top:8px;text-align:center;color:#765943;font-size:10px}
+  @media(max-width:540px){.cp-drawer-header{padding:17px 16px 13px}.cp-drawer-header h2{font-size:26px}.cp-drawer-scroll{padding:15px 15px 20px}.cp-drawer-footer{padding:13px 15px calc(13px + env(safe-area-inset-bottom))}.cp-drawer-item{grid-template-columns:78px minmax(0,1fr);gap:11px}.cp-drawer-item img{width:78px;height:78px}.cp-drawer-item h3{font-size:16px}.cp-drawer-price{font-size:16px}}
+  @media(prefers-reduced-motion:reduce){.cp-drawer-panel,.cp-drawer-overlay{transition:none}}
 </style>
 
 <script>
-function bbClearCart() {
-  var drawer = document.getElementById('CartDrawer');
-  if (!drawer) return;
-  drawer.classList.add('bb-cart-clearing');
-
-  fetch('/cart/clear.js', { method: 'POST' })
-    .then(function() {
-      return fetch('/?sections=cart-drawer,cart-icon-bubble');
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(sections) {
-      var parser = new DOMParser();
-
-      var drawerDoc = parser.parseFromString(sections['cart-drawer'], 'text/html');
-      var newDrawer = drawerDoc.querySelector('#CartDrawer');
-      if (newDrawer) {
-        drawer.innerHTML = newDrawer.innerHTML;
-      }
-
-      var bubbleDoc = parser.parseFromString(sections['cart-icon-bubble'], 'text/html');
-      var newBubble = bubbleDoc.querySelector('.shopify-section');
-      var oldBubble = document.getElementById('cart-icon-bubble');
-      if (newBubble && oldBubble) {
-        oldBubble.innerHTML = newBubble.innerHTML;
-      }
-
-      drawer.classList.remove('bb-cart-clearing');
-
-      var cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer) cartDrawer.classList.add('is-empty');
-    })
-    .catch(function() {
-      drawer.classList.remove('bb-cart-clearing');
-    });
-}
-
-// Cart reservation timer (5 min, persists via sessionStorage)
-(function() {
-  var DURATION = 300;
-  var timerInterval = null;
-
-  function getRemaining() {
-    var start = sessionStorage.getItem('bb_cart_timer_start');
-    if (!start) return -1;
-    var elapsed = Math.floor((Date.now() - parseInt(start, 10)) / 1000);
-    return Math.max(0, DURATION - elapsed);
-  }
-
-  function formatTime(s) {
-    var m = Math.floor(s / 60);
-    var sec = s % 60;
-    return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
-  }
-
-  function updateDisplay() {
-    var el = document.getElementById('bb-cart-timer');
-    if (!el) return;
-    var remaining = getRemaining();
-    if (remaining < 0) return;
-    el.textContent = formatTime(remaining);
-    if (remaining <= 60) {
-      el.style.color = '#c62828';
-    }
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      sessionStorage.removeItem('bb_cart_timer_start');
-      fetch('/cart/clear.js', { method: 'POST' }).then(function() {
-        window.location.reload();
-      });
-    }
-  }
-
-  function startTimer() {
-    if (timerInterval) clearInterval(timerInterval);
-    if (!sessionStorage.getItem('bb_cart_timer_start')) {
-      sessionStorage.setItem('bb_cart_timer_start', Date.now().toString());
-    }
-    updateDisplay();
-    timerInterval = setInterval(updateDisplay, 1000);
-  }
-
-  var observer = new MutationObserver(function() {
-    var drawer = document.querySelector('cart-drawer');
-    if (drawer && drawer.classList.contains('active') && document.getElementById('bb-cart-timer')) {
-      startTimer();
-    } else if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-  });
-  var drawerEl = document.querySelector('cart-drawer');
-  if (drawerEl) {
-    observer.observe(drawerEl, { attributes: true, attributeFilter: ['class'] });
-  }
-
-  // Reset timer when cart is cleared
-  var origClear = window.bbClearCart;
-  if (origClear) {
-    window.bbClearCart = function() {
-      sessionStorage.removeItem('bb_cart_timer_start');
-      origClear();
-    };
-  }
-})();
-
-// Close cart drawer when clicking outside the panel
-(function() {
-  var el = document.querySelector('cart-drawer');
-  if (el) {
-    el.addEventListener('click', function(e) {
-      if (!e.target.closest('.drawer__inner') && !e.target.closest('.drawer__inner-empty')) {
-        this.close();
-      }
-    });
-  }
-})();
-
-// Apply discount code via /discount/CODE endpoint
-function bbApplyDiscount() {
-  var input = document.getElementById('bb-discount-input');
-  var msg = document.getElementById('bb-discount-msg');
-  if (!input || !msg) return;
-  var code = input.value.trim();
-  if (!code) {
-    msg.textContent = 'Please enter a discount code';
-    msg.className = 'bb-discount-msg error';
-    return;
-  }
-  msg.textContent = 'Applying...';
-  msg.className = 'bb-discount-msg';
-  fetch('/discount/' + encodeURIComponent(code), { method: 'GET', redirect: 'follow' })
-    .then(function() {
-      return fetch('/cart.js').then(function(r) { return r.json(); });
-    })
-    .then(function(cart) {
-      var found = cart.cart_level_discount_applications && cart.cart_level_discount_applications.some(function(d) {
-        return d.title.toLowerCase() === code.toLowerCase();
-      });
-      if (!found) {
-        found = cart.items && cart.items.some(function(item) {
-          return item.line_level_discount_allocations && item.line_level_discount_allocations.some(function(d) {
-            return d.discount_application && d.discount_application.title.toLowerCase() === code.toLowerCase();
-          });
-        });
-      }
-      return fetch('/?sections=cart-drawer,cart-icon-bubble')
-        .then(function(r) { return r.json(); })
-        .then(function(sections) {
-          var drawer = document.getElementById('CartDrawer');
-          var parser = new DOMParser();
-          var drawerDoc = parser.parseFromString(sections['cart-drawer'], 'text/html');
-          var newDrawer = drawerDoc.querySelector('#CartDrawer');
-          if (newDrawer && drawer) drawer.innerHTML = newDrawer.innerHTML;
-          var bubbleDoc = parser.parseFromString(sections['cart-icon-bubble'], 'text/html');
-          var newBubble = bubbleDoc.querySelector('.shopify-section');
-          var oldBubble = document.getElementById('cart-icon-bubble');
-          if (newBubble && oldBubble) oldBubble.innerHTML = newBubble.innerHTML;
-          msg = document.getElementById('bb-discount-msg');
-          if (msg) {
-            if (found) {
-              msg.textContent = 'Discount applied!';
-              msg.className = 'bb-discount-msg success';
-            } else {
-              msg.textContent = 'Invalid discount code';
-              msg.className = 'bb-discount-msg error';
-            }
-          }
-        });
-    })
-    .catch(function() {
-      msg = document.getElementById('bb-discount-msg');
-      if (msg) {
-        msg.textContent = 'Could not apply discount';
-        msg.className = 'bb-discount-msg error';
-      }
-    });
-}
-
-// Safeguard: strip loading state whenever the drawer renders with items
-new MutationObserver(function() {
-  var drawer = document.getElementById('CartDrawer');
-  if (drawer && drawer.classList.contains('bb-cart-clearing') && drawer.querySelector('.cart-item')) {
-    drawer.classList.remove('bb-cart-clearing');
-  }
-}).observe(document.getElementById('CartDrawer'), { childList: true, subtree: true });
+  (() => {
+    const configElement = document.getElementById('cp-cart-config');
+    const drawer = document.querySelector('cart-drawer.cp-cart-drawer');
+    if (!configElement || !drawer) return;
+    const config = JSON.parse(configElement.textContent);
+    const rootPath = window.Shopify?.routes?.root || '/';
+    const holdKey = 'cp_offer_hold_until';
+    const lastOfferKey = 'cp_offer_last_variant';
+    const lastQuantityKey = 'cp_offer_last_quantity';
+    const expiredKey = 'cp_offer_expired';
+    const duration = 300000;
+    let currentCart = null;
+    let timerInterval = null;
+    let expiring = false;
+    const loading = document.getElementById('cp-drawer-loading');
+    const empty = document.getElementById('cp-drawer-empty');
+    const expired = document.getElementById('cp-drawer-expired');
+    const items = document.getElementById('cp-drawer-items');
+    const edit = document.getElementById('cp-drawer-edit');
+    const gifts = document.getElementById('cp-drawer-gifts');
+    const giftList = document.getElementById('cp-drawer-gift-list');
+    const proof = document.getElementById('cp-drawer-proof');
+    const urgency = document.getElementById('cp-drawer-urgency');
+    const footer = document.getElementById('cp-drawer-footer');
+    const total = document.getElementById('cp-drawer-total');
+    const timer = document.getElementById('cp-cart-timer');
+    const endpoint = path => `${rootPath}${path}`;
+    const offerIds = config.offers.map(offer => Number(offer.variantId));
+    const money = cents => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(cents / 100);
+    const escapeHtml = value => String(value || '').replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+    const offerForSelection = (id, quantity) => config.offers.find(offer => Number(offer.variantId) === Number(id) && Number(offer.quantity) === Number(quantity));
+    const bundleLines = cart => cart.items.filter(item => offerIds.includes(Number(item.variant_id)));
+    async function getCart(){const response=await fetch(endpoint('cart.js'),{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Could not load cart.');return response.json()}
+    function updateCartCount(count){document.querySelectorAll('.cp-nav-cart,.calmpet-nav-cart').forEach(link=>{let badge=link.querySelector('.cp-cart-count');if(count>0){if(!badge){badge=document.createElement('span');badge.className='cp-cart-count';link.appendChild(badge)}badge.textContent=count}else if(badge){badge.remove()}})}
+    function giftMarkup(level){const rows=[{level:1,label:'Free U.S. Shipping'},{level:2,label:'$15 CalmPet Credit · valid 12 months'},{level:3,label:'Instant Trigger Stacking Field Guide'}];return rows.map(row=>`<div class="cp-drawer-gift${row.level>level?' is-locked':''}"><span>${row.level>level?'🔒':'✓'}</span><span>${row.label}</span></div>`).join('')}
+    function otherItemMarkup(item){const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.product_title)}">`:'';return `<article class="cp-drawer-item"><div>${image}</div><div><div class="cp-drawer-item-top"><h3>${escapeHtml(item.product_title)}</h3><span class="cp-drawer-price">${money(item.final_line_price)}</span></div><span class="cp-drawer-item-sub">Quantity: ${item.quantity}</span><div class="cp-drawer-actions"><span></span><button type="button" data-cp-action="remove-line" data-key="${escapeHtml(item.key)}">Remove</button></div></div></article>`}
+    function render(cart){currentCart=cart;const bundles=bundleLines(cart);const bundle=bundles[0];const offer=bundle?offerForSelection(bundle.variant_id,bundle.quantity):null;const others=cart.items.filter(item=>!offerIds.includes(Number(item.variant_id)));loading.hidden=true;items.innerHTML='';updateCartCount(cart.item_count);total.textContent=money(cart.total_price);footer.hidden=cart.item_count===0;proof.hidden=!offer;gifts.hidden=!offer;urgency.hidden=!offer;edit.hidden=true;empty.hidden=cart.item_count!==0||localStorage.getItem(expiredKey)==='1';expired.hidden=localStorage.getItem(expiredKey)!=='1'||Boolean(offer);drawer.classList.toggle('is-empty',cart.item_count===0);if(offer){const image=config.image?`<img src="${escapeHtml(config.image)}" alt="CalmPet Collar">`:'';items.insertAdjacentHTML('beforeend',`<article class="cp-drawer-item cp-drawer-bundle"><div>${image}</div><div><div class="cp-drawer-item-top"><h3>${offer.name}</h3><span class="cp-drawer-price">${money(offer.price)}</span></div><span class="cp-drawer-item-sub">${offer.useCase}<br>${offer.perUnit}</span><div class="cp-drawer-value"><s>${money(offer.anchor)}</s><strong>${offer.saving}</strong></div><div class="cp-drawer-actions"><button type="button" data-cp-action="edit">Change bundle</button><button type="button" data-cp-action="remove-bundle">Remove</button></div></div></article>`);giftList.innerHTML=giftMarkup(offer.level);document.querySelectorAll('[data-cp-action="select-bundle"]').forEach(button=>button.classList.toggle('is-current',Number(button.dataset.variant)===Number(offer.variantId)&&Number(button.dataset.quantity)===Number(offer.quantity)));localStorage.setItem(lastOfferKey,String(offer.variantId));localStorage.setItem(lastQuantityKey,String(offer.quantity));localStorage.removeItem(expiredKey);ensureTimer()}else{stopTimer()}others.forEach(item=>items.insertAdjacentHTML('beforeend',otherItemMarkup(item)))}
+    function startTimer(reset=false){let deadline=Number(localStorage.getItem(holdKey));if(reset||!deadline||deadline<=Date.now()){deadline=Date.now()+duration;localStorage.setItem(holdKey,String(deadline))}stopTimer(false);tick();timerInterval=window.setInterval(tick,1000)}
+    function stopTimer(clear=false){if(timerInterval)window.clearInterval(timerInterval);timerInterval=null;if(clear)localStorage.removeItem(holdKey)}
+    function ensureTimer(){const deadline=Number(localStorage.getItem(holdKey));if(!deadline){startTimer(true);return}if(deadline<=Date.now()){expireBundle();return}startTimer(false)}
+    async function tick(){const deadline=Number(localStorage.getItem(holdKey));if(!deadline||!timer)return;const remaining=Math.max(0,Math.ceil((deadline-Date.now())/1000));const minutes=Math.floor(remaining/60);const seconds=remaining%60;timer.textContent=`${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;if(remaining===0&&!expiring)await expireBundle()}
+    async function removeBundleLines(cart){const updates={};bundleLines(cart).forEach(item=>{updates[item.key]=0});if(!Object.keys(updates).length)return cart;const response=await fetch(endpoint('cart/update.js'),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({updates})});if(!response.ok)throw new Error('Could not update cart.');return response.json()}
+    async function expireBundle(){expiring=true;try{const cart=currentCart||await getCart();localStorage.setItem(expiredKey,'1');stopTimer(true);render(await removeBundleLines(cart))}finally{expiring=false}}
+    async function setBundle(variantId,quantity,trigger,resetTimer=false){loading.hidden=false;const offer=offerForSelection(variantId,quantity);if(!offer)throw new Error('Unknown bundle.');let cart=await getCart();cart=await removeBundleLines(cart);const response=await fetch(endpoint('cart/add.js'),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({items:[{id:Number(variantId),quantity:Number(quantity),properties:{'Bundle':`${quantity} CalmPet Collars`,'Purchase type':'One-time purchase · No subscription'}}]})});if(!response.ok)throw new Error('Could not add bundle.');localStorage.setItem(lastOfferKey,String(variantId));localStorage.setItem(lastQuantityKey,String(quantity));localStorage.removeItem(expiredKey);startTimer(resetTimer||!Number(localStorage.getItem(holdKey)));render(await getCart());if(typeof drawer.open==='function')drawer.open(trigger);return currentCart}
+    async function removeLine(key){const response=await fetch(endpoint('cart/change.js'),{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({id:key,quantity:0})});if(!response.ok)throw new Error('Could not remove item.');return response.json()}
+    drawer.addEventListener('click',async event=>{if(event.target===document.getElementById('CartDrawer-Overlay')){drawer.close();return}const button=event.target.closest('[data-cp-action]');if(!button)return;const action=button.dataset.cpAction;button.disabled=true;try{if(action==='edit')edit.hidden=false;if(action==='close-edit')edit.hidden=true;if(action==='select-bundle')await setBundle(Number(button.dataset.variant),Number(button.dataset.quantity),button);if(action==='remove-bundle'){stopTimer(true);localStorage.removeItem(expiredKey);render(await removeBundleLines(currentCart||await getCart()))}if(action==='remove-line')render(await removeLine(button.dataset.key));if(action==='restore'){const variantId=Number(localStorage.getItem(lastOfferKey))||Number(config.offers[1].variantId);const quantity=Number(localStorage.getItem(lastQuantityKey))||Number(config.offers[1].quantity);const offer=offerForSelection(variantId,quantity)||config.offers[1];await setBundle(offer.variantId,offer.quantity,button,true)}}catch(error){loading.textContent='Could not update your cart. Please try again.';loading.hidden=false}finally{button.disabled=false}})
+    document.addEventListener('click',event=>{if(event.target.closest('.cp-nav-cart,.calmpet-nav-cart'))refresh()})
+    async function refresh(){try{render(await getCart())}catch(error){loading.textContent='Could not load your cart. Please refresh the page.'}}
+    window.addEventListener('storage',event=>{if(event.key===holdKey)tick()})
+    window.cpCalmPetCart={setBundle,refresh};refresh()
+  })();
 </script>
